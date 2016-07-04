@@ -10,14 +10,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
+
 /**
  * Created by sparsha on 6/29/2016.
  */
 public class MyUsageStats {
-    public static final SimpleDateFormat date = new SimpleDateFormat();
-    public static final String LOG = MyUsageStats.class.getSimpleName();
-    public static int i;
-    public static int interval;
+    private static final SimpleDateFormat date = new SimpleDateFormat();
+    private static int count;
+    private static int interval;
 
     public static List<UsageStats> getUsageStatsAppList(Context context){
 
@@ -26,8 +26,8 @@ public class MyUsageStats {
         long endTime = calendar.getTimeInMillis();
         calendar.add(Calendar.YEAR, -1);
         long startTime = calendar.getTimeInMillis();
-        Log.d(LOG,"Date Start:\t"+ date.format(startTime));
-        Log.d(LOG,"Date End:\t"+ date.format(endTime));
+        Log.d("LOG","Date Start:\t"+ date.format(startTime));//TODO remove
+        Log.d("LOG","Date End:\t"+ date.format(endTime));//TODO remove
         List<UsageStats> usageStatsList =
                 usageStatsManager.queryUsageStats(interval,startTime,endTime);
         return usageStatsList;
@@ -42,11 +42,8 @@ public class MyUsageStats {
      * @param context give context from the activity that you are calling (EG. "this")
      * @param mInterval Note: Integer Value = 0 For Daily
      *                                        1 For Weekly
-     *
      *                                        2 For Monthly
-     *
      *                                        3 For Yearly
-     *
      *                                        4 For From the Beginning
      */
     public static void printCurrentUsageStats(Context context, int mInterval){
@@ -54,27 +51,18 @@ public class MyUsageStats {
         printUsageStats(getUsageStatsAppList(context),context);
     }
 
-    public static void printUsageStats(List<UsageStats> usageStatsList,Context context){
-        //TODO
-///////////////////////////////// \/\/\/\/\/\BAD CODE if Have a better way, make better\/\/\/\/\/\/\/ //////////////
-        {
-            SharedPreferences sharedPreferences = context.getSharedPreferences("appName",Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.clear();/////////////////////////////////// TO CLEAR THE FILE
-            editor.apply();
-            i = 0;
-        }
-////////////////////////////////^^^^^^^^^^^^^^BAD CODE^^^^^^^/////////////////////////////////////////////////
+    static void printUsageStats(List<UsageStats> usageStatsList,Context context){
+        count = 0;
         SharedPreferences sharedPreferences = context.getSharedPreferences("appName",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         for(UsageStats u : usageStatsList){
             String mNameOfPackage = u.getPackageName();
             long totalTimeInForeground = u.getTotalTimeInForeground();
-            Log.d(LOG,"Package Name = "+mNameOfPackage+"\tForeground Time: "+totalTimeInForeground);
-            editor.putString("packageName"+i,mNameOfPackage);
-            i++;
+            Log.d("LOG","Package Name = "+mNameOfPackage+"\tForeground Time: "+totalTimeInForeground);//TODO remove
+            editor.putString("packageName"+count,mNameOfPackage);
+            count++;
         }
-        editor.putInt("count",i);
+        editor.putInt("count",count);
         editor.apply();
     }
 
