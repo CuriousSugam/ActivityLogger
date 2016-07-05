@@ -16,11 +16,9 @@ import java.util.List;
  */
 public class MyUsageStats {
     private static final SimpleDateFormat date = new SimpleDateFormat();
-    private static int count;
     private static int interval;
 
     public static List<UsageStats> getUsageStatsAppList(Context context){
-
         UsageStatsManager usageStatsManager = getUsageStatsManager(context);
         Calendar calendar = Calendar.getInstance();
         long endTime = calendar.getTimeInMillis();
@@ -52,18 +50,12 @@ public class MyUsageStats {
     }
 
     static void printUsageStats(List<UsageStats> usageStatsList,Context context){
-        count = 0;
-        SharedPreferences sharedPreferences = context.getSharedPreferences("appName",Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+       
         for(UsageStats u : usageStatsList){
             String mNameOfPackage = u.getPackageName();
             long totalTimeInForeground = u.getTotalTimeInForeground();
             Log.d("LOG","Package Name = "+mNameOfPackage+"\tForeground Time: "+totalTimeInForeground);//TODO remove
-            editor.putString("packageName"+count,mNameOfPackage);
-            count++;
         }
-        editor.putInt("count",count);
-        editor.apply();
     }
 
 
