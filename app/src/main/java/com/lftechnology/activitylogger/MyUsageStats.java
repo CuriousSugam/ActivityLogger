@@ -18,6 +18,14 @@ public class MyUsageStats {
     private static final SimpleDateFormat date = new SimpleDateFormat();
     private static int interval;
 
+    public enum Interval{
+        DAILY(0),WEEKLY(1),MONTHLY(2),YEARLY(3),BEST(4);
+        public int value;
+        Interval(int mValue){
+            value = mValue;
+        }
+    }
+
     public static List<UsageStats> getUsageStatsAppList(Context context){
         UsageStatsManager usageStatsManager = getUsageStatsManager(context);
         Calendar calendar = Calendar.getInstance();
@@ -35,7 +43,7 @@ public class MyUsageStats {
     /**
      * This Method Should be called for the proper implementation of the class
      *
-     * Eg. MyUsageStats.printCurrentUsageStats(Give Context, Give an Integer Value)
+     * Eg. MyUsageStats.printCurrentUsageStats(Context context, MyUsageStats.Interval.Daily.interval)
      *
      * @param context give context from the activity that you are calling (EG. "this")
      * @param mInterval Note: Integer Value = 0 For Daily
