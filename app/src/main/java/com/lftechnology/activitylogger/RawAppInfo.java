@@ -22,7 +22,7 @@ public class RawAppInfo {
 
     }
 
-    public static List<UsageStats> getUsageStatsAppList(Context context){
+    protected static List<UsageStats> getUsageStatsAppList(Context context){
         UsageStatsManager usageStatsManager = getUsageStatsManager(context);
         Calendar calendar = Calendar.getInstance();
         long endTime = calendar.getTimeInMillis();
@@ -49,7 +49,7 @@ public class RawAppInfo {
      *                                        3 For Yearly
      *                                        4 For From the Beginning
      */
-    public static void printCurrentUsageStats(Context context, int mInterval){
+    protected static void printCurrentUsageStats(Context context, int mInterval){
         interval = mInterval;
         printUsageStats(getUsageStatsAppList(context),context);
     }
