@@ -13,17 +13,13 @@ import java.util.List;
 
 /**
  * Created by sparsha on 6/29/2016.
+ * Returns raw information of apps that are run within an Interval Provided.
+ * Default is set to daily
  */
-public class MyUsageStats {
-    private static final SimpleDateFormat date = new SimpleDateFormat();
+public class RawAppInfo {
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat();
     private static int interval;
 
-    public enum Interval{
-        DAILY(0),WEEKLY(1),MONTHLY(2),YEARLY(3),BEST(4);
-        public int value;
-        Interval(int mValue){
-            value = mValue;
-        }
     }
 
     public static List<UsageStats> getUsageStatsAppList(Context context){
@@ -32,8 +28,8 @@ public class MyUsageStats {
         long endTime = calendar.getTimeInMillis();
         calendar.add(Calendar.YEAR, -1);
         long startTime = calendar.getTimeInMillis();
-        Log.d("LOG","Date Start:\t"+ date.format(startTime));//TODO remove
-        Log.d("LOG","Date End:\t"+ date.format(endTime));//TODO remove
+        Log.d("LOG","Date Start:\t"+ dateFormat.format(startTime));//TODO remove
+        Log.d("LOG","Date End:\t"+ dateFormat.format(endTime));//TODO remove
         List<UsageStats> usageStatsList =
                 usageStatsManager.queryUsageStats(interval,startTime,endTime);
         return usageStatsList;
@@ -41,10 +37,11 @@ public class MyUsageStats {
 
 
     /**
-     * This Method Should be called for the proper implementation of the class
+     * Sets desired interval that the developer requires
      *
-     * Eg. MyUsageStats.printCurrentUsageStats(Context context, MyUsageStats.Interval.Daily.interval)
-     *
+     * Eg. RawAppInfo.printCurrentUsageStats(Context context, int mInterval)
+     * 
+     * 
      * @param context give context from the activity that you are calling (EG. "this")
      * @param mInterval Note: Integer Value = 0 For Daily
      *                                        1 For Weekly
@@ -57,7 +54,14 @@ public class MyUsageStats {
         printUsageStats(getUsageStatsAppList(context),context);
     }
 
-    static void printUsageStats(List<UsageStats> usageStatsList,Context context){
+    /**
+     * Package info of each app can be set here seperately
+     * @param usageStatsList gets list of apps used within the set interval
+     * @param context
+     * 
+     */
+
+    private static void printUsageStats(List<UsageStats> usageStatsList,Context context){
        
         for(UsageStats u : usageStatsList){
             String mNameOfPackage = u.getPackageName();

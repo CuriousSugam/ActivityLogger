@@ -18,8 +18,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      * if you havent enabled permission, settings opens for granting permission access with this
      */
-    public void checkPermissionForAccess(){
-        if(MyUsageStats.getUsageStatsAppList(this).isEmpty())
+    private void checkPermissionForAccess(){
+        if(RawAppInfo.getUsageStatsAppList(this).isEmpty())
             startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
     }
 }
