@@ -16,6 +16,7 @@ import java.util.List;
 /**
  * @author Sugam Shakya
  * Created by Sugam on 7/5/2016.
+ * This class provides the interface to insert, update, delete and query the app details in the application database
  */
 public class ActivityLoggerSQLiteAccessLayer{
 
@@ -106,14 +107,19 @@ public class ActivityLoggerSQLiteAccessLayer{
          return db.delete(TABLE_PACKAGE_INFO, whereClause, whereArgs);
     }
 
+
+    /**
+     *
+     * @param whereClause the WHERE clause to apply when updating. Passing null will update all rows.
+     * @param whereArgs '?'s included in the where clause will be replaced by the values from whereArgs.
+     * @return  the number of rows affected
+     */
     public int updateAppDetail(String whereClause, String[] whereArgs){
         ContentValues contentValues = new ContentValues();
         contentValues.put(TABLE_COLUMN_UID, this.appDetails.getUid());
         contentValues.put(TABLE_COLUMN_PACKAGE_NAME, this.appDetails.getPackageName() );
         contentValues.put(TABLE_COLUMN_APPLICATION_NAME, this.appDetails.getApplicationName());
-        int rowAffected =db.update(TABLE_PACKAGE_INFO, contentValues, whereClause, whereArgs);
-        Log.e("Database:", "changed rows:"+rowAffected);
-        return rowAffected;
+        return db.update(TABLE_PACKAGE_INFO, contentValues, whereClause, whereArgs);
     }
 
 
