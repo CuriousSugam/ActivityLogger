@@ -96,7 +96,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 //        txtThird.setAnimation(thirdOut);
 //
         //MainActivty passing after splash
-
+     // SPlash to next activity wait timer
      new Timer().schedule(
              new TimerTask() {
                  @Override
