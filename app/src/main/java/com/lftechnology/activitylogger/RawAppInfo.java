@@ -1,27 +1,24 @@
 package com.lftechnology.activitylogger;
-
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
-
-
 /**
  * Created by sparsha on 6/29/2016.
  * Returns raw information of apps that are run within an Interval Provided.
  * Default is set to daily
  */
 public class RawAppInfo {
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat();
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat();//Gets the Date Format
     private static int interval;
-
     }
-
+    /**
+    *Returns the list of apps in a List to read
+    */
     protected static List<UsageStats> getUsageStatsAppList(Context context){
         UsageStatsManager usageStatsManager = getUsageStatsManager(context);
         Calendar calendar = Calendar.getInstance();
@@ -31,17 +28,12 @@ public class RawAppInfo {
         Log.d("LOG","Date Start:\t"+ dateFormat.format(startTime));//TODO remove
         Log.d("LOG","Date End:\t"+ dateFormat.format(endTime));//TODO remove
         List<UsageStats> usageStatsList =
-                usageStatsManager.queryUsageStats(interval,startTime,endTime);
+                usageStatsManager.queryUsageStats(interval,startTime,endTime);//UsageStats Queried here
         return usageStatsList;
     }
-
-
     /**
      * Sets desired interval that the developer requires
-     *
-     * Eg. RawAppInfo.printCurrentUsageStats(Context context, int mInterval)
-     * 
-     * 
+     * Eg. RawAppInfo.printCurrentUsageStats(Context context, int mInterval) 
      * @param context give context from the activity that you are calling (EG. "this")
      * @param mInterval Note: Integer Value = 0 For Daily
      *                                        1 For Weekly
@@ -60,7 +52,6 @@ public class RawAppInfo {
      * @param context
      * 
      */
-
     private static void printUsageStats(List<UsageStats> usageStatsList,Context context){
        
         for(UsageStats u : usageStatsList){
@@ -69,8 +60,6 @@ public class RawAppInfo {
             Log.d("LOG","Package Name = "+mNameOfPackage+"\tForeground Time: "+totalTimeInForeground);//TODO remove
         }
     }
-
-
     @SuppressWarnings("ResourceType")
     private static UsageStatsManager getUsageStatsManager(Context context) {
         return (UsageStatsManager) context.getSystemService("usagestats");
