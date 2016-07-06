@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:src="@drawable/applogo" />
+
     <TextView
         android:id="@+id/first_line"
         android:layout_width="wrap_content"
@@ -20,6 +21,7 @@
         android:layout_centerHorizontal="true"
         android:text="Yoo! Welcome To ActivityLogger"
         android:textColor="#8f0634" />
+
     <TextView
         android:id="@+id/second_line"
         android:layout_width="wrap_content"
@@ -28,6 +30,7 @@
         android:layout_centerHorizontal="true"
         android:text="Logging is Our Speciality."
         android:textColor="#8f0634" />
+
     <TextView
         android:id="@+id/third_line"
         android:layout_width="wrap_content"
