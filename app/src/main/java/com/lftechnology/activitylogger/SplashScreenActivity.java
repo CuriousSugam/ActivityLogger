@@ -45,10 +45,10 @@ public class SplashScreenActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                handler.postDelayed(this, ANIMATION_DURATION_DELAY);
+                //handler.postDelayed(this, ANIMATION_DURATION_DELAY);
                 gotoNext();
             }
-        }, ANIMATION_DURATION_IN);
+        }, ANIMATION_DURATION_DELAY);
     }
 
     private void setAnimation() {
