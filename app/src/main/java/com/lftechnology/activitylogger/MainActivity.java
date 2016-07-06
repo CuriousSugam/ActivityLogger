@@ -1,19 +1,16 @@
 package com.lftechnology.activitylogger;
 
-import android.app.usage.UsageStats;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import android.util.Log;
-
-import com.lftechnology.activitylogger.Controller.ActivityLoggerSQLiteAccessLayer;
+import com.lftechnology.activitylogger.Controller.SQLiteAccessLayer;
 import com.lftechnology.activitylogger.model.AppDetails;
 
 
 
 public class MainActivity extends AppCompatActivity {
 
-    ActivityLoggerSQLiteAccessLayer sqLiteAccessLayer;
+    SQLiteAccessLayer sqLiteAccessLayer;
     AppDetails appDetails;
 
     @Override

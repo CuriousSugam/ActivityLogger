@@ -18,7 +18,7 @@ import java.util.List;
  * Created by Sugam on 7/5/2016.
  * This class provides the interface to insert, update, delete and query the app details in the application database
  */
-public class ActivityLoggerSQLiteAccessLayer{
+public class SQLiteAccessLayer {
 
     private static final String DBNAME = "ActivityLoggerDatabase";
     private static final String TABLE_PACKAGE_INFO = "package_info_table";
@@ -39,7 +39,7 @@ public class ActivityLoggerSQLiteAccessLayer{
      * @param context Context of the calling activity
      * @param appDetails Object of AppDetails which holds some data about an application
      */
-    public ActivityLoggerSQLiteAccessLayer(Context context, AppDetails appDetails){
+    public SQLiteAccessLayer(Context context, AppDetails appDetails){
         dbHelper = new ActivityLoggerSQLiteOpenHelper(context);
         this.db = dbHelper.getWritableDatabase();
         this.appDetails = appDetails;
@@ -49,7 +49,7 @@ public class ActivityLoggerSQLiteAccessLayer{
      *
      * @param context Context of the calling activity
      */
-    public ActivityLoggerSQLiteAccessLayer(Context context){
+    public SQLiteAccessLayer(Context context){
         dbHelper = new ActivityLoggerSQLiteOpenHelper(context);
         this.db = dbHelper.getWritableDatabase();
     }
