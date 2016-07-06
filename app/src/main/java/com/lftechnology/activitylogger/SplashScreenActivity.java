@@ -21,11 +21,11 @@ import java.util.TimerTask;
 
 //opens a splashscreen in full window and animates the texts and
 public class SplashScreenActivity extends AppCompatActivity {
+
     private final Handler handler = new Handler();
 
-
     private static final int ANIMATION_DURATION_IN = 1500;
-    private static final int ANIMATION_DURATION_out = 1500;
+    private static final int ANIMATION_DURATION_OUT = 1500;
     private static final int ANIMATION_DURATION_DELAY = 3000;
     private static final int ANIMATION_DURATION_INITIAL = 1200;
 
@@ -37,13 +37,11 @@ public class SplashScreenActivity extends AppCompatActivity {
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
-
         setContentView(R.layout.splash_screen_layout);
         setAnimation();
 
         //MainActivty passing after splash
         //SPlash to next activity wait timer
-
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -51,7 +49,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                 gotoNext();
             }
         }, ANIMATION_DURATION_IN);
-
     }
 
     private void setAnimation() {
@@ -85,7 +82,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         txtThird.setAnimation(fadeOut);
         fadeIn.setDuration(ANIMATION_DURATION_IN);
         fadeIn.setFillAfter(true);
-        fadeOut.setDuration(ANIMATION_DURATION_out);
+        fadeOut.setDuration(ANIMATION_DURATION_OUT);
         fadeOut.setFillAfter(true);
         fadeOut.setStartOffset(ANIMATION_DURATION_INITIAL + fadeIn.getStartOffset());
 
