@@ -106,6 +106,16 @@ public class ActivityLoggerSQLiteAccessLayer{
          return db.delete(TABLE_PACKAGE_INFO, whereClause, whereArgs);
     }
 
+    public int updateAppDetail(String whereClause, String[] whereArgs){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TABLE_COLUMN_UID, this.appDetails.getUid());
+        contentValues.put(TABLE_COLUMN_PACKAGE_NAME, this.appDetails.getPackageName() );
+        contentValues.put(TABLE_COLUMN_APPLICATION_NAME, this.appDetails.getApplicationName());
+        int rowAffected =db.update(TABLE_PACKAGE_INFO, contentValues, whereClause, whereArgs);
+        Log.e("Database:", "changed rows:"+rowAffected);
+        return rowAffected;
+    }
+
 
 
 
