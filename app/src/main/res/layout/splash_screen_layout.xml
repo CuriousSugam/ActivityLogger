@@ -1,23 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f6fffd"
-    android:paddingBottom="0dp"
-    android:paddingLeft="0dp"
-    android:paddingRight="0dp"
-    android:paddingTop="0dp"
-    tools:context="com.lftechnology.S">
+    tools:context="com.lftechnology.activitylogger.SplashScreenActivity">
 
     <ImageView
+        android:id="@+id/splashscreen_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/applogo"
-        android:id="@+id/splashscreen_img"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
+        android:layout_centerInParent="true"
+        android:src="@drawable/applogo" />
     <TextView
         android:id="@+id/first_line"
         android:layout_width="wrap_content"
@@ -26,7 +20,6 @@
         android:layout_centerHorizontal="true"
         android:text="Yoo! Welcome To ActivityLogger"
         android:textColor="#8f0634" />
-
     <TextView
         android:id="@+id/second_line"
         android:layout_width="wrap_content"
@@ -35,7 +28,6 @@
         android:layout_centerHorizontal="true"
         android:text="Logging is Our Speciality."
         android:textColor="#8f0634" />
-
     <TextView
         android:id="@+id/third_line"
         android:layout_width="wrap_content"
@@ -45,6 +37,5 @@
         android:layout_marginBottom="49dp"
         android:text="Please wait for a moment while we prepare for you."
         android:textColor="#8f0634" />
-
 
 </RelativeLayout>

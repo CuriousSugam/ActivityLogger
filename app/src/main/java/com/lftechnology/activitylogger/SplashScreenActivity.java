@@ -2,6 +2,7 @@ package com.lftechnology.activitylogger;
 
 import android.content.Intent;
 import android.os.Bundle;
+//import android.os.Handler;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,27 +18,44 @@ import java.util.TimerTask;
 /**
  * Created by DevilDewzone on 7/5/2016.
  */
-public class SplashScreenActivity extends AppCompatActivity {
 
-    Handler handler;
-    Runnable delayRun;
+//opens a splashscreen in full window and animates the texts and
+public class SplashScreenActivity extends AppCompatActivity {
+    private final Handler handler = new Handler();
+
+
+    private static final int ANIMATION_DURATION_IN = 1500;
+    private static final int ANIMATION_DURATION_out = 1500;
+    private static final int ANIMATION_DURATION_DELAY = 3000;
+    private static final int ANIMATION_DURATION_INITIAL = 1200;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+
         // for navigation bar hide and full screen mode
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
-        /* previous code for full screen
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        */
+
         setContentView(R.layout.splash_screen_layout);
+        setAnimation();
 
+        //MainActivty passing after splash
+        //SPlash to next activity wait timer
 
-        //For fade in out animation
-        //Setting the alpha values
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                handler.postDelayed(this, ANIMATION_DURATION_DELAY);
+                gotoNext();
+            }
+        }, ANIMATION_DURATION_IN);
+
+    }
+
+    private void setAnimation() {
+        //For fade in out animation and setting the alpha values
         AlphaAnimation fadeIn = new AlphaAnimation(0.0f, 1.0f);
         AlphaAnimation fadeOut = new AlphaAnimation(1.0f, 0.0f);
 
@@ -51,7 +69,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         Animation anim_in = AnimationUtils.loadAnimation(this, R.anim.fade_in_splash_screen);
         imageView.setAnimation(anim_in);
 
-        /* Unused Code for now
+        /* Unused Code for now might be used for modifying later
         Animation anim_out = AnimationUtils.loadAnimation(this, R.anim.fade_out_animation);
         imageView.setAnimation(anim_out);
         imageView.startAnimation(fadeIn);
@@ -65,53 +83,17 @@ public class SplashScreenActivity extends AppCompatActivity {
         txtSecond.setAnimation(fadeOut);
         txtThird.setAnimation(fadeIn);
         txtThird.setAnimation(fadeOut);
-        fadeIn.setDuration(1500);
-        //fadeIn.setFillBefore(false);
+        fadeIn.setDuration(ANIMATION_DURATION_IN);
         fadeIn.setFillAfter(true);
-        fadeOut.setDuration(1500);
-        //fadeOut.setFillBefore(false);
+        fadeOut.setDuration(ANIMATION_DURATION_out);
         fadeOut.setFillAfter(true);
-        fadeOut.setStartOffset(1200 + fadeIn.getStartOffset());
+        fadeOut.setStartOffset(ANIMATION_DURATION_INITIAL + fadeIn.getStartOffset());
 
-
-//        //First LIne animation fade in and out
-//        TextView txtFirst = (TextView) findViewById(R.id.first_line);
-//        Animation firstIn = AnimationUtils.loadAnimation(this, R.anim.fade_in_animation);
-//        txtFirst.setAnimation(firstIn);
-//        Animation firstOut = AnimationUtils.loadAnimation(this, R.anim.fade_out_animation);
-//        txtFirst.setAnimation(firstOut);
-//
-//        //Second Line animation fade in and out
-//        TextView txtSecond = (TextView) findViewById(R.id.second_line);
-//        Animation secondIn = AnimationUtils.loadAnimation(this, R.anim.fade_in_animation);
-//        txtSecond.setAnimation(secondIn);
-//        Animation secondOut= AnimationUtils.loadAnimation(this, R.anim.fade_out_animation);
-//        txtSecond.setAnimation(secondOut);
-//
-//        //Third Line animation fade in and out
-//        TextView txtThird = (TextView) findViewById(R.id.third_line);
-//        Animation ThirdIn = AnimationUtils.loadAnimation(this, R.anim.fade_in_animation);
-//        txtThird.setAnimation(ThirdIn);
-//        Animation thirdOut= AnimationUtils.loadAnimation(this, R.anim.fade_out_animation);
-//        txtThird.setAnimation(thirdOut);
-//
-        //MainActivty passing after splash
-     // SPlash to next activity wait timer
-     new Timer().schedule(
-             new TimerTask() {
-                 @Override
-                 public void run() {
-                     gotoNext();
-
-                 }
-             },
-             3000
-     );
     }
 
-    public void gotoNext(){
-        startActivity(new Intent(SplashScreenActivity.this,MainActivity.class));
-            finish();
+    private void gotoNext() {
+        startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
+        finish();
     }
-
 }
+
