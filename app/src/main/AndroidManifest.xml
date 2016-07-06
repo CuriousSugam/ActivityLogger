@@ -20,7 +20,7 @@
             </intent-filter>     
         </activity>
         <receiver android:name=".PackageInstalledReceiver">
-            <intent-filter>
+            <intent-filter android:priority="998">
                 <action android:name="android.intent.action.PACKAGE_ADDED"></action>
                 <data android:scheme="package"></data>
             </intent-filter>
