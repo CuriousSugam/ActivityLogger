@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class RawAppInfo {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat();//Gets the Date Format
-    private static int interval;
+    private static int interval, count;//TODO remove
 
     /**
     *Returns the list of apps in a List to read
@@ -53,12 +53,20 @@ public class RawAppInfo {
      * 
      */
     private static void printUsageStats(List<UsageStats> usageStatsList,Context context){
-       
+
+        count = 0;
+        SharedPreferences sharedPreferences = context.getSharedPreferences("appName",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         for(UsageStats u : usageStatsList){
             String mNameOfPackage = u.getPackageName();
             long totalTimeInForeground = u.getTotalTimeInForeground();
             Log.d("LOG","Package Name = "+mNameOfPackage+"\tForeground Time: "+totalTimeInForeground);//TODO remove
+            editor.putString("packageName"+count,mNameOfPackage);//TODO remove
+            editor.putLong("runtime"+count,totalTimeInForeground);//TODO remove
+            count++;//TODO remove
         }
+        editor.putInt("count",count);//TODO remove
+        editor.apply();//TODO remove
     }
     @SuppressWarnings("ResourceType")
     private static UsageStatsManager getUsageStatsManager(Context context) {

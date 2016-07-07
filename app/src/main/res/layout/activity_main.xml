@@ -10,11 +10,53 @@
     android:background="#CFCFCF"
     tools:context="com.lftechnology.activitylogger.MainActivity">
 <!--Test only Dummy Items-->
-    <ListView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/appInfoList"
-        ></ListView>
+        android:text="Get Stats for Day"
+        android:onClick="getStatsDaily"
+        android:id="@+id/buttonShowsAppListDaily"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Stats for Week"
+        android:onClick="getStatsWeekly"
+        android:layout_alignTop="@+id/buttonShowsAppListDaily"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/buttonShowAppListWeekly" />
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/buttonShowsAppListFromBeginning"
+        android:layout_height="wrap_content"
+        android:text="Stats From The Beginning"
+        android:layout_below="@+id/buttonShowsAppListDaily"
+        android:onClick="getStatsFromBeginning"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stats Monthly"
+        android:id="@+id/buttonShowsAppListMonthly"
+        android:onClick="getStatsMonthly"
+        android:layout_below="@+id/buttonShowsAppListFromBeginning"
+        android:layout_alignEnd="@+id/buttonShowsAppListDaily" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stats Yearly"
+        android:id="@+id/buttonShowsAppListYearly"
+        android:layout_below="@+id/buttonShowsAppListFromBeginning"
+        android:layout_alignStart="@+id/buttonShowAppListWeekly"
+        android:onClick="getStatsYearly"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonShowsAppListMonthly"
+        android:id="@+id/nameOfApp"></ListView>
+
 
     <!--Test only Dummy Items-->
 </RelativeLayout>
