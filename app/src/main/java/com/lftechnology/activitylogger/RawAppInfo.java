@@ -15,7 +15,7 @@ import java.util.List;
 public class RawAppInfo {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat();//Gets the Date Format
     private static int interval;
-    }
+
     /**
     *Returns the list of apps in a List to read
     */
