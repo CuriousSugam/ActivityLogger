@@ -10,7 +10,7 @@
     android:background="#CFCFCF"
     tools:context="com.lftechnology.activitylogger.MainActivity">
 <!--Test only Dummy Items-->
-    <Button
+<!--    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Get Stats for Day"
@@ -49,13 +49,21 @@
         android:id="@+id/buttonShowsAppListYearly"
         android:layout_below="@+id/buttonShowsAppListFromBeginning"
         android:layout_alignStart="@+id/buttonShowAppListWeekly"
-        android:onClick="getStatsYearly"/>
+        android:onClick="getStatsYearly"/>-->
 
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/theSpinner"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true" />
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/buttonShowsAppListMonthly"
-        android:id="@+id/nameOfApp"></ListView>
+        android:id="@+id/nameOfApp"
+        android:layout_below="@+id/theSpinner"
+        android:layout_alignParentEnd="true"></ListView>
+
 
 
     <!--Test only Dummy Items-->

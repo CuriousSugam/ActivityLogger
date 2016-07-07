@@ -8,8 +8,12 @@ import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.lftechnology.activitylogger.Controller.SQLiteAccessLayer;
 import com.lftechnology.activitylogger.model.AppDetails;
@@ -22,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     String[] namesOfApp,mostUsedApps, details;
     Long[] runTimeOfApp;
+    Spinner spinner;
+    ArrayAdapter<CharSequence> arrayAdapter;
     //static int intervals;
 
 
@@ -31,6 +37,43 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         listView = (ListView) findViewById(R.id.nameOfApp);
         checkPermissionForAccess();
+
+        spinner = (Spinner) findViewById(R.id.theSpinner);
+        arrayAdapter= ArrayAdapter.createFromResource(this,R.array.interval,android.R.layout.simple_spinner_item);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i){
+                    case 0:
+                        getStatsDaily(view);
+                        break;
+                    case 1:
+                        getStatsWeekly(view);
+                        break;
+                    case 2:
+                        getStatsMonthly(view);
+                        break;
+                    case 3:
+                        getStatsYearly(view);
+                        break;
+                    case 4:
+                        getStatsFromBeginning(view);
+                        break;
+                    default:
+                        Toast.makeText(MainActivity.this,"What just happened?",Toast.LENGTH_SHORT).show();
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
     }
 
     public void getStatsDaily(View view) {

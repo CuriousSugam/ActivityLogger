@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">ActivityLogger</string>
+    <string-array name="interval">
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Yearly</item>
+        <item>Best</item>
+    </string-array>
 </resources>
