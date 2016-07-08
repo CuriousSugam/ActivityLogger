@@ -8,6 +8,9 @@ import android.util.Log;
  * @author Sugam Shakya
  * Created by Sugam on 7/5/2016.
  *
+ * AppDetails class is a Parcelable class which contains the methods to set and get the application
+ * details.
+ *
  */
 public class AppDetails implements Parcelable {
     private int uid;

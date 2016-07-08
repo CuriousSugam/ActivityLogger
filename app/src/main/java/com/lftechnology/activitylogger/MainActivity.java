@@ -1,18 +1,12 @@
 package com.lftechnology.activitylogger;
 
-import android.app.AppOpsManager;
 import android.app.usage.UsageStats;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.net.TrafficStats;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 
 import com.lftechnology.activitylogger.Controller.SQLiteAccessLayer;
@@ -46,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This method first checks if the app details has been added to database. If yes, the data from
+     * the database if fetched and returned. If the data has not been added to database, it first adds
+     * the data to the database and then returns it.
+     * @return a List of AppDetails objects containing the data of applications i.e List<AppDetails>
+     */
     private List<AppDetails> getAppDetailsFromDatabase() {
         SQLiteAccessLayer sqLiteAccessLayer = new SQLiteAccessLayer(this);
         List<AppDetails> appDetailsList;

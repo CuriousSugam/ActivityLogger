@@ -130,12 +130,13 @@ public class SQLiteAccessLayer {
      * @return true if the database is empty and no appdetails has been added to it, returns false if the database is not empty
      */
     public boolean isDatabaseEmpty(){
-        List<AppDetails> appDetails = queryAppDetails();
-        if(appDetails.isEmpty()){
-            return true;
-        }else{
-            return false;
-        }
+        return queryAppDetails().isEmpty();
+//        List<AppDetails> appDetails = queryAppDetails();
+//        if(appDetails.isEmpty()){
+//            return true;
+//        }else{
+//            return false;
+//        }
     }
 
 
