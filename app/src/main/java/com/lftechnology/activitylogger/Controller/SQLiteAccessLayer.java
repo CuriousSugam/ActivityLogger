@@ -69,6 +69,8 @@ public class SQLiteAccessLayer {
         // insert the new row, returning the primary key of the row inserted
         long newInsertedRowId;
         newInsertedRowId = db.insert(TABLE_PACKAGE_INFO,null, contentValues);
+        // TODO remove this code
+//        Log.e("Database", "Inserted:=> "+this.appDetails.getApplicationName());
 
         return newInsertedRowId;
     }
@@ -120,6 +122,21 @@ public class SQLiteAccessLayer {
         contentValues.put(TABLE_COLUMN_PACKAGE_NAME, this.appDetails.getPackageName() );
         contentValues.put(TABLE_COLUMN_APPLICATION_NAME, this.appDetails.getApplicationName());
         return db.update(TABLE_PACKAGE_INFO, contentValues, whereClause, whereArgs);
+    }
+
+    /**
+     * This method checks if the app details have been added to the database or not
+     *
+     * @return true if the database is empty and no appdetails has been added to it, returns false if the database is not empty
+     */
+    public boolean isDatabaseEmpty(){
+        return queryAppDetails().isEmpty();
+//        List<AppDetails> appDetails = queryAppDetails();
+//        if(appDetails.isEmpty()){
+//            return true;
+//        }else{
+//            return false;
+//        }
     }
 
 
