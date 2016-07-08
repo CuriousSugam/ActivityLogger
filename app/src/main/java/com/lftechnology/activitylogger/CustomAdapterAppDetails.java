@@ -1,0 +1,58 @@
+package com.lftechnology.activitylogger;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.List;
+
+/**
+ * Created by sparsha on 7/8/2016.
+ */
+public class CustomAdapterAppDetails extends RecyclerView.Adapter<CustomAdapterAppDetails.DetailsViewHolder> {
+
+    private List<EachAppDetails> eachAppDetailsList;
+    LayoutInflater inflater;
+    Context context;
+
+    public CustomAdapterAppDetails(Context context,List<EachAppDetails> eachAppDetailsList){
+        this.eachAppDetailsList = eachAppDetailsList;
+        inflater=LayoutInflater.from(context);
+        this.context = context;
+    }
+
+    @Override
+    public DetailsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_custom_app_info,parent,false);
+        return new DetailsViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(DetailsViewHolder holder, int position) {
+        final EachAppDetails current = eachAppDetailsList.get(position);
+        holder.appIconImage.setImageDrawable(current.eachAppIcon);
+        holder.appNameText.setText(current.eachAppName);
+        holder.appUsageDurationText.setText(current.eachAppUsageDuration);
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return eachAppDetailsList.size();
+    }
+
+    public class DetailsViewHolder extends RecyclerView.ViewHolder{
+        ImageView appIconImage;
+        TextView appNameText, appUsageDurationText;
+        public DetailsViewHolder(View itemView) {
+            super(itemView);
+            appIconImage = (ImageView) itemView.findViewById(R.id.appIcon);
+            appNameText =(TextView) itemView.findViewById(R.id.textAppName);
+            appUsageDurationText = (TextView) itemView.findViewById(R.id.textAppUsageDuration);
+        }
+    }
+}

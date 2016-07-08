@@ -89,7 +89,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     private void gotoNext() {
-        startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
+        startActivity(new Intent(SplashScreenActivity.this, LoggerActivity.class));//TODO change LoggerActivity To MainActivity
         finish();
     }
 }
