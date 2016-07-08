@@ -1,5 +1,4 @@
 package com.lftechnology.activitylogger;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,7 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
-
+import android.content.pm.PackageManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +25,7 @@ public class LoggerActivity extends AppCompatActivity {
     String[] namesOfApp,mostUsedApps, details;
     Long[] runTimeOfApp;
     List<EachAppDetails> eachAppDetailsList = new ArrayList<>();
+    List<String> dummyList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +106,43 @@ public class LoggerActivity extends AppCompatActivity {
 
 
 
+    public  List<EachAppDetails> getData(){
+        eachAppDetailsList.clear();
+
+        try{
+
+            for(int i=0;i< namesOfApp.length && i< runTimeOfApp.length;i++){
+
+                EachAppDetails current = new EachAppDetails();
+                if(PackageExists(namesOfApp[i])){
+                    ApplicationInfo applicationInfo = getPackageManager().getApplicationInfo(namesOfApp[i],0);
+                    current.eachAppName = String.valueOf(getPackageManager().getApplicationLabel(applicationInfo));
+                    current.eachAppUsageDuration = Long.toString(runTimeOfApp[i]/1000/3600)+":"+Long.toString(((runTimeOfApp[i]/1000)%3600)/60)+":"
+                            +Long.toString((runTimeOfApp[i]/1000)%60);
+                    Drawable icon =getPackageManager().getApplicationIcon(applicationInfo);
+                    current.eachAppIcon = icon;
+                    eachAppDetailsList.add(current);
+                }
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return eachAppDetailsList;
+    }
+
+    public void initialize(){
+        SharedPreferences sharedPreferences = getSharedPreferences("appName", Context.MODE_PRIVATE);
+        namesOfApp = new String[sharedPreferences.getInt("count",1)];
+        runTimeOfApp = new Long[sharedPreferences.getInt("count",1)];
+        details = new String[sharedPreferences.getInt("count", 1)];
+        //Set the name of app and its corresponding foregroundRunning time
+        for(int i =0; i< sharedPreferences.getInt("count",1);i++){
+            namesOfApp[i] = sharedPreferences.getString("packageName"+i,"N/A");
+            runTimeOfApp[i] = sharedPreferences.getLong("runtime"+i,0);
+
+        }
+    }
     public void sort(){
         SharedPreferences sharedPreferences = getSharedPreferences("appName", Context.MODE_PRIVATE);
         for(int i =0; i< sharedPreferences.getInt("count",1);i++){
@@ -130,46 +167,23 @@ public class LoggerActivity extends AppCompatActivity {
                     +Long.toString((runTimeOfApp[i]/1000)%60);
         }
     }
-
-
-    public  List<EachAppDetails> getData(){
-        eachAppDetailsList.clear();
-        try{
-
-            for(int i=0;i< namesOfApp.length && i< runTimeOfApp.length;i++){
-                EachAppDetails current = new EachAppDetails();
-
-//            current.eachAppName = String.valueOf(getPackageManager().getApplicationLabel(namesOfApp[i]));
-                ApplicationInfo applicationInfo = getPackageManager().getApplicationInfo(namesOfApp[i],0);
-                Drawable icon =getPackageManager().getApplicationIcon(applicationInfo);
-                current.eachAppIcon = icon;
-                current.eachAppName = String.valueOf(getPackageManager().getApplicationLabel(applicationInfo));
-                current.eachAppUsageDuration = Long.toString(runTimeOfApp[i]/1000/3600)+":"+Long.toString(((runTimeOfApp[i]/1000)%3600)/60)+":"
-                        +Long.toString((runTimeOfApp[i]/1000)%60);
-                eachAppDetailsList.add(current);
-            }
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        return eachAppDetailsList;
-    }
-    public void initialize(){
-        SharedPreferences sharedPreferences = getSharedPreferences("appName", Context.MODE_PRIVATE);
-        namesOfApp = new String[sharedPreferences.getInt("count",1)];
-        runTimeOfApp = new Long[sharedPreferences.getInt("count",1)];
-        details = new String[sharedPreferences.getInt("count", 1)];
-        //Set the name of app and its corresponding foregroundRunning time
-        for(int i =0; i< sharedPreferences.getInt("count",1);i++){
-            namesOfApp[i] = sharedPreferences.getString("packageName"+i,"N/A");
-            runTimeOfApp[i] = sharedPreferences.getLong("runtime"+i,0);
-
-        }
-    }
     public void showInSortedList(){
         recyclerView = (RecyclerView) findViewById(R.id.customAppDetailsRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new CustomAdapterAppDetails(this,getData()));
+    }
+    public boolean PackageExists(String mPackageName){
+        List<ApplicationInfo> packages;
+        PackageManager pm;
+
+        pm = getPackageManager();
+        packages = pm.getInstalledApplications(0);
+        for(ApplicationInfo packageInfo: packages){
+            if(packageInfo.packageName.equals(mPackageName))
+                return true;
+        }
+        return false;
+
     }
 
     @Override
