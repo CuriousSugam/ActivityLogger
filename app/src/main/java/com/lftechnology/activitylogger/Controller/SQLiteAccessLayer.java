@@ -131,12 +131,6 @@ public class SQLiteAccessLayer {
      */
     public boolean isDatabaseEmpty(){
         return queryAppDetails().isEmpty();
-//        List<AppDetails> appDetails = queryAppDetails();
-//        if(appDetails.isEmpty()){
-//            return true;
-//        }else{
-//            return false;
-//        }
     }
 
 
