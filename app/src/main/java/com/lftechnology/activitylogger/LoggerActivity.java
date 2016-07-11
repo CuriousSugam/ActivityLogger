@@ -58,7 +58,6 @@ public class LoggerActivity extends AppCompatActivity {
                     default:
                         Toast.makeText(LoggerActivity.this,"What just happened?",Toast.LENGTH_SHORT).show();
                         break;
-
                 }
             }
 
@@ -84,13 +83,6 @@ public class LoggerActivity extends AppCompatActivity {
         showInSortedList();
     }
 
-    public void getStatsFromBeginning(View view) {
-        RawAppInfo.printCurrentUsageStats(this, ConstantIntervals.BEST.value);
-        initialize();
-        sort();
-        showInSortedList();
-    }
-
     public void getStatsMonthly(View view){
         RawAppInfo.printCurrentUsageStats(this, ConstantIntervals.MONTHLY.value);
         initialize();
@@ -99,6 +91,13 @@ public class LoggerActivity extends AppCompatActivity {
     }
     public void getStatsYearly(View view){
         RawAppInfo.printCurrentUsageStats(this,ConstantIntervals.YEARLY.value);
+        initialize();
+        sort();
+        showInSortedList();
+    }
+
+    public void getStatsFromBeginning(View view) {
+        RawAppInfo.printCurrentUsageStats(this, ConstantIntervals.BEST.value);
         initialize();
         sort();
         showInSortedList();
