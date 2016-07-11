@@ -24,10 +24,10 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private final Handler handler = new Handler();
 
-    private static final int ANIMATION_DURATION_IN = 1500;
-    private static final int ANIMATION_DURATION_OUT = 1500;
-    private static final int ANIMATION_DURATION_DELAY = 3000;
-    private static final int ANIMATION_DURATION_INITIAL = 1200;
+    private static final int ANIMATION_DURATION_IN = 2000;
+    private static final int ANIMATION_DURATION_OUT = 2000;
+    private static final int ANIMATION_DURATION_DELAY = 5000;
+    private static final int ANIMATION_DURATION_INITIAL = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                handler.postDelayed(this, ANIMATION_DURATION_DELAY);
                 gotoNext();
             }
         }, ANIMATION_DURATION_IN);
@@ -65,7 +64,11 @@ public class SplashScreenActivity extends AppCompatActivity {
         //Providing Imageview fade in effect
         Animation anim_in = AnimationUtils.loadAnimation(this, R.anim.fade_in_splash_screen);
         imageView.setAnimation(anim_in);
+        //Animation anim_out = AnimationUtils.loadAnimation(this, R.anim.rotate_splash);
+        //imageView.setAnimation(anim_out);
 
+        //imageView.startAnimation(fadeIn);
+       // imageView.startAnimation(AnimationUtils.loadAnimation(getBaseContext(),R.anim.rotate_splash));
         /* Unused Code for now might be used for modifying later
         Animation anim_out = AnimationUtils.loadAnimation(this, R.anim.fade_out_animation);
         imageView.setAnimation(anim_out);
@@ -89,6 +92,13 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     private void gotoNext() {
+//        AlphaAnimation fadeIn = new AlphaAnimation(0.0f, 1.0f);
+//        AlphaAnimation fadeOut = new AlphaAnimation(1.0f, 0.0f);
+//
+//        fadeIn.setDuration(ANIMATION_DURATION_DELAY);
+//        fadeIn.setFillAfter(false);
+//        fadeOut.setDuration(ANIMATION_DURATION_DELAY);
+//        fadeOut.setFillAfter(false);
         startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
         finish();
     }
