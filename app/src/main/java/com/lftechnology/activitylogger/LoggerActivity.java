@@ -143,11 +143,6 @@ public class LoggerActivity extends AppCompatActivity {
         }
     }
     public void sort(){
-        SharedPreferences sharedPreferences = getSharedPreferences("appName", Context.MODE_PRIVATE);
-        for(int i =0; i< sharedPreferences.getInt("count",1);i++){
-            namesOfApp[i] = sharedPreferences.getString("packageName"+i,"N/A");
-            runTimeOfApp[i] = sharedPreferences.getLong("runtime"+i,0);
-        }
         for(int i=0;i<namesOfApp.length && i< runTimeOfApp.length;i++){
             for(int j=0; j<i;j++){
                 if(runTimeOfApp[j]<runTimeOfApp[i]){
@@ -172,15 +167,21 @@ public class LoggerActivity extends AppCompatActivity {
         recyclerView.setAdapter(new CustomAdapterAppDetails(this,getData()));
     }
     public boolean PackageExists(String mPackageName){
-        List<ApplicationInfo> packages;
         PackageManager pm;
-
         pm = getPackageManager();
-        packages = pm.getInstalledApplications(0);
-        for(ApplicationInfo packageInfo: packages){
-            if(packageInfo.packageName.equals(mPackageName))
-                return true;
+        if(mPackageName=="com.sonyericsson.music" || mPackageName =="com.android.chrome"){
+            return true;
         }
+        try {
+            ApplicationInfo applicationInfo = pm.getApplicationInfo(mPackageName,0);
+            if(((applicationInfo.flags & ApplicationInfo.FLAG_INSTALLED)!=1)&&
+                    (applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM)!=1){
+                return true;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
         return false;
 
     }
