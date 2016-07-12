@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class RawAppInfo {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat();//Gets the Date Format
-    private static int interval, count;//TODO remove
+    private static int interval=4, count;//TODO remove
   //  private static int interval=4;
 
     /**
