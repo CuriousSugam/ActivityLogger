@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_alignParentBottom="true">
+<GridLayout
+    android:id="@+id/bottom_grid"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#bec3c9"
+    android:columnCount="2"
+    android:rowCount="2"
+    android:layout_alignParentBottom="true"
+    >
+
+    <Button
+        android:layout_width="190dp"
+        android:layout_height="120dp"
+        android:layout_column="0"
+        android:layout_row="0" />
+
+    <Button
+        android:layout_width="190dp"
+        android:layout_height="120dp"
+        android:layout_column="1"
+        android:layout_row="0" />
+
+    <Button
+        android:layout_width="190dp"
+        android:layout_height="120dp"
+        android:layout_column="0"
+        android:layout_row="1" />
+
+    <Button
+        android:layout_width="190dp"
+        android:layout_height="120dp"
+        android:background="@color/colorPrimary"
+        android:layout_column="1"
+        android:layout_row="1" />
+
+
+</GridLayout>
+    </RelativeLayout>
+
