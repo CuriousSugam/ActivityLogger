@@ -6,6 +6,8 @@
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions">
     </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,5 +25,18 @@
         <activity android:name=".MainActivity"
             android:theme="@style/AppTheme">
         </activity>
+        <receiver android:name=".ConnectivityChangeBroadcastReceiver" >
+            <intent-filter android:priority="999">
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <!--<category android:name="android.intent.category.DEFAULT"/>-->
+                <!--<action android:name="android.net.wifi.WIFI_STATE_CHANGED" />-->
+                <!--<action android:name="android.net.wifi.STATE_CHANGE" />-->
+            </intent-filter>
+        </receiver>
+
+
+        
+        <!--<service android:name=".Services.ConnectivityChangeMonitoringService"  />-->
+        <service android:name=".Services.ConnectivityChangeMonitoringIntentService"  />
     </application>
 </manifest>
