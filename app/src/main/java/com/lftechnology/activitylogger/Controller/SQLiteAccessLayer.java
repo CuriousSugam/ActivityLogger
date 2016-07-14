@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * @author Sugam Shakya
  * Created by Sugam on 7/5/2016.
- * This class provides the interface to insert, update, delete and query the app details in the application database
+ * This class provides the methods to insert, update, delete and query the app details in the application database
  */
 public class SQLiteAccessLayer {
 

@@ -16,23 +16,24 @@ import com.lftechnology.activitylogger.Services.ConnectivityChangeMonitoringInte
  * Created by Sugam on 7/11/2016.
  */
 public class ConnectivityChangeBroadcastReceiver extends BroadcastReceiver {
+    private final static String ACTION_CONNECTIVITY_CHANGE = "android.net.conn.CONNECTIVITY_CHANGE";
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction() != null && intent.getAction().equals("android.net.conn.CONNECTIVITY_CHANGE")) {
+        if (intent.getAction() != null && intent.getAction().equals(ACTION_CONNECTIVITY_CHANGE)) {
             ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
             Intent serviceIntent = new Intent(context, ConnectivityChangeMonitoringIntentService.class);
             if (networkInfo != null) {
                 if (networkInfo.getType() == ConnectivityManager.TYPE_WIFI && networkInfo.isConnected()) {
-                    serviceIntent.putExtra("networkType", "wifi");
+                    serviceIntent.putExtra("networkType", ConnectivityChangeMonitoringIntentService.WIFI_NETWORK);
                     context.startService(serviceIntent);
                 } else if (networkInfo.getType() == ConnectivityManager.TYPE_MOBILE && networkInfo.isConnected()) {
-                    serviceIntent.putExtra("networkType", "mobile");
+                    serviceIntent.putExtra("networkType", ConnectivityChangeMonitoringIntentService.MOBILE_NETWORK);
                     context.startService(serviceIntent);
                 }
             } else {
-                serviceIntent.putExtra("networkType", "offline");
+                serviceIntent.putExtra("networkType", ConnectivityChangeMonitoringIntentService.OFFLINE);
                 context.startService(serviceIntent);
             }
         }

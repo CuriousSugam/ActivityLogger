@@ -2,7 +2,6 @@ package com.lftechnology.activitylogger;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -13,7 +12,7 @@ import java.util.List;
  * Default is set to daily
  */
 public class RawAppInfo {
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat();//Gets the Date Format
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat();//Gets the Date Format
     private static int interval=4;
 
     /**
@@ -25,8 +24,8 @@ public class RawAppInfo {
         long endTime = calendar.getTimeInMillis();
         calendar.add(Calendar.YEAR, -1);
         long startTime = calendar.getTimeInMillis();
-        Log.d("LOG","Date Start:\t"+ dateFormat.format(startTime));//TODO remove
-        Log.d("LOG","Date End:\t"+ dateFormat.format(endTime));//TODO remove
+        Log.d("LOG","Date Start:\t"+ DATE_FORMAT.format(startTime));//TODO remove
+        Log.d("LOG","Date End:\t"+ DATE_FORMAT.format(endTime));//TODO remove
         List<UsageStats> usageStatsList =
                 usageStatsManager.queryUsageStats(interval,startTime,endTime);//UsageStats Queried here
         return usageStatsList;

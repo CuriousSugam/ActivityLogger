@@ -19,6 +19,10 @@ import java.util.List;
  */
 public class ConnectivityChangeMonitoringIntentService extends IntentService {
 
+    public final static String WIFI_NETWORK = "wifi";
+    public final static String MOBILE_NETWORK = "mobile";
+    public final static String OFFLINE = "offline";
+
     public ConnectivityChangeMonitoringIntentService() {
         super("ConnectivityMonitorService");
     }
@@ -30,23 +34,23 @@ public class ConnectivityChangeMonitoringIntentService extends IntentService {
             String networkType = intent.getStringExtra("networkType");
             SharedPreferences sharedPreferences = getSharedPreferences("networkState", MODE_PRIVATE);
 
-            if (networkType.equals("wifi")) {    // when wifi is turned on
+            if (networkType.equals(WIFI_NETWORK)) {    // when wifi is turned on
                 // fill into the temporary table and set the current network type i.e 'wifi' into the shared preference
                 fillIntoNetworkTempTable();
                 sharedPreferences.edit().putBoolean("wifi", true).apply();
-            } else if (networkType.equals("mobile")) { // when mobile data is turned on
+            } else if (networkType.equals(MOBILE_NETWORK)) { // when mobile data is turned on
                 // fill into the temporary table
                 // set the current network type i.e 'mobile' into the shared preferences
                 fillIntoNetworkTempTable();
                 sharedPreferences.edit().putBoolean("mobile", true).apply();
-            } else if (networkType.equals("offline")) {  // when the neither wifi nor mobile data are turned on i.e when both are turned off
+            } else if (networkType.equals(OFFLINE)) {  // when the neither wifi nor mobile data are turned on i.e when both are turned off
                 // get the recent network type from the shared preferences
                 if (sharedPreferences.getBoolean("wifi", false)) {
-                    copyToNetworkTable("wifi");
+                    copyToNetworkTable(WIFI_NETWORK);
                     sharedPreferences.edit().putBoolean("wifi", false).apply();
                     flushNetworkTempTable();
                 }else if (sharedPreferences.getBoolean("mobile", false)) {
-                    copyToNetworkTable("mobile");
+                    copyToNetworkTable(MOBILE_NETWORK);
                     sharedPreferences.edit().putBoolean("mobile", false).apply();
                     flushNetworkTempTable();
                 }
