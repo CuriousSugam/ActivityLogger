@@ -1,45 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-     android:layout_height="wrap_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation= "vertical"
     android:layout_width="match_parent"
-    android:layout_alignParentBottom="true">
-<GridLayout
-    android:id="@+id/bottom_grid"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#bec3c9"
-    android:columnCount="2"
-    android:rowCount="2"
-    android:layout_alignParentBottom="true"
+    android:layout_height="match_parent"
     >
-
-    <Button
-        android:layout_width="190dp"
-        android:layout_height="120dp"
-        android:layout_column="0"
-        android:layout_row="0" />
-
-    <Button
-        android:layout_width="190dp"
-        android:layout_height="120dp"
-        android:layout_column="1"
-        android:layout_row="0" />
-
-    <Button
-        android:layout_width="190dp"
-        android:layout_height="120dp"
-        android:layout_column="0"
-        android:layout_row="1" />
-
-    <Button
-        android:layout_width="190dp"
-        android:layout_height="120dp"
-        android:background="@color/colorPrimary"
-        android:layout_column="1"
-        android:layout_row="1" />
-
-
-</GridLayout>
-    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+        <Button
+            android:id="@+id/btn_wifi"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Wifi"
+            android:layout_weight="1"
+            android:background="@drawable/button_gradient"
+            android:textColor="#333"
+            style="?android:attr/borderlessButtonStyle"/>
+        <Button
+            android:id="@+id/btn_mobile"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Mobile DAta"
+            android:layout_weight="1"
+            android:background="@drawable/button_gradient"
+            android:textColor="#333"
+            style="?android:attr/borderlessButtonStyle"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/btn_time"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:padding="0dp"
+        android:layout_margin="0dp"
+        >
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Time"
+            android:layout_weight="1"
+            android:background="@drawable/button_gradient"
+            android:textColor="#333"
+            style="?android:attr/borderlessButtonStyle"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Battery"
+            android:layout_weight="1"
+            android:background="@drawable/button_gradient"
+            android:textColor="#333"
+            style="?android:attr/borderlessButtonStyle"/>
+    </LinearLayout>
+</LinearLayout>
 
