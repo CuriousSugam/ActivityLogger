@@ -1,23 +1,18 @@
-package com.lftechnology.activitylogger;
+package com.lftechnology.activitylogger.Adapter;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.lftechnology.activitylogger.model.NetworkUsageDetails;
+import com.lftechnology.activitylogger.R;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.List;
-import java.util.zip.Inflater;
 
 /**
  * Created by Sugam on 7/15/2016.

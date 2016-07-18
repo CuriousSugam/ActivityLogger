@@ -1,24 +1,24 @@
-package com.lftechnology.activitylogger;
+package com.lftechnology.activitylogger.Adapter;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lftechnology.activitylogger.R;
 import com.lftechnology.activitylogger.model.NetworkUsageDetails;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.List;
-import java.util.Locale;
 
 /**
+ * NetworkDataAdapter is an adapter class that binds the data (such as: application name, network bytes)
+ * to the recycler view layout.
+ *
  * Created by Sugam on 7/14/2016.
  */
 public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.NetworkViewHolder> {
@@ -26,6 +26,12 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
     private Context context;
     private List<NetworkUsageDetails> networkUsageDetailsList;
 
+    /**
+     *
+     * @param context context of the calling
+     * @param networkUsageDetailsList List that contains the object of NetworkUsageDetails to bind
+     *                                the data to the view.
+     */
     public NetworkDataAdapter(Context context, List<NetworkUsageDetails> networkUsageDetailsList){
         this.context = context;
         this.networkUsageDetailsList = networkUsageDetailsList;
@@ -82,11 +88,6 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
         }else{
             holder.totalBytes.setText("Total:  "+total+ " bytes");
         }
-//        holder.receivedBytes.setText("Received:  "+String.format("%.2f", rxBytes/(1024*1024)));
-//        holder.transmittedBytes.setText("Transmitted:  "+String.format("%.2f", txBytes/(1024*1024)));
-//        holder.totalBytes.setText("Total:  "+ String.format("%.2f", total/(1024*1024)));
-//        Log.e("message", rxBytes+" + "+txBytes+" = "+total);
-
     }
 
     @Override
@@ -94,6 +95,10 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
         return networkUsageDetailsList.size();
     }
 
+    /**
+     * Custom viewholder class. It gets references to the view components of the layout to which the
+     * data is to be bound to
+     */
     public class NetworkViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView applicationIcon;

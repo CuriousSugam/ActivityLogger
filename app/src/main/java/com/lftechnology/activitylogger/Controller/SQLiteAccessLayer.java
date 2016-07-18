@@ -26,8 +26,8 @@ import java.util.Map;
 
 /**
  * @author Sugam Shakya
- * Created by Sugam on 7/5/2016.
- * This class provides the methods to insert, update, delete and query the app details in the application database
+ *         Created by Sugam on 7/5/2016.
+ *         This class provides the methods to insert, update, delete and query the app details in the application database
  */
 public class SQLiteAccessLayer {
 
@@ -53,40 +53,36 @@ public class SQLiteAccessLayer {
     private static final String TABLE_COLUMN_NETWORK_TYPE = "network_type";
 
 
-
     private ActivityLoggerSQLiteOpenHelper dbHelper;
     private SQLiteDatabase db;
     private AppDetails appDetails;
     private NetworkUsageDetails networkUsageDetails;
 
     /**
-     *
-     * @param context Context of the calling activity
+     * @param context    Context of the calling activity
      * @param appDetails Object of AppDetails which holds some data about an application
      */
-    public SQLiteAccessLayer(Context context, AppDetails appDetails){
+    public SQLiteAccessLayer(Context context, AppDetails appDetails) {
         dbHelper = new ActivityLoggerSQLiteOpenHelper(context);
         this.db = dbHelper.getWritableDatabase();
         this.appDetails = appDetails;
     }
 
     /**
-     *
-     * @param context Context of the calling activity
+     * @param context             Context of the calling activity
      * @param networkUsageDetails Object of NetworkUsageDetails which holds the number of bytes received and
-     *                         transmitted by the application
+     *                            transmitted by the application
      */
-    public SQLiteAccessLayer(Context context, NetworkUsageDetails networkUsageDetails){
+    public SQLiteAccessLayer(Context context, NetworkUsageDetails networkUsageDetails) {
         dbHelper = new ActivityLoggerSQLiteOpenHelper(context);
         this.db = dbHelper.getWritableDatabase();
         this.networkUsageDetails = networkUsageDetails;
     }
 
     /**
-     *
      * @param context Context of the calling activity
      */
-    public SQLiteAccessLayer(Context context){
+    public SQLiteAccessLayer(Context context) {
         dbHelper = new ActivityLoggerSQLiteOpenHelper(context);
         this.db = dbHelper.getWritableDatabase();
     }
@@ -97,15 +93,15 @@ public class SQLiteAccessLayer {
      *
      * @return the row ID of the newly inserted row, or -1 if an error occurred
      */
-    public long insertIntoAppDetails(){
+    public long insertIntoAppDetails() {
         ContentValues contentValues = new ContentValues();
         contentValues.put(TABLE_COLUMN_UID, this.appDetails.getUid());
-        contentValues.put(TABLE_COLUMN_PACKAGE_NAME, this.appDetails.getPackageName() );
+        contentValues.put(TABLE_COLUMN_PACKAGE_NAME, this.appDetails.getPackageName());
         contentValues.put(TABLE_COLUMN_APPLICATION_NAME, this.appDetails.getApplicationName());
 
         // insert the new row, returning the primary key of the row inserted
         long newInsertedRowId;
-        newInsertedRowId = db.insert(TABLE_PACKAGE_INFO,null, contentValues);
+        newInsertedRowId = db.insert(TABLE_PACKAGE_INFO, null, contentValues);
         // TODO remove this code
 //        Log.e("Database", "Inserted:=> "+this.appDetails.getApplicationName());
 
@@ -113,14 +109,15 @@ public class SQLiteAccessLayer {
     }
 
     /**
-     *  This method extracts the application information from the database
+     * This method extracts the application information from the database
+     *
      * @return a List<AppDetails>
      */
-    public List<AppDetails> queryAppDetails(){
+    public List<AppDetails> queryAppDetails() {
         List<AppDetails> appDetailsList = new ArrayList<>();
         String[] columns = {TABLE_COLUMN_UID, TABLE_COLUMN_PACKAGE_NAME, TABLE_COLUMN_APPLICATION_NAME};
         Cursor cursor = db.query(TABLE_PACKAGE_INFO, columns, null, null, null, null, null, null);
-        while(cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             AppDetails tempAppDetailsObj = new AppDetails();
             tempAppDetailsObj.setUid(cursor.getInt(cursor.getColumnIndex(TABLE_COLUMN_UID)));
             tempAppDetailsObj.setPackageName(cursor.getString(cursor.getColumnIndex(TABLE_COLUMN_PACKAGE_NAME)));
@@ -132,31 +129,27 @@ public class SQLiteAccessLayer {
     }
 
     /**
-     * 
-     *
      * @param whereClause the WHERE clause to apply when deleting. Passing null will delete all rows.
-     * @param whereArgs  '?'s included in the where clause will be replaced by the values from whereArgs.
-     *                   
-     * deleteAnAppDetail("id=? and name=?",new String[]{"1","jack"});
-     *
+     * @param whereArgs   '?'s included in the where clause will be replaced by the values from whereArgs.
+     *                    <p/>
+     *                    deleteAnAppDetail("id=? and name=?",new String[]{"1","jack"});
      * @return the number of rows affected if a whereClause is passed in, 0 otherwise.
      * To remove all rows and get a count pass "1" as the whereClause.
      */
-    public int deleteAnAppDetail(String whereClause, String[] whereArgs ){
-         return db.delete(TABLE_PACKAGE_INFO, whereClause, whereArgs);
+    public int deleteAnAppDetail(String whereClause, String[] whereArgs) {
+        return db.delete(TABLE_PACKAGE_INFO, whereClause, whereArgs);
     }
 
 
     /**
-     *
      * @param whereClause the WHERE clause to apply when updating. Passing null will update all rows.
-     * @param whereArgs '?'s included in the where clause will be replaced by the values from whereArgs.
-     * @return  the number of rows affected
+     * @param whereArgs   '?'s included in the where clause will be replaced by the values from whereArgs.
+     * @return the number of rows affected
      */
-    public int updateAppDetail(String whereClause, String[] whereArgs){
+    public int updateAppDetail(String whereClause, String[] whereArgs) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(TABLE_COLUMN_UID, this.appDetails.getUid());
-        contentValues.put(TABLE_COLUMN_PACKAGE_NAME, this.appDetails.getPackageName() );
+        contentValues.put(TABLE_COLUMN_PACKAGE_NAME, this.appDetails.getPackageName());
         contentValues.put(TABLE_COLUMN_APPLICATION_NAME, this.appDetails.getApplicationName());
         return db.update(TABLE_PACKAGE_INFO, contentValues, whereClause, whereArgs);
     }
@@ -166,7 +159,7 @@ public class SQLiteAccessLayer {
      *
      * @return true if the database is empty and no appdetails has been added to it, returns false if the database is not empty
      */
-    public boolean isDatabaseEmpty(){
+    public boolean isDatabaseEmpty() {
         return queryAppDetails().isEmpty();
     }
 
@@ -176,27 +169,28 @@ public class SQLiteAccessLayer {
      *
      * @return the row ID of the newly inserted row, or -1 if an error occurred
      */
-    public long insertTempNetworkDetails(){
+    public long insertTempNetworkDetails() {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(TABLE_COLUMN_PACKAGE_NAME, this.networkUsageDetails.getPackageName() );
+        contentValues.put(TABLE_COLUMN_PACKAGE_NAME, this.networkUsageDetails.getPackageName());
         contentValues.put(TABLE_COLUMN_INITIAL_RX_BYTES, this.networkUsageDetails.getTotalRxBytes());
         contentValues.put(TABLE_COLUMN_INITIAL_TX_BYTES, this.networkUsageDetails.getTotalTxBytes());
-        Log.e("insertIntoTempTable", this.networkUsageDetails.getPackageName()+" "+this.networkUsageDetails.getTotalTxBytes()+
-        " "+ this.networkUsageDetails.getTotalRxBytes());
+        Log.e("insertIntoTempTable", this.networkUsageDetails.getPackageName() + " " + this.networkUsageDetails.getTotalTxBytes() +
+                " " + this.networkUsageDetails.getTotalRxBytes());
         return db.insert(TABLE_NETWORK_TEMP, TABLE_COLUMN_DATE_TIME, contentValues);
 
     }
 
     /**
-     *  This method extracts the information of initial tranmissted and received bytes of the application
-     *  from the database
+     * This method extracts the information of initial tranmissted and received bytes of the application
+     * from the database
+     *
      * @return a List<NetworkUsageDetails>
      */
-    public List<NetworkUsageDetails> queryTempNetworkUsageDetails(){
+    public List<NetworkUsageDetails> queryTempNetworkUsageDetails() {
         List<NetworkUsageDetails> networkUsageDetailsList = new ArrayList<>();
         String[] columns = {TABLE_COLUMN_PACKAGE_NAME, TABLE_COLUMN_DATE_TIME, TABLE_COLUMN_INITIAL_RX_BYTES, TABLE_COLUMN_INITIAL_TX_BYTES};
         Cursor cursor = db.query(TABLE_NETWORK_TEMP, columns, null, null, null, null, null, null);
-        while(cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             NetworkUsageDetails tempNetworkUsageDetailsObj = new NetworkUsageDetails();
             tempNetworkUsageDetailsObj.setPackageName(cursor.getString(cursor.getColumnIndex(TABLE_COLUMN_PACKAGE_NAME)));
             try {
@@ -216,18 +210,19 @@ public class SQLiteAccessLayer {
      * Delete the content of the temporary network table and flush the content out to reuse the network
      * temp table for the next time.
      */
-    public void emptyTempNetworkUsageDetails(){
+    public void emptyTempNetworkUsageDetails() {
         db.delete(TABLE_NETWORK_TEMP, null, null);
     }
 
     /**
-     *  This method inserts the calculated network statistics data into the network table of the database
-     * @param context context of the calling
+     * This method inserts the calculated network statistics data into the network table of the database
+     *
+     * @param context     context of the calling
      * @param networkType the network to whom the network statistics data belongs to and is to be inserted
      */
-    public void insertNetworkDetails(Context context, String networkType){
+    public void insertNetworkDetails(Context context, String networkType) {
         List<NetworkUsageDetails> networkUsageDetailsList = queryTempNetworkUsageDetails();
-        for(NetworkUsageDetails networkUsageDetails : networkUsageDetailsList){
+        for (NetworkUsageDetails networkUsageDetails : networkUsageDetailsList) {
             String packageName = networkUsageDetails.getPackageName();
             Date date = networkUsageDetails.getInitialDate();
             int uid = 0;
@@ -240,15 +235,15 @@ public class SQLiteAccessLayer {
 
             long netRxBytes = TrafficStats.getUidRxBytes(uid) - networkUsageDetails.getTotalRxBytes();
             long netTxBytes = TrafficStats.getUidTxBytes(uid) - networkUsageDetails.getTotalTxBytes();
-            if(netRxBytes != 0 && netTxBytes != 0){
-                String query = "INSERT INTO "+TABLE_NETWORK_INFO_TABLE + "("+
-                        TABLE_COLUMN_PACKAGE_NAME+", "
-                        +TABLE_COLUMN_INITIAL_DATE_TIME+", "
-                        +TABLE_COLUMN_NET_RX_BYTES+", "
-                        +TABLE_COLUMN_NET_TX_BYTES+", "
-                        +TABLE_COLUMN_NETWORK_TYPE
-                        +") VALUES(?, ?, ?, ?, ?)"
-                        +";";
+            if (netRxBytes != 0 && netTxBytes != 0) {
+                String query = "INSERT INTO " + TABLE_NETWORK_INFO_TABLE + "(" +
+                        TABLE_COLUMN_PACKAGE_NAME + ", "
+                        + TABLE_COLUMN_INITIAL_DATE_TIME + ", "
+                        + TABLE_COLUMN_NET_RX_BYTES + ", "
+                        + TABLE_COLUMN_NET_TX_BYTES + ", "
+                        + TABLE_COLUMN_NETWORK_TYPE
+                        + ") VALUES(?, ?, ?, ?, ?)"
+                        + ";";
                 SQLiteStatement sqLiteStatement = db.compileStatement(query);
                 sqLiteStatement.bindString(1, packageName);
                 sqLiteStatement.bindString(2, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date));
@@ -256,74 +251,47 @@ public class SQLiteAccessLayer {
                 sqLiteStatement.bindLong(4, netTxBytes);
                 sqLiteStatement.bindString(5, networkType);
                 sqLiteStatement.executeInsert();
-                Log.e("inserttoNetworkDetails", packageName+" "+networkType+" "+netRxBytes+" "+netTxBytes);
+                Log.e("inserttoNetworkDetails", packageName + " " + networkType + " " + netRxBytes + " " + netTxBytes);
             }
         }
     }
 
     /**
-     *  This method extracts the network details of an application from the database
+     * This method extracts the network details of an application from the database
+     * @param networkType the type of the network whose that is to be fetched. There are two options:
+     *                    ConnectivityChangeMonitoringIntentService.MOBILE_NETWORK or
+     *                    ConnectivityChangeMonitoringIntentService.WIFI_NETWORK
      * @return a List<NetworkUsageDetails>
      */
-    public List<NetworkUsageDetails> queryNetworkUsageDetails(){
+    public List<NetworkUsageDetails> queryNetworkUsageDetails(String networkType) {
         List<NetworkUsageDetails> networkUsageDetailsList = new ArrayList<>();
         Map<String, NetworkUsageDetails> appMap = new HashMap<>();
 
         String[] columns = {TABLE_COLUMN_PACKAGE_NAME, TABLE_COLUMN_INITIAL_DATE_TIME, TABLE_COLUMN_NET_RX_BYTES, TABLE_COLUMN_NET_TX_BYTES, TABLE_COLUMN_FINAL_DATE_TIME};
-        Cursor cursor = db.query(TABLE_NETWORK_INFO_TABLE, columns, null, null, null, null, null, null);
-        while(cursor.moveToNext()){
-//            if(appMap.containsKey(cursor.getColumnName(cursor.getColumnIndex(TABLE_COLUMN_PACKAGE_NAME)))){
-//                for(Map.Entry<String, NetworkUsageDetails> entry : appMap.entrySet()){
-//                    String packageName = entry.getKey();
-//                    if(packageName.equals(cursor.getColumnName(cursor.getColumnIndex(TABLE_COLUMN_PACKAGE_NAME)))){
-//                        NetworkUsageDetails networkUsageDetails = entry.getValue();
-//                        long txBytes = networkUsageDetails.getTotalRxBytes();
-//                        long rxBytes = networkUsageDetails.getTotalTxBytes();
-//                        networkUsageDetails.setTotalRxBytes(rxBytes + cursor.getLong(cursor.getColumnIndex(TABLE_COLUMN_NET_RX_BYTES)));
-//                        networkUsageDetails.setTotalTxBytes(txBytes + cursor.getLong(cursor.getColumnIndex(TABLE_COLUMN_NET_TX_BYTES)));
-//                        appMap.put(cursor.getColumnName(cursor.getColumnIndex(TABLE_COLUMN_PACKAGE_NAME)), networkUsageDetails );
-//                    }
-//                }
-//            }else{
-                NetworkUsageDetails NetworkUsageDetailsObj = new NetworkUsageDetails();
-                NetworkUsageDetailsObj.setPackageName(cursor.getString(cursor.getColumnIndex(TABLE_COLUMN_PACKAGE_NAME)));
-                try {
-                    NetworkUsageDetailsObj.setInitialDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(cursor.getString(cursor.getColumnIndex(TABLE_COLUMN_INITIAL_DATE_TIME))));
-                    NetworkUsageDetailsObj.setFinalDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(cursor.getString(cursor.getColumnIndex(TABLE_COLUMN_FINAL_DATE_TIME))));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                NetworkUsageDetailsObj.setTotalRxBytes(cursor.getLong(cursor.getColumnIndex(TABLE_COLUMN_NET_RX_BYTES)));
-                NetworkUsageDetailsObj.setTotalTxBytes(cursor.getLong(cursor.getColumnIndex(TABLE_COLUMN_NET_TX_BYTES)));
-                appMap.put(cursor.getString(cursor.getColumnIndex(TABLE_COLUMN_PACKAGE_NAME)), NetworkUsageDetailsObj);
-                networkUsageDetailsList.add(NetworkUsageDetailsObj);
-//            }
+        String whereClause = TABLE_COLUMN_NETWORK_TYPE + "= ?";
+        String[] whereArgs = new String[]{networkType};
+
+        Cursor cursor = db.query(TABLE_NETWORK_INFO_TABLE, columns, whereClause, whereArgs, null, null, null, null);
+        while (cursor.moveToNext()) {
+            NetworkUsageDetails NetworkUsageDetailsObj = new NetworkUsageDetails();
+            NetworkUsageDetailsObj.setPackageName(cursor.getString(cursor.getColumnIndex(TABLE_COLUMN_PACKAGE_NAME)));
+            try {
+                NetworkUsageDetailsObj.setInitialDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(cursor.getString(cursor.getColumnIndex(TABLE_COLUMN_INITIAL_DATE_TIME))));
+                NetworkUsageDetailsObj.setFinalDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(cursor.getString(cursor.getColumnIndex(TABLE_COLUMN_FINAL_DATE_TIME))));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            NetworkUsageDetailsObj.setTotalRxBytes(cursor.getLong(cursor.getColumnIndex(TABLE_COLUMN_NET_RX_BYTES)));
+            NetworkUsageDetailsObj.setTotalTxBytes(cursor.getLong(cursor.getColumnIndex(TABLE_COLUMN_NET_TX_BYTES)));
+            appMap.put(cursor.getString(cursor.getColumnIndex(TABLE_COLUMN_PACKAGE_NAME)), NetworkUsageDetailsObj);
+            networkUsageDetailsList.add(NetworkUsageDetailsObj);
         }
-//        networkUsageDetailsList = new ArrayList<>(appMap.values());
 
         cursor.close();
         return networkUsageDetailsList;
     }
 
-    public NetworkUsageDetails getNetNetworkBytes(String networkType, String packageName){
-//        NetworkUsageDetails networkUsageDetails = new NetworkUsageDetails();
-        String[] columns = {TABLE_COLUMN_NET_RX_BYTES, TABLE_COLUMN_NET_TX_BYTES};
-        String whereClause = TABLE_COLUMN_PACKAGE_NAME+"=? AND "+TABLE_COLUMN_NETWORK_TYPE+"= ?";
-        String[] whereArgs = new String[]{packageName, networkType};
-        String orderBy = TABLE_COLUMN_FINAL_DATE_TIME;
-        Cursor cursor = db.query(TABLE_NETWORK_INFO_TABLE, columns, whereClause, whereArgs, null, null, orderBy, null);
-        long rx = 0;
-        long tx = 0;
-        while(cursor.moveToNext()){
-            rx += cursor.getLong(cursor.getColumnIndex(TABLE_COLUMN_INITIAL_RX_BYTES));
-            tx += cursor.getLong(cursor.getColumnIndex(TABLE_COLUMN_INITIAL_TX_BYTES));
-        }
-        NetworkUsageDetails networkUsageDetails = new NetworkUsageDetails(packageName, rx,tx);
-        cursor.close();
-        return networkUsageDetails;
-    }
-
-    public void closeDatabaseConnection(){
+    public void closeDatabaseConnection() {
         db.close();
     }
 
@@ -339,44 +307,44 @@ public class SQLiteAccessLayer {
         @Override
         public void onCreate(SQLiteDatabase sqLiteDatabase) {
             // CREATE PACKAGE_INFO_TABLE
-            String query = "Create table "+TABLE_PACKAGE_INFO+"("
-                    +TABLE_COLUMN_ID+" integer primary key autoincrement, "
-                    +TABLE_COLUMN_UID+" integer, "
-                    +TABLE_COLUMN_PACKAGE_NAME+" varchar(255), "
-                    +TABLE_COLUMN_APPLICATION_NAME+" varchar(30));";
-            String createNetworkTempTableQuery = "CREATE TABLE IF NOT EXISTS "+ TABLE_NETWORK_TEMP +" ("
-                    +TABLE_COLUMN_PACKAGE_NAME+" varchar(255), "
-                    +TABLE_COLUMN_DATE_TIME+" datetime default current_timestamp, "
-                    +TABLE_COLUMN_INITIAL_RX_BYTES+" integer, "
-                    +TABLE_COLUMN_INITIAL_TX_BYTES+" integer );";
-            String createNetworkInfoTableQuery = "CREATE TABLE IF NOT EXISTS "+ TABLE_NETWORK_INFO_TABLE +" ("
-                    +TABLE_COLUMN_ID+" integer primary key autoincrement, "
-                    +TABLE_COLUMN_PACKAGE_NAME+" varchar(255),"
-                    +TABLE_COLUMN_INITIAL_DATE_TIME+" datetime, "
-                    +TABLE_COLUMN_NET_RX_BYTES+" integer,"
-                    +TABLE_COLUMN_NET_TX_BYTES+" integer,"
-                    +TABLE_COLUMN_FINAL_DATE_TIME+" datetime default current_timestamp,"
-                    +TABLE_COLUMN_NETWORK_TYPE+ " varchar(7)"
-                    +" );";
+            String query = "Create table " + TABLE_PACKAGE_INFO + "("
+                    + TABLE_COLUMN_ID + " integer primary key autoincrement, "
+                    + TABLE_COLUMN_UID + " integer, "
+                    + TABLE_COLUMN_PACKAGE_NAME + " varchar(255), "
+                    + TABLE_COLUMN_APPLICATION_NAME + " varchar(30));";
+            String createNetworkTempTableQuery = "CREATE TABLE IF NOT EXISTS " + TABLE_NETWORK_TEMP + " ("
+                    + TABLE_COLUMN_PACKAGE_NAME + " varchar(255), "
+                    + TABLE_COLUMN_DATE_TIME + " datetime default current_timestamp, "
+                    + TABLE_COLUMN_INITIAL_RX_BYTES + " integer, "
+                    + TABLE_COLUMN_INITIAL_TX_BYTES + " integer );";
+            String createNetworkInfoTableQuery = "CREATE TABLE IF NOT EXISTS " + TABLE_NETWORK_INFO_TABLE + " ("
+                    + TABLE_COLUMN_ID + " integer primary key autoincrement, "
+                    + TABLE_COLUMN_PACKAGE_NAME + " varchar(255),"
+                    + TABLE_COLUMN_INITIAL_DATE_TIME + " datetime, "
+                    + TABLE_COLUMN_NET_RX_BYTES + " integer,"
+                    + TABLE_COLUMN_NET_TX_BYTES + " integer,"
+                    + TABLE_COLUMN_FINAL_DATE_TIME + " datetime default current_timestamp,"
+                    + TABLE_COLUMN_NETWORK_TYPE + " varchar(7)"
+                    + " );";
 
 
-            try{
+            try {
                 sqLiteDatabase.execSQL(query);
                 sqLiteDatabase.execSQL(createNetworkTempTableQuery);
                 sqLiteDatabase.execSQL(createNetworkInfoTableQuery);
-            }catch (SQLException e){
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-            sqLiteDatabase.execSQL("Drop table if exists "+TABLE_PACKAGE_INFO);
-            sqLiteDatabase.execSQL("Drop table if exists "+ TABLE_NETWORK_TEMP);
-            sqLiteDatabase.execSQL("Drop table if exists "+TABLE_NETWORK_INFO_TABLE);
-            try{
+            sqLiteDatabase.execSQL("Drop table if exists " + TABLE_PACKAGE_INFO);
+            sqLiteDatabase.execSQL("Drop table if exists " + TABLE_NETWORK_TEMP);
+            sqLiteDatabase.execSQL("Drop table if exists " + TABLE_NETWORK_INFO_TABLE);
+            try {
                 onCreate(sqLiteDatabase);
-            }catch (SQLException e){
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }

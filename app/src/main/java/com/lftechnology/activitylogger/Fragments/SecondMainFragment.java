@@ -1,6 +1,5 @@
-package com.lftechnology.activitylogger;
+package com.lftechnology.activitylogger.Fragments;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -11,18 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.lftechnology.activitylogger.Services.ConnectivityChangeMonitoringIntentService;
-import com.lftechnology.activitylogger.model.AppDetails;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.lftechnology.activitylogger.AllApps;
+import com.lftechnology.activitylogger.MobileDataActivity;
+import com.lftechnology.activitylogger.R;
+import com.lftechnology.activitylogger.WifiActivity;
 
 /**
  * Created by DevilDewzone on 7/12/2016.
  */
 public class SecondMainFragment extends Fragment {
     private Context context;
-    Button btnWifi, btnAllApps;
+    Button btnWifi, btnAllApps, btnMobileData;
 
     @Nullable
     @Override
@@ -40,6 +38,13 @@ public class SecondMainFragment extends Fragment {
             @Override
             public void onClick(View view) {
                     startActivity(new Intent(getActivity(), AllApps.class));
+            }
+        });
+        btnMobileData = (Button)view.findViewById(R.id.btn_mobile);
+        btnMobileData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), MobileDataActivity.class));
             }
         });
         return view;

@@ -6,9 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
-import com.lftechnology.activitylogger.model.NetworkUsageDetails;
+import com.lftechnology.activitylogger.Adapter.AllAppsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,6 @@ public class AllApps extends AppCompatActivity {
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     AllAppsAdapter adapter;
-    private List<PackageInfo> packageInfoList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +26,7 @@ public class AllApps extends AppCompatActivity {
         recyclerView = (RecyclerView)findViewById(R.id.recycler_view_all_apps);
         recyclerView.setHasFixedSize(true);
 
-        packageInfoList = RawAppInfo.getAllInstalledApps(this);
+        List<PackageInfo> packageInfoList = RawAppInfo.getAllInstalledApps(this);
         List<PackageInfo> packageInfos = new ArrayList<>();
         for(PackageInfo packageInfo: packageInfoList){
             if((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {

@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class WifiActivity extends AppCompatActivity {
+public class MobileDataActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
@@ -27,24 +27,22 @@ public class WifiActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wifi);
+        setContentView(R.layout.activity_mobile_data);
 
         SQLiteAccessLayer sqLiteAccessLayer = new SQLiteAccessLayer(this);
-        List<NetworkUsageDetails> networkUsageDetailsList = sqLiteAccessLayer.queryNetworkUsageDetails(ConnectivityChangeMonitoringIntentService.WIFI_NETWORK);
+        List<NetworkUsageDetails> networkUsageDetailsList = sqLiteAccessLayer.queryNetworkUsageDetails(ConnectivityChangeMonitoringIntentService.MOBILE_NETWORK);
         Map<String, NetworkUsageDetails> mapNetworkDetails = new HashMap<>();
 
         for(NetworkUsageDetails networkUsageDetails : networkUsageDetailsList){
             if(!keyPackageName.contains(networkUsageDetails.getPackageName())){
                 keyPackageName.add(networkUsageDetails.getPackageName());
                 mapNetworkDetails.put(networkUsageDetails.getPackageName(), networkUsageDetails);
-                // // TODO: 7/18/2016 remove log 
                 Log.e("keyPackage", "add to key package: "+networkUsageDetails.getPackageName());
             }else{
                 NetworkUsageDetails tempDetails = mapNetworkDetails.get(networkUsageDetails.getPackageName());
                 tempDetails.setTotalRxBytes(tempDetails.getTotalRxBytes()+networkUsageDetails.getTotalRxBytes());
                 tempDetails.setTotalTxBytes(tempDetails.getTotalTxBytes()+networkUsageDetails.getTotalTxBytes());
                 mapNetworkDetails.put(networkUsageDetails.getPackageName(), tempDetails);
-                // TODO: 7/18/2016 remove log
                 Log.e("mapPackage", "mapUpdated: "+tempDetails.getPackageName()+" "+tempDetails.getTotalRxBytes()+" "+tempDetails.getTotalTxBytes());
             }
         }
@@ -54,8 +52,8 @@ public class WifiActivity extends AppCompatActivity {
         recyclerView = (RecyclerView)findViewById(R.id.application_list_wifi_usage);
         recyclerView.setHasFixedSize(true);
 
-        layoutManager = new LinearLayoutManager(WifiActivity.this);
-        adapter = new NetworkDataAdapter(WifiActivity.this, networkDetailsListToAdapter);
+        layoutManager = new LinearLayoutManager(MobileDataActivity.this);
+        adapter = new NetworkDataAdapter(MobileDataActivity.this, networkDetailsListToAdapter);
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);

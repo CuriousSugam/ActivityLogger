@@ -1,23 +1,11 @@
 package com.lftechnology.activitylogger;
 
-
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.pm.PackageInfo;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-//import android.view.View;
-import android.app.usage.UsageStats;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.content.Intent;
 import android.provider.Settings;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.lftechnology.activitylogger.Controller.SQLiteAccessLayer;
 import com.lftechnology.activitylogger.model.AppDetails;
@@ -25,10 +13,7 @@ import com.lftechnology.activitylogger.model.AppDetails;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity{
-//    ViewPager viewPager;
-//    TopSlider topSlider;
-    // LinearLayout l;
+public class MainActivity extends AppCompatActivity {
 
     private List<AppDetails> appDetailsFromDatabase;
 
@@ -36,39 +21,6 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.e("check", "welcome to main activity");
-
-
-//        FirstMainFragment frag = new FirstMainFragment();
-//        SecondMainFragment frag2 = new SecondMainFragment();
-//
-//
-//        FragmentManager fragmentManager = getFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//
-//        fragmentTransaction.add(R.id.topfragment, frag);
-//        fragmentTransaction.commit();
-//
-//        //l = (LinearLayout)findViewById(R.id.bottom_grid);
-//
-//        FragmentManager fragmentManager1 = getFragmentManager();
-//        FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
-//
-//        fragmentTransaction1.add(R.id.bottomfragment, frag2);
-//        fragmentTransaction1.commit();
-//
-//        viewPager = (ViewPager)findViewById(R.id.slide_pager);
-//        topSlider= new TopSlider(this);
-//        viewPager.setAdapter(topSlider);
-
-
-        //  check if the permissions for this app is set
-        //       if the permission is not set then
-        //              close the app and redirect to the usage permission access activity
-        //       if the permission is set then
-        //          check if the database is empty
-        //               if the database is empty insert the app details into the database
-        //               if the database is not empty then fetch the app details from the database
 
         if (!CheckPermissions.isPermissionForAccessSet(this)) {
             // TODO Add the code that informs the user that the permission needed for this app is to be set using a popup window
@@ -91,32 +43,11 @@ public class MainActivity extends AppCompatActivity{
         List<AppDetails> appDetailsList;
         RawAppInfo.getAllInstalledApps(this);
         if (sqLiteAccessLayer.isDatabaseEmpty()) {  // database empty
-//            List<UsageStats> usageStatsList = RawAppInfo.getUsageStatsAppList(this);
-//            // iterate through each packageName object
-//            // get the uid of application
-//            // get the package name from the UsageStats object 'pack'
-//            // get the application label/name with the help of that package name
-//            appDetailsList = new ArrayList<>();
-//            for (UsageStats usageStats : usageStatsList) {
-//                String packageName = usageStats.getPackageName();
-//                ApplicationInfo applicationInfo;
-//                try {
-//                    applicationInfo = getPackageManager().getApplicationInfo(packageName, PackageManager.GET_META_DATA);
-//                    AppDetails appDetails = new AppDetails(applicationInfo.uid, packageName, String.valueOf(getPackageManager().getApplicationLabel(applicationInfo)));
-//                    SQLiteAccessLayer sqLiteAccessToInsert = new SQLiteAccessLayer(this, appDetails);
-//                    sqLiteAccessToInsert.insertIntoAppDetails();
-//                    appDetailsList.add(appDetails);
-//                } catch (PackageManager.NameNotFoundException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-
             List<PackageInfo> packageInfoList = RawAppInfo.getAllInstalledApps(this);
             appDetailsList = new ArrayList<>();
 
             for (PackageInfo packageInfo : packageInfoList) {
                 if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
-//                    Log.e("applications", packageInfo.applicationInfo.uid+" "+String.valueOf(getPackageManager().getApplicationLabel(packageInfo.applicationInfo)) + "  " + packageInfo.packageName);
                     AppDetails appDetails = new AppDetails(
                             packageInfo.applicationInfo.uid,
                             packageInfo.packageName,
@@ -124,7 +55,6 @@ public class MainActivity extends AppCompatActivity{
                     SQLiteAccessLayer sqLiteAccessLayerForInsert = new SQLiteAccessLayer(this, appDetails);
                     sqLiteAccessLayerForInsert.insertIntoAppDetails();
                     appDetailsList.add(appDetails);
-
                 }
             }
         } else { // database is not empty
@@ -133,7 +63,5 @@ public class MainActivity extends AppCompatActivity{
         }
         sqLiteAccessLayer.closeDatabaseConnection();
         return appDetailsList;
-
     }
-
 }

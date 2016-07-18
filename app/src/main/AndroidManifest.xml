@@ -29,7 +29,7 @@
         <activity
             android:name=".WifiActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme" android:label="WiFi">
 
             <!-- <meta-data android:name="Wifi Data Usage" /> -->
         </activity>
@@ -42,7 +42,14 @@
 
         <service android:name=".Services.ConnectivityChangeMonitoringIntentService" />
 
-        <activity android:name=".AllApps" android:theme="@style/AppTheme" android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".AllApps"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme" android:label="Applications"/>
+
+        <activity android:name=".MobileDataActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme" android:label="Mobile Data" />
     </application>
 
 </manifest>

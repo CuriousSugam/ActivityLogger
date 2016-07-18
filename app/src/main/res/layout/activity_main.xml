@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/topfragment"
-        android:name="com.lftechnology.activitylogger.FirstMainFragment"
+        android:name="com.lftechnology.activitylogger.Fragments.FirstMainFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -16,7 +16,7 @@
 
     <fragment
         android:id="@+id/bottomfragment"
-        android:name="com.lftechnology.activitylogger.SecondMainFragment"
+        android:name="com.lftechnology.activitylogger.Fragments.SecondMainFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
