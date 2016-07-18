@@ -6,5 +6,6 @@
         <item>Monthly</item>
         <item>Yearly</item>
         <item>Best</item>
+        <item>Top5</item>
     </string-array>
 </resources>

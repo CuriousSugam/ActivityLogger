@@ -55,6 +55,8 @@ public class LoggerActivity extends AppCompatActivity {
                     case 4:
                         getStatsFromBeginning(view);
                         break;
+                    case 5:
+                        startActivity(new Intent(LoggerActivity.this,ShowsTop5AppsActivity.class));
                     default:
                         Toast.makeText(LoggerActivity.this,"What just happened?",Toast.LENGTH_SHORT).show();
                         break;
@@ -73,6 +75,7 @@ public class LoggerActivity extends AppCompatActivity {
         RawAppInfo.printCurrentUsageStats(this, ConstantIntervals.DAILY.value);
         initialize();
         sort();
+        putTopFiveInDB();
         showInSortedList();
     }
 
@@ -80,6 +83,7 @@ public class LoggerActivity extends AppCompatActivity {
         RawAppInfo.printCurrentUsageStats(this, ConstantIntervals.WEEKLY.value);
         initialize();
         sort();
+        putTopFiveInDB();
         showInSortedList();
     }
 
@@ -87,12 +91,14 @@ public class LoggerActivity extends AppCompatActivity {
         RawAppInfo.printCurrentUsageStats(this, ConstantIntervals.MONTHLY.value);
         initialize();
         sort();
+        putTopFiveInDB();
         showInSortedList();
     }
     public void getStatsYearly(View view){
         RawAppInfo.printCurrentUsageStats(this,ConstantIntervals.YEARLY.value);
         initialize();
         sort();
+        putTopFiveInDB();
         showInSortedList();
     }
 
@@ -100,6 +106,7 @@ public class LoggerActivity extends AppCompatActivity {
         RawAppInfo.printCurrentUsageStats(this, ConstantIntervals.BEST.value);
         initialize();
         sort();
+        putTopFiveInDB();
         showInSortedList();
     }
 
@@ -186,6 +193,14 @@ public class LoggerActivity extends AppCompatActivity {
 
     }
 
+    private void putTopFiveInDB() {
+        SharedPreferences sharedPreferences = getSharedPreferences("Top5Apps", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        for (int i = 0; i < 5; i++) {
+            editor.putLong("App" + i, runTimeOfApp[i]);
+        }
+        editor.apply();
+    }
     @Override
     protected void onDestroy() {
         SharedPreferences sharedPreferences = getSharedPreferences("appName", Context.MODE_PRIVATE);
