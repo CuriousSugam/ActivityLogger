@@ -2,6 +2,9 @@ package com.lftechnology.activitylogger;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.util.Log;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,6 +17,17 @@ import java.util.List;
 public class RawAppInfo {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat();//Gets the Date Format
     private static int interval=4;
+
+
+    public static List getAllInstalledApps(Context context){
+        List<PackageInfo> packageInfoList = context.getPackageManager().getInstalledPackages(0);
+//        for(PackageInfo packageInfo: packageInfoList){
+//            if((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0)
+//                Log.e("applications", String.valueOf(context.getPackageManager().getApplicationLabel(packageInfo.applicationInfo))+"  "+packageInfo.packageName);
+//        }
+        return packageInfoList;
+    }
+
 
     /**
     *Returns the list of apps in a List to read

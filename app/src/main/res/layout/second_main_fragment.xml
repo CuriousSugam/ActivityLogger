@@ -47,9 +47,10 @@
             style="?android:attr/borderlessButtonStyle"
             />
         <Button
+            android:id="@+id/btn_all_apps"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Battery"
+            android:text="All Apps"
             android:layout_weight="1"
             android:background="@drawable/button_gradient"
             android:textColor="#333"

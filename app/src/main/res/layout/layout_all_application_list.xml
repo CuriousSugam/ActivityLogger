@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/main_app_icon"
         android:src="@android:mipmap/sym_def_app_icon"
+        android:paddingTop="10dp"
          />
 
     <LinearLayout
@@ -31,7 +32,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Small Text"
-            android:id="@+id/uid"
+            android:id="@+id/txt_network_data_received"
             android:paddingLeft="15dp"/>
 
         <TextView
@@ -39,7 +40,15 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Small Text"
-            android:id="@+id/txt_rxbytes"
+            android:id="@+id/txt_network_data_trasmitted"
+            android:paddingLeft="15dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Small Text"
+            android:id="@+id/txt_total_network_data"
             android:paddingLeft="15dp"/>
 
     </LinearLayout>

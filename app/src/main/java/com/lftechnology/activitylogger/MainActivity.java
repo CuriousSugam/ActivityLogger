@@ -3,6 +3,7 @@ package com.lftechnology.activitylogger;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.pm.PackageInfo;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.lftechnology.activitylogger.Controller.SQLiteAccessLayer;
 import com.lftechnology.activitylogger.model.AppDetails;
@@ -23,10 +25,10 @@ import com.lftechnology.activitylogger.model.AppDetails;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 //    ViewPager viewPager;
 //    TopSlider topSlider;
-   // LinearLayout l;
+    // LinearLayout l;
 
     private List<AppDetails> appDetailsFromDatabase;
 
@@ -87,24 +89,42 @@ public class MainActivity extends AppCompatActivity {
     private List<AppDetails> getAppDetailsFromDatabase() {
         SQLiteAccessLayer sqLiteAccessLayer = new SQLiteAccessLayer(this);
         List<AppDetails> appDetailsList;
+        RawAppInfo.getAllInstalledApps(this);
         if (sqLiteAccessLayer.isDatabaseEmpty()) {  // database empty
-            List<UsageStats> usageStatsList = RawAppInfo.getUsageStatsAppList(this);
-            // iterate through each packageName object
-            // get the uid of application
-            // get the package name from the UsageStats object 'pack'
-            // get the application label/name with the help of that package name
+//            List<UsageStats> usageStatsList = RawAppInfo.getUsageStatsAppList(this);
+//            // iterate through each packageName object
+//            // get the uid of application
+//            // get the package name from the UsageStats object 'pack'
+//            // get the application label/name with the help of that package name
+//            appDetailsList = new ArrayList<>();
+//            for (UsageStats usageStats : usageStatsList) {
+//                String packageName = usageStats.getPackageName();
+//                ApplicationInfo applicationInfo;
+//                try {
+//                    applicationInfo = getPackageManager().getApplicationInfo(packageName, PackageManager.GET_META_DATA);
+//                    AppDetails appDetails = new AppDetails(applicationInfo.uid, packageName, String.valueOf(getPackageManager().getApplicationLabel(applicationInfo)));
+//                    SQLiteAccessLayer sqLiteAccessToInsert = new SQLiteAccessLayer(this, appDetails);
+//                    sqLiteAccessToInsert.insertIntoAppDetails();
+//                    appDetailsList.add(appDetails);
+//                } catch (PackageManager.NameNotFoundException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+
+            List<PackageInfo> packageInfoList = RawAppInfo.getAllInstalledApps(this);
             appDetailsList = new ArrayList<>();
-            for (UsageStats usageStats : usageStatsList) {
-                String packageName = usageStats.getPackageName();
-                ApplicationInfo applicationInfo;
-                try {
-                    applicationInfo = getPackageManager().getApplicationInfo(packageName, PackageManager.GET_META_DATA);
-                    AppDetails appDetails = new AppDetails(applicationInfo.uid, packageName, String.valueOf(getPackageManager().getApplicationLabel(applicationInfo)));
-                    SQLiteAccessLayer sqLiteAccessToInsert = new SQLiteAccessLayer(this, appDetails);
-                    sqLiteAccessToInsert.insertIntoAppDetails();
+
+            for (PackageInfo packageInfo : packageInfoList) {
+                if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
+//                    Log.e("applications", packageInfo.applicationInfo.uid+" "+String.valueOf(getPackageManager().getApplicationLabel(packageInfo.applicationInfo)) + "  " + packageInfo.packageName);
+                    AppDetails appDetails = new AppDetails(
+                            packageInfo.applicationInfo.uid,
+                            packageInfo.packageName,
+                            String.valueOf(getPackageManager().getApplicationLabel(packageInfo.applicationInfo)));
+                    SQLiteAccessLayer sqLiteAccessLayerForInsert = new SQLiteAccessLayer(this, appDetails);
+                    sqLiteAccessLayerForInsert.insertIntoAppDetails();
                     appDetailsList.add(appDetails);
-                } catch (PackageManager.NameNotFoundException e) {
-                    e.printStackTrace();
+
                 }
             }
         } else { // database is not empty
@@ -115,6 +135,5 @@ public class MainActivity extends AppCompatActivity {
         return appDetailsList;
 
     }
-
 
 }
