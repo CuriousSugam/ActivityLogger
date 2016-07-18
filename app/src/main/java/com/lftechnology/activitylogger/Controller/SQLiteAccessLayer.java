@@ -9,7 +9,9 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
+import android.net.Network;
 import android.net.TrafficStats;
+import android.util.Log;
 
 import com.lftechnology.activitylogger.model.AppDetails;
 import com.lftechnology.activitylogger.model.NetworkUsageDetails;
@@ -18,7 +20,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Sugam Shakya
@@ -177,7 +181,10 @@ public class SQLiteAccessLayer {
         contentValues.put(TABLE_COLUMN_PACKAGE_NAME, this.networkUsageDetails.getPackageName() );
         contentValues.put(TABLE_COLUMN_INITIAL_RX_BYTES, this.networkUsageDetails.getTotalRxBytes());
         contentValues.put(TABLE_COLUMN_INITIAL_TX_BYTES, this.networkUsageDetails.getTotalTxBytes());
+        Log.e("insertIntoTempTable", this.networkUsageDetails.getPackageName()+" "+this.networkUsageDetails.getTotalTxBytes()+
+        " "+ this.networkUsageDetails.getTotalRxBytes());
         return db.insert(TABLE_NETWORK_TEMP, TABLE_COLUMN_DATE_TIME, contentValues);
+
     }
 
     /**
@@ -193,7 +200,7 @@ public class SQLiteAccessLayer {
             NetworkUsageDetails tempNetworkUsageDetailsObj = new NetworkUsageDetails();
             tempNetworkUsageDetailsObj.setPackageName(cursor.getString(cursor.getColumnIndex(TABLE_COLUMN_PACKAGE_NAME)));
             try {
-                tempNetworkUsageDetailsObj.setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(cursor.getString(cursor.getColumnIndex(TABLE_COLUMN_DATE_TIME))));
+                tempNetworkUsageDetailsObj.setInitialDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(cursor.getString(cursor.getColumnIndex(TABLE_COLUMN_DATE_TIME))));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -222,7 +229,7 @@ public class SQLiteAccessLayer {
         List<NetworkUsageDetails> networkUsageDetailsList = queryTempNetworkUsageDetails();
         for(NetworkUsageDetails networkUsageDetails : networkUsageDetailsList){
             String packageName = networkUsageDetails.getPackageName();
-            Date date = networkUsageDetails.getDate();
+            Date date = networkUsageDetails.getInitialDate();
             int uid = 0;
             try {
                 ApplicationInfo applicationInfo = context.getPackageManager().getApplicationInfo(packageName, PackageManager.GET_META_DATA);
@@ -249,8 +256,71 @@ public class SQLiteAccessLayer {
                 sqLiteStatement.bindLong(4, netTxBytes);
                 sqLiteStatement.bindString(5, networkType);
                 sqLiteStatement.executeInsert();
+                Log.e("inserttoNetworkDetails", packageName+" "+networkType+" "+netRxBytes+" "+netTxBytes);
             }
         }
+    }
+
+    /**
+     *  This method extracts the network details of an application from the database
+     * @return a List<NetworkUsageDetails>
+     */
+    public List<NetworkUsageDetails> queryNetworkUsageDetails(){
+        List<NetworkUsageDetails> networkUsageDetailsList = new ArrayList<>();
+        Map<String, NetworkUsageDetails> appMap = new HashMap<>();
+
+        String[] columns = {TABLE_COLUMN_PACKAGE_NAME, TABLE_COLUMN_INITIAL_DATE_TIME, TABLE_COLUMN_NET_RX_BYTES, TABLE_COLUMN_NET_TX_BYTES, TABLE_COLUMN_FINAL_DATE_TIME};
+        Cursor cursor = db.query(TABLE_NETWORK_INFO_TABLE, columns, null, null, null, null, null, null);
+        while(cursor.moveToNext()){
+//            if(appMap.containsKey(cursor.getColumnName(cursor.getColumnIndex(TABLE_COLUMN_PACKAGE_NAME)))){
+//                for(Map.Entry<String, NetworkUsageDetails> entry : appMap.entrySet()){
+//                    String packageName = entry.getKey();
+//                    if(packageName.equals(cursor.getColumnName(cursor.getColumnIndex(TABLE_COLUMN_PACKAGE_NAME)))){
+//                        NetworkUsageDetails networkUsageDetails = entry.getValue();
+//                        long txBytes = networkUsageDetails.getTotalRxBytes();
+//                        long rxBytes = networkUsageDetails.getTotalTxBytes();
+//                        networkUsageDetails.setTotalRxBytes(rxBytes + cursor.getLong(cursor.getColumnIndex(TABLE_COLUMN_NET_RX_BYTES)));
+//                        networkUsageDetails.setTotalTxBytes(txBytes + cursor.getLong(cursor.getColumnIndex(TABLE_COLUMN_NET_TX_BYTES)));
+//                        appMap.put(cursor.getColumnName(cursor.getColumnIndex(TABLE_COLUMN_PACKAGE_NAME)), networkUsageDetails );
+//                    }
+//                }
+//            }else{
+                NetworkUsageDetails NetworkUsageDetailsObj = new NetworkUsageDetails();
+                NetworkUsageDetailsObj.setPackageName(cursor.getString(cursor.getColumnIndex(TABLE_COLUMN_PACKAGE_NAME)));
+                try {
+                    NetworkUsageDetailsObj.setInitialDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(cursor.getString(cursor.getColumnIndex(TABLE_COLUMN_INITIAL_DATE_TIME))));
+                    NetworkUsageDetailsObj.setFinalDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(cursor.getString(cursor.getColumnIndex(TABLE_COLUMN_FINAL_DATE_TIME))));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                NetworkUsageDetailsObj.setTotalRxBytes(cursor.getLong(cursor.getColumnIndex(TABLE_COLUMN_NET_RX_BYTES)));
+                NetworkUsageDetailsObj.setTotalTxBytes(cursor.getLong(cursor.getColumnIndex(TABLE_COLUMN_NET_TX_BYTES)));
+                appMap.put(cursor.getString(cursor.getColumnIndex(TABLE_COLUMN_PACKAGE_NAME)), NetworkUsageDetailsObj);
+                networkUsageDetailsList.add(NetworkUsageDetailsObj);
+//            }
+        }
+//        networkUsageDetailsList = new ArrayList<>(appMap.values());
+
+        cursor.close();
+        return networkUsageDetailsList;
+    }
+
+    public NetworkUsageDetails getNetNetworkBytes(String networkType, String packageName){
+//        NetworkUsageDetails networkUsageDetails = new NetworkUsageDetails();
+        String[] columns = {TABLE_COLUMN_NET_RX_BYTES, TABLE_COLUMN_NET_TX_BYTES};
+        String whereClause = TABLE_COLUMN_PACKAGE_NAME+"=? AND "+TABLE_COLUMN_NETWORK_TYPE+"= ?";
+        String[] whereArgs = new String[]{packageName, networkType};
+        String orderBy = TABLE_COLUMN_FINAL_DATE_TIME;
+        Cursor cursor = db.query(TABLE_NETWORK_INFO_TABLE, columns, whereClause, whereArgs, null, null, orderBy, null);
+        long rx = 0;
+        long tx = 0;
+        while(cursor.moveToNext()){
+            rx += cursor.getLong(cursor.getColumnIndex(TABLE_COLUMN_INITIAL_RX_BYTES));
+            tx += cursor.getLong(cursor.getColumnIndex(TABLE_COLUMN_INITIAL_TX_BYTES));
+        }
+        NetworkUsageDetails networkUsageDetails = new NetworkUsageDetails(packageName, rx,tx);
+        cursor.close();
+        return networkUsageDetails;
     }
 
     public void closeDatabaseConnection(){

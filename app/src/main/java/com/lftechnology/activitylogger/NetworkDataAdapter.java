@@ -49,17 +49,42 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-//        DecimalFormat decimalFormat = new DecimalFormat("#.##");
-//        decimalFormat.setRoundingMode(RoundingMode.CEILING);
         float rxBytes = (float) networkUsageDetailsList.get(position).getTotalRxBytes();
         float txBytes = (float) networkUsageDetailsList.get(position).getTotalTxBytes();
         float total = rxBytes + txBytes;
-//        holder.receivedBytes.setText("Received:  "+decimalFormat.format(rxBytes)+" MB");
-//        holder.transmittedBytes.setText("Transmitted:  "+decimalFormat.format(txBytes)+" MB");
-//        holder.totalBytes.setText("Total:  "+decimalFormat.format(total)+ " MB");
-        holder.receivedBytes.setText("Received:  "+rxBytes/(1024*1024));
-        holder.transmittedBytes.setText("Transmitted:  "+txBytes/(1024*1024));
-        holder.totalBytes.setText("Total:  "+total/(1024*1024));
+
+        if(rxBytes > (1024*1024*1024)){
+            holder.receivedBytes.setText("Received:  "+String.format("%.2f", rxBytes/(1024*1024*1024))+ " GB");
+        }else if(rxBytes > (1024*1024)){
+            holder.receivedBytes.setText("Received:  "+String.format("%.2f", rxBytes/(1024*1024))+ " MB");
+        }else if(rxBytes > 1024){
+            holder.receivedBytes.setText("Received:  "+String.format("%.2f", rxBytes/1024)+ " KB");
+        }else{
+            holder.receivedBytes.setText("Received:  "+rxBytes+ " bytes");
+        }
+
+        if(rxBytes > (1024*1024*1024)){
+            holder.transmittedBytes.setText("Transmitted:  "+String.format("%.2f", txBytes/(1024*1024*1024))+" GB");
+        }else if(rxBytes > (1024*1024)){
+            holder.transmittedBytes.setText("Transmitted:  "+String.format("%.2f", txBytes/(1024*1024))+" MB");
+        }else if(rxBytes > 1024){
+            holder.transmittedBytes.setText("Transmitted:  "+String.format("%.2f", txBytes/1024)+" KB");
+        }else{
+            holder.transmittedBytes.setText("Transmitted:  "+txBytes+ " bytes");
+        }
+
+        if(rxBytes > (1024*1024*1024)){
+            holder.totalBytes.setText("Total:  "+ String.format("%.2f", total/(1024*1024*1024))+" GB");
+        }else if(rxBytes > (1024*1024)){
+            holder.totalBytes.setText("Total:  "+ String.format("%.2f", total/(1024*1024))+" MB");
+        }else if(rxBytes > 1024){
+            holder.totalBytes.setText("Total:  "+ String.format("%.2f", total/1024)+" KB");
+        }else{
+            holder.totalBytes.setText("Total:  "+total+ " bytes");
+        }
+//        holder.receivedBytes.setText("Received:  "+String.format("%.2f", rxBytes/(1024*1024)));
+//        holder.transmittedBytes.setText("Transmitted:  "+String.format("%.2f", txBytes/(1024*1024)));
+//        holder.totalBytes.setText("Total:  "+ String.format("%.2f", total/(1024*1024)));
 //        Log.e("message", rxBytes+" + "+txBytes+" = "+total);
 
     }
