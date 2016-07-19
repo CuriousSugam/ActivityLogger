@@ -9,4 +9,24 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.lftechnology.activitylogger.ShowsTop5AppsActivity">
 
+
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="com.lftechnology.activitylogger.Fragments.FragmentTop5ActivitySelection"
+        android:id="@+id/fragmentSelection"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" />
+
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="com.lftechnology.activitylogger.Fragments.FragmentTop5ActivityCharts"
+        android:id="@+id/fragmentCharts"
+        android:layout_below="@+id/fragmentSelection"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>
