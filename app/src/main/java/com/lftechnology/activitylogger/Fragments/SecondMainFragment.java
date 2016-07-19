@@ -1,5 +1,6 @@
 package com.lftechnology.activitylogger.Fragments;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.lftechnology.activitylogger.AllApps;
+import com.lftechnology.activitylogger.Dummy;
 import com.lftechnology.activitylogger.MobileDataActivity;
 import com.lftechnology.activitylogger.R;
 import com.lftechnology.activitylogger.WifiActivity;
@@ -20,7 +22,7 @@ import com.lftechnology.activitylogger.WifiActivity;
  */
 public class SecondMainFragment extends Fragment {
     private Context context;
-    Button btnWifi, btnAllApps, btnMobileData;
+    Button btnWifi, btnAllApps, btnMobileData, btnTime;
 
     @Nullable
     @Override
@@ -31,6 +33,8 @@ public class SecondMainFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), WifiActivity.class));
+//                getActivity().overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+
             }
         });
         btnAllApps = (Button) view.findViewById(R.id.btn_all_apps);
@@ -45,6 +49,13 @@ public class SecondMainFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), MobileDataActivity.class));
+            }
+        });
+        btnTime = (Button)view.findViewById(R.id.btn_time);
+        btnTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), Dummy.class));
             }
         });
         return view;

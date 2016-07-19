@@ -28,8 +28,9 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".WifiActivity"
+            android:label="WiFi"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme" android:label="WiFi">
+            android:theme="@style/AppTheme">
 
             <!-- <meta-data android:name="Wifi Data Usage" /> -->
         </activity>
@@ -44,12 +45,16 @@
 
         <activity
             android:name=".AllApps"
+            android:label="Applications"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme" android:label="Applications"/>
-
-        <activity android:name=".MobileDataActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".MobileDataActivity"
+            android:label="Mobile Data"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme" android:label="Mobile Data" />
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Dummy" android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
+import android.content.pm.ResolveInfo;
 import android.util.Log;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 /**
  * Created by sparsha on 6/29/2016.
@@ -19,13 +21,30 @@ public class RawAppInfo {
     private static int interval=4;
 
 
-    public static List getAllInstalledApps(Context context){
+    public static List<PackageInfo> getAllInstalledApps(Context context){
         List<PackageInfo> packageInfoList = context.getPackageManager().getInstalledPackages(0);
-//        for(PackageInfo packageInfo: packageInfoList){
-//            if((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0)
-//                Log.e("applications", String.valueOf(context.getPackageManager().getApplicationLabel(packageInfo.applicationInfo))+"  "+packageInfo.packageName);
-//        }
+        Iterator iterator = packageInfoList.iterator();
+        while(iterator.hasNext()){
+            PackageInfo packageInfo = (PackageInfo)iterator.next();
+            if((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0){
+                iterator.remove();
+            }
+        }
         return packageInfoList;
+    }
+
+    public static List<ResolveInfo> getSystemApps(Context context){
+        Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
+        mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        List<ResolveInfo> resolveInfos = context.getPackageManager().queryIntentActivities(mainIntent, 0);
+        Iterator iterator = resolveInfos.iterator();
+        while(iterator.hasNext()){
+            ResolveInfo resolveInfo = (ResolveInfo) iterator.next();
+            if((resolveInfo.activityInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
+                iterator.remove();
+            }
+        }
+        return resolveInfos;
     }
 
 
