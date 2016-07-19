@@ -22,8 +22,8 @@ public class PieChart extends View {
     public void onDraw(Canvas canvas){
         super.onDraw(canvas);
         float totalValue=0,startAngle=0,makeAngle;
-        int x = getWidth();
-        int y = getHeight();
+        int x = 1000;
+        int y = 1000;
         int radius = 300;
         RectF rectF = new RectF(x/2-radius,y/2-radius,x/2+radius,y/2+radius);
         Paint paint = new Paint();
