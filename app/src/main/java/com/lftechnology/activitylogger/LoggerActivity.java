@@ -15,6 +15,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.content.pm.PackageManager;
+
+import com.lftechnology.activitylogger.Adapters.CustomAdapterAppDetails;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +61,6 @@ public class LoggerActivity extends AppCompatActivity {
                     case 5:
                         startActivity(new Intent(LoggerActivity.this,ShowsTop5AppsActivity.class));
                     default:
-                        Toast.makeText(LoggerActivity.this,"What just happened?",Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -196,8 +198,15 @@ public class LoggerActivity extends AppCompatActivity {
     private void putTopFiveInDB() {
         SharedPreferences sharedPreferences = getSharedPreferences("Top5Apps", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        for (int i = 0; i < 5; i++) {
-            editor.putLong("App" + i, runTimeOfApp[i]);
+        int count = 0;
+        for (int i = 0; i < namesOfApp.length; i++) {
+            if(PackageExists(namesOfApp[i])){
+                editor.putLong("AppDuration" + count, runTimeOfApp[i]);
+                editor.putString("AppName"+count,namesOfApp[i]);
+                count++;
+            }
+            if (count == 5)
+                break;
         }
         editor.apply();
     }
