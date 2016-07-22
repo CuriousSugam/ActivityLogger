@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger;
+package com.lftechnology.activitylogger.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.lftechnology.activitylogger.EachAppDetails;
+import com.lftechnology.activitylogger.R;
 
 import java.util.List;
 
