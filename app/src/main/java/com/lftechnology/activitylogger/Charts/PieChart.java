@@ -14,16 +14,18 @@ import android.view.View;
  */
 public class PieChart extends View {
     SharedPreferences sharedPreferences;
+    int completeCircle;
     public PieChart(Context context) {
         super(context);
         sharedPreferences = context.getSharedPreferences("Top5Apps",Context.MODE_PRIVATE);
+        completeCircle = 0;
     }
     @Override
     public void onDraw(Canvas canvas){
         super.onDraw(canvas);
         float totalValue=0,startAngle=0,makeAngle;
-        int x = 1000;
-        int y = 1000;
+        int x = getWidth();
+        int y = getHeight();
         int radius = 300;
         RectF rectF = new RectF(x/2-radius,y/2-radius,x/2+radius,y/2+radius);
         Paint paint = new Paint();
@@ -32,23 +34,23 @@ public class PieChart extends View {
         canvas.drawPaint(paint);
 
         String[] pieChartColors = {"#4D4D4D","#5DA5DA","#FAA43A","#60BD68","#F17CB0"};
-        float[] values = new float[5];
-        for(int i = 0;i<values.length;i++){
-            values[i] = (float)sharedPreferences.getLong("App"+i,1);
+        float[] appValuesDuration = new float[5];
+        String[] valueNames = new String[5];
+        for(int i = 0;i<appValuesDuration.length;i++){
+            appValuesDuration[i] = (float)sharedPreferences.getLong("AppDuration"+i,1);
+            valueNames[i] = sharedPreferences.getString("AppName"+i,"n/A");
         }
 
-        for(float value: values){
+        for(float value: appValuesDuration){
             totalValue = totalValue +value;
         }
         Log.d("LOG","Total value is"+totalValue);
-        paint.setColor(Color.BLACK);
-        canvas.drawCircle(x/2,y/2,radius,paint);
 
-        for(int i = 0; i<values.length;i++){
-            makeAngle = values[i] * 360 / totalValue;
+        for(int i = 0; i<appValuesDuration.length;i++){
+            makeAngle = appValuesDuration[i] * completeCircle / totalValue;
             paint.setColor(Color.parseColor(pieChartColors[i]));
             canvas.drawArc(rectF,startAngle,makeAngle,true,paint);
-            startAngle = startAngle + makeAngle;
+            startAngle = startAngle + makeAngle + 2;
         }
 
         // paint.setColor(Color.parseColor("#A134D3"));
@@ -57,8 +59,11 @@ public class PieChart extends View {
 
 
         paint.setColor(Color.WHITE);
-        canvas.drawCircle(x/2,y/2,radius/5,paint);
-
+        canvas.drawCircle(x/2,y/2,radius/2,paint);
+        if(completeCircle<350){
+            completeCircle+=5;
+            invalidate();
+        }
 
     }
 
