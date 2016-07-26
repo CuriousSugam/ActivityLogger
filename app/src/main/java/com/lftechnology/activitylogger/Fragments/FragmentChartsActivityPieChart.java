@@ -14,7 +14,7 @@ import com.lftechnology.activitylogger.Charts.PieChart;
 /**
  * Created by sparsha on 7/18/2016.
  */
-public class FragmentTop5ActivityPieChart extends Fragment {
+public class FragmentChartsActivityPieChart extends Fragment {
 
     @Nullable
     @Override

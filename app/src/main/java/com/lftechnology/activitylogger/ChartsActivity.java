@@ -17,7 +17,7 @@ import com.lftechnology.activitylogger.Fragments.FragmentTop5ActivityBarChart;
 import com.lftechnology.activitylogger.Fragments.FragmentTop5ActivityPieChart;
 import com.lftechnology.activitylogger.Interfaces.ChartsFragmentsCommunicator;
 
-public class ShowsTop5AppsActivity extends AppCompatActivity{
+public class ChartsActivity extends AppCompatActivity{
     ViewPager viewPager;
     TabLayout tabLayout;
     @Override

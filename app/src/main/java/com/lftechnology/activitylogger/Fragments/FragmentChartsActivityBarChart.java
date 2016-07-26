@@ -12,7 +12,7 @@ import com.lftechnology.activitylogger.Charts.BarChart;
 /**
  * Created by sparsha on 7/21/2016.
  */
-public class FragmentTop5ActivityBarChart extends Fragment {
+public class FragmentChartsActivityBarChart extends Fragment {
     BarChart barChart;
 
     @Nullable
