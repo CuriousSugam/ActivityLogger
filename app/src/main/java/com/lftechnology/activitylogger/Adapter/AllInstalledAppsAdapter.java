@@ -16,40 +16,40 @@ import com.lftechnology.activitylogger.model.AppDetails;
 import java.util.List;
 
 /**
- * It is an adapter class that binds the data of the system apps to the recycler view
+ * It is an adapter class that binds the data of the installed apps to the recycler view
  *
- * Created by Sugam on 7/18/2016.
+ * Created by Sugam on 7/15/2016.
  */
-public class AllSystemAppsRecyclerViewAdapter extends RecyclerView.Adapter<AllSystemAppsRecyclerViewAdapter .AllSystemAppsViewholder >  {
+public class AllInstalledAppsAdapter extends RecyclerView.Adapter<AllInstalledAppsAdapter.AllAppsViewholder> {
+
     private Context context;
-    private List<AppDetails> appDetailsList;
+    private  List<AppDetails> appDetailsList;
 
     /**
      *
      * @param context context of the calling
      * @param appDetailsList List of AppDetails object
      */
-    public AllSystemAppsRecyclerViewAdapter(Context context, List<AppDetails> appDetailsList){
+    public AllInstalledAppsAdapter(Context context, List<AppDetails> appDetailsList){
         this.context = context;
         this.appDetailsList = appDetailsList;
     }
 
     @Override
-    public AllSystemAppsViewholder  onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_all_applications_grid, parent, false);
-        return new AllSystemAppsViewholder (view);
+    public AllAppsViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_all_applications_grid, parent, false);
+        return new AllAppsViewholder(view);
     }
 
 
-
     @Override
-    public void onBindViewHolder(AllSystemAppsViewholder  holder, int position) {
+    public void onBindViewHolder(AllAppsViewholder holder, int position) {
+        String applicationName =appDetailsList.get(position).getApplicationName();
         String packageName = appDetailsList.get(position).getPackageName();
-        String applicationLabel = appDetailsList.get(position).getApplicationName();
-        if(applicationLabel.length() > 9){
-            holder.applicationName.setText(applicationLabel.substring(0, 8)+"...");
+        if(applicationName.length() > 9){
+            holder.applicationName.setText(applicationName.substring(0, 8)+"...");
         }else {
-            holder.applicationName.setText(applicationLabel);
+            holder.applicationName.setText(applicationName);
         }
         loadBitmap(packageName, holder.applicationIcon);
     }
@@ -77,16 +77,15 @@ public class AllSystemAppsRecyclerViewAdapter extends RecyclerView.Adapter<AllSy
         return appDetailsList.size();
     }
 
-    public class AllSystemAppsViewholder extends RecyclerView.ViewHolder {
+    public class AllAppsViewholder extends RecyclerView.ViewHolder {
 
         private ImageView applicationIcon;
         private TextView applicationName;
 
-        public AllSystemAppsViewholder(View itemView) {
+        public AllAppsViewholder(View itemView) {
             super(itemView);
             applicationIcon = (ImageView) itemView.findViewById(R.id.image_view_app_icon);
             applicationName = (TextView) itemView.findViewById(R.id.txt_app_name);
         }
-
     }
 }

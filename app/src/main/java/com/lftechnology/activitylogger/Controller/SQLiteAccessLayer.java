@@ -37,12 +37,13 @@ public class SQLiteAccessLayer {
     private static final String TABLE_NETWORK_TEMP = "network_temp_table";
     private static final String TABLE_NETWORK_INFO_TABLE = "network_info_table";
 
-    private static final int DATABASE_VERSION = 11;
+    private static final int DATABASE_VERSION = 12;
 
     private static final String TABLE_COLUMN_ID = "_id";
     private static final String TABLE_COLUMN_UID = "uid";
     private static final String TABLE_COLUMN_PACKAGE_NAME = "package_name";
     private static final String TABLE_COLUMN_APPLICATION_NAME = "application_name";
+    private static final String TABLE_COLUMN_APPLICATION_TYPE = "application_type";
     private static final String TABLE_COLUMN_INITIAL_RX_BYTES = "initial_rx_bytes";
     private static final String TABLE_COLUMN_INITIAL_TX_BYTES = "initial_tx_bytes";
     private static final String TABLE_COLUMN_DATE_TIME = "date_time";
@@ -98,6 +99,7 @@ public class SQLiteAccessLayer {
         contentValues.put(TABLE_COLUMN_UID, this.appDetails.getUid());
         contentValues.put(TABLE_COLUMN_PACKAGE_NAME, this.appDetails.getPackageName());
         contentValues.put(TABLE_COLUMN_APPLICATION_NAME, this.appDetails.getApplicationName());
+        contentValues.put(TABLE_COLUMN_APPLICATION_TYPE, this.appDetails.getApplicationType());
 
         // insert the new row, returning the primary key of the row inserted
         long newInsertedRowId;
@@ -115,13 +117,14 @@ public class SQLiteAccessLayer {
      */
     public List<AppDetails> queryAppDetails() {
         List<AppDetails> appDetailsList = new ArrayList<>();
-        String[] columns = {TABLE_COLUMN_UID, TABLE_COLUMN_PACKAGE_NAME, TABLE_COLUMN_APPLICATION_NAME};
+        String[] columns = {TABLE_COLUMN_UID, TABLE_COLUMN_PACKAGE_NAME, TABLE_COLUMN_APPLICATION_NAME, TABLE_COLUMN_APPLICATION_TYPE};
         Cursor cursor = db.query(TABLE_PACKAGE_INFO, columns, null, null, null, null, null, null);
         while (cursor.moveToNext()) {
             AppDetails tempAppDetailsObj = new AppDetails();
             tempAppDetailsObj.setUid(cursor.getInt(cursor.getColumnIndex(TABLE_COLUMN_UID)));
             tempAppDetailsObj.setPackageName(cursor.getString(cursor.getColumnIndex(TABLE_COLUMN_PACKAGE_NAME)));
             tempAppDetailsObj.setApplicationName(cursor.getString(cursor.getColumnIndex(TABLE_COLUMN_APPLICATION_NAME)));
+            tempAppDetailsObj.setApplicationType(cursor.getString(cursor.getColumnIndex(TABLE_COLUMN_APPLICATION_TYPE)));
             appDetailsList.add(tempAppDetailsObj);
         }
         cursor.close();
@@ -311,7 +314,8 @@ public class SQLiteAccessLayer {
                     + TABLE_COLUMN_ID + " integer primary key autoincrement, "
                     + TABLE_COLUMN_UID + " integer, "
                     + TABLE_COLUMN_PACKAGE_NAME + " varchar(255), "
-                    + TABLE_COLUMN_APPLICATION_NAME + " varchar(30));";
+                    + TABLE_COLUMN_APPLICATION_NAME + " varchar(30), "
+                    + TABLE_COLUMN_APPLICATION_TYPE + " varchar(10));";
             String createNetworkTempTableQuery = "CREATE TABLE IF NOT EXISTS " + TABLE_NETWORK_TEMP + " ("
                     + TABLE_COLUMN_PACKAGE_NAME + " varchar(255), "
                     + TABLE_COLUMN_DATE_TIME + " datetime default current_timestamp, "

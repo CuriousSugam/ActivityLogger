@@ -2,7 +2,6 @@ package com.lftechnology.activitylogger.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 /**
  * @author Sugam Shakya
@@ -16,6 +15,7 @@ public class AppDetails implements Parcelable {
     private int uid;
     private String packageName;
     private String applicationName;
+    private String applicationType;
 
     /**
      *
@@ -28,12 +28,21 @@ public class AppDetails implements Parcelable {
         setPackageName(packageName);
         setApplicationName(applicationName);
     }
+
+    public AppDetails(int uid, String packageName, String applicationName, String applicationType){
+        setUid(uid);
+        setPackageName(packageName);
+        setApplicationName(applicationName);
+        setApplicationType(applicationType);
+    }
+
     public AppDetails(){}
 
     protected AppDetails(Parcel in) {
         setUid(in.readInt());
-        setPackageName(packageName);
-        setApplicationName(applicationName);
+        setPackageName(in.readString());
+        setApplicationName(in.readString());
+        setApplicationType(in.readString());
     }
 
     @Override
@@ -46,12 +55,12 @@ public class AppDetails implements Parcelable {
         parcel.writeInt(uid);
         parcel.writeString(packageName);
         parcel.writeString(applicationName);
+        parcel.writeString(applicationType);
     }
 
     public static final Creator<AppDetails> CREATOR = new Creator<AppDetails>() {
         @Override
         public AppDetails createFromParcel(Parcel in) {
-            Log.e("AppDetails", "Create from parcel: AppDetails");
             return new AppDetails(in);
         }
 
@@ -109,5 +118,11 @@ public class AppDetails implements Parcelable {
         return applicationName;
     }
 
+    public String getApplicationType() {
+        return applicationType;
+    }
 
+    public void setApplicationType(String applicationType) {
+        this.applicationType = applicationType;
+    }
 }

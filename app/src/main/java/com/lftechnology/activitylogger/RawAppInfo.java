@@ -8,9 +8,13 @@ import android.content.pm.PackageInfo;
 import android.content.pm.ResolveInfo;
 import android.util.Log;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
 /**
  * Created by sparsha on 6/29/2016.
  * Returns raw information of apps that are run within an Interval Provided.
@@ -19,6 +23,8 @@ import java.util.List;
 public class RawAppInfo {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat();//Gets the Date Format
     private static int interval=4;
+    public static final String INSTALLED_APP = "installed";
+    public static final String SYSTEM_APP = "system";
 
 
     public static List<PackageInfo> getAllInstalledApps(Context context){
@@ -45,6 +51,45 @@ public class RawAppInfo {
             }
         }
         return resolveInfos;
+    }
+
+    public static Map<String, List<PackageInfo>> getAllApps(Context context){
+        Map<String, List<PackageInfo>> appMap = new HashMap<>();
+
+        Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
+        mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+
+        List<PackageInfo> packageInfoList = context.getPackageManager().getInstalledPackages(0);
+        List<PackageInfo> installedPackageInfoList = new ArrayList<>();
+        List<PackageInfo> systemPackageInfoList = new ArrayList<>();
+
+        Iterator iterator = packageInfoList.iterator();
+        while(iterator.hasNext()){
+            PackageInfo packageInfo = (PackageInfo)iterator.next();
+            if((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0){
+                installedPackageInfoList.add(packageInfo);
+            }else{
+                systemPackageInfoList.add(packageInfo);
+            }
+        }
+
+
+//        List<ResolveInfo> resolveInfos = context.getPackageManager().queryIntentActivities(mainIntent, 0);
+//        List<ResolveInfo> installedResolveInfoList = new ArrayList<>();
+//        List<ResolveInfo> systemResolveInfoList = new ArrayList<>();
+
+//        Iterator iterator = resolveInfos.iterator();
+//        while(iterator.hasNext()){
+//            ResolveInfo resolveInfo = (ResolveInfo) iterator.next();
+//            if((resolveInfo.activityInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
+//                installedResolveInfoList.add(resolveInfo);
+//            }else{
+//                systemResolveInfoList.add(resolveInfo);
+//            }
+//        }
+        appMap.put(INSTALLED_APP, installedPackageInfoList);
+        appMap.put(SYSTEM_APP, systemPackageInfoList);
+        return appMap;
     }
 
 

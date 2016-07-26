@@ -1,74 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_height="match_parent" android:layout_width="match_parent"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:background="#20000000"
-        android:indeterminate="false"
-        android:visibility="visible"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        style="?android:attr/progressBarStyleLarge"
-        />
+<LinearLayout android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/scrollViewAllApplicationList"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        tools:context="com.lftechnology.activitylogger.AllApps"
-        android:orientation="horizontal"
-        android:background="#ffffff"
-        android:isScrollContainer="true"
-        android:visibility="gone"
-        >
+        android:layout_height="wrap_content">
 
-        <RelativeLayout android:orientation="vertical"
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            app:tabBackground="@color/windowBackground"
+            app:tabSelectedTextColor="@android:color/black"
+            app:tabIndicatorColor="@color/colorPrimary"
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Installed Apps"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:paddingBottom="15dp"
-                android:id="@+id/txt_installed_apps"
-                />
+            />
 
-
-
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/recycler_view_all_apps"
-                android:layout_below="@id/txt_installed_apps"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="System Apps"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:paddingBottom="15dp"
-                android:id="@+id/txt_system_apps"
-                android:layout_below="@id/recycler_view_all_apps"
-                android:layout_marginTop="10dp"
-                />
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/recycler_view_all_system_apps"
-                android:layout_below="@id/txt_system_apps"/>
-        </RelativeLayout>
-
-
-    </ScrollView>
-
-</RelativeLayout>
+    </android.support.design.widget.AppBarLayout>
+    <ProgressBar
+        android:id="@+id/progressBarAllApps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/colorPrimary"
+        android:indeterminateDrawable="@drawable/circular_progress_bar"
+        android:visibility="gone"
+        />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager_all_apps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:background="@color/windowBackground"
+        />
+</LinearLayout>

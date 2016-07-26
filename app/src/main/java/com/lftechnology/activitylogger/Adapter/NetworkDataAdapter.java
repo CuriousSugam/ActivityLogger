@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.lftechnology.activitylogger.R;
@@ -25,6 +26,8 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
 
     private Context context;
     private List<NetworkUsageDetails> networkUsageDetailsList;
+    private int progressValue = 0;
+    private float totalBytes;
 
     /**
      *
@@ -32,9 +35,10 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
      * @param networkUsageDetailsList List that contains the object of NetworkUsageDetails to bind
      *                                the data to the view.
      */
-    public NetworkDataAdapter(Context context, List<NetworkUsageDetails> networkUsageDetailsList){
+    public NetworkDataAdapter(Context context, List<NetworkUsageDetails> networkUsageDetailsList, long totalBytes){
         this.context = context;
         this.networkUsageDetailsList = networkUsageDetailsList;
+        this.totalBytes = (float)totalBytes;
     }
 
     @Override
@@ -60,23 +64,23 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
         float total = rxBytes + txBytes;
 
         if(rxBytes > (1024*1024*1024)){
-            holder.receivedBytes.setText("Received:  "+String.format("%.2f", rxBytes/(1024*1024*1024))+ " GB");
+            holder.receivedBytes.setText(String.format("%.2f", rxBytes/(1024*1024*1024))+ " GB");
         }else if(rxBytes > (1024*1024)){
-            holder.receivedBytes.setText("Received:  "+String.format("%.2f", rxBytes/(1024*1024))+ " MB");
+            holder.receivedBytes.setText("Down: "+String.format("%.2f", rxBytes/(1024*1024))+ " MB");
         }else if(rxBytes > 1024){
-            holder.receivedBytes.setText("Received:  "+String.format("%.2f", rxBytes/1024)+ " KB");
+            holder.receivedBytes.setText("Down: "+String.format("%.2f", rxBytes/1024)+ " KB");
         }else{
-            holder.receivedBytes.setText("Received:  "+rxBytes+ " bytes");
+            holder.receivedBytes.setText("Down: "+rxBytes+ " bytes");
         }
 
         if(rxBytes > (1024*1024*1024)){
-            holder.transmittedBytes.setText("Transmitted:  "+String.format("%.2f", txBytes/(1024*1024*1024))+" GB");
+            holder.transmittedBytes.setText("Up: "+String.format("%.2f", txBytes/(1024*1024*1024))+" GB");
         }else if(rxBytes > (1024*1024)){
-            holder.transmittedBytes.setText("Transmitted:  "+String.format("%.2f", txBytes/(1024*1024))+" MB");
+            holder.transmittedBytes.setText("Up  "+String.format("%.2f", txBytes/(1024*1024))+" MB");
         }else if(rxBytes > 1024){
-            holder.transmittedBytes.setText("Transmitted:  "+String.format("%.2f", txBytes/1024)+" KB");
+            holder.transmittedBytes.setText("Up: "+String.format("%.2f", txBytes/1024)+" KB");
         }else{
-            holder.transmittedBytes.setText("Transmitted:  "+txBytes+ " bytes");
+            holder.transmittedBytes.setText("Up: "+txBytes+ " bytes");
         }
 
         if(rxBytes > (1024*1024*1024)){
@@ -88,6 +92,7 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
         }else{
             holder.totalBytes.setText("Total:  "+total+ " bytes");
         }
+        holder.progressBar.setProgress((int)(total/totalBytes*100));
     }
 
     @Override
@@ -99,13 +104,14 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
      * Custom viewholder class. It gets references to the view components of the layout to which the
      * data is to be bound to
      */
-    public class NetworkViewHolder extends RecyclerView.ViewHolder{
+    public class NetworkViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView applicationIcon;
         private TextView applicationName;
         private TextView receivedBytes;
         private TextView transmittedBytes;
         private TextView totalBytes;
+        private ProgressBar progressBar;
 
         public NetworkViewHolder(View itemView) {
             super(itemView);
@@ -114,6 +120,7 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
             receivedBytes = (TextView) itemView.findViewById(R.id.txt_network_data_received);
             transmittedBytes = (TextView) itemView.findViewById(R.id.txt_network_data_trasmitted);
             totalBytes = (TextView) itemView.findViewById(R.id.txt_total_network_data);
+            progressBar = (ProgressBar)itemView.findViewById(R.id.progressBar);
         }
     }
 }
