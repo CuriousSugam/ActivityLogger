@@ -42,7 +42,7 @@ public class RawAppInfo {
      *                                        3 For Yearly
      *                                        4 For From the Beginning
      */
-    protected static void printCurrentUsageStats(Context context, int mInterval){
+    public static void printCurrentUsageStats(Context context, int mInterval){
         interval = mInterval;
         printUsageStats(getUsageStatsAppList(context),context);
     }

@@ -1,21 +1,13 @@
 package com.lftechnology.activitylogger;
 
-import android.app.FragmentManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.os.Parcel;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 
 import com.lftechnology.activitylogger.Adapters.ViewPagerAdapter;
-import com.lftechnology.activitylogger.Charts.PieChart;
-import com.lftechnology.activitylogger.Fragments.FragmentTop5ActivityBarChart;
-import com.lftechnology.activitylogger.Fragments.FragmentTop5ActivityPieChart;
-import com.lftechnology.activitylogger.Interfaces.ChartsFragmentsCommunicator;
+import com.lftechnology.activitylogger.Fragments.FragmentChartsActivityBarChart;
+import com.lftechnology.activitylogger.Fragments.FragmentChartsActivityPieChart;
 
 public class ChartsActivity extends AppCompatActivity{
     ViewPager viewPager;
@@ -23,7 +15,7 @@ public class ChartsActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shows_top5_apps);
+        setContentView(R.layout.activity_charts);
 
         viewPager = (ViewPager)findViewById(R.id.chartsViewPager);
         setupViewPager(viewPager);
@@ -34,8 +26,8 @@ public class ChartsActivity extends AppCompatActivity{
 
     private void setupViewPager(ViewPager viewPager){
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FragmentTop5ActivityBarChart(),"Bar Chart");
-        adapter.addFragment(new FragmentTop5ActivityPieChart(),"PieChart");
+        adapter.addFragment(new FragmentChartsActivityBarChart(),"Bar Chart");
+        adapter.addFragment(new FragmentChartsActivityPieChart(),"PieChart");
         viewPager.setAdapter(adapter);
     }
 

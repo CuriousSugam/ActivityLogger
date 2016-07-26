@@ -29,7 +29,7 @@
             android:theme="@style/AppTheme">
         </activity>
         <activity
-            android:name=".ShowsTop5AppsActivity"
+            android:name=".ChartsActivity"
             android:theme="@style/AppTheme"/>
     </application>
 

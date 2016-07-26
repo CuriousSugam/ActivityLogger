@@ -26,7 +26,10 @@ public class PieChart extends View {
         float totalValue=0,startAngle=0,makeAngle;
         int x = getWidth();
         int y = getHeight();
-        int radius = 300;
+        int radiusReference = x;
+        if(x>y)radiusReference = y;
+
+        int radius = radiusReference/2;
         RectF rectF = new RectF(x/2-radius,y/2-radius,x/2+radius,y/2+radius);
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
@@ -53,15 +56,10 @@ public class PieChart extends View {
             startAngle = startAngle + makeAngle + 2;
         }
 
-        // paint.setColor(Color.parseColor("#A134D3"));
-        //canvas.drawCircle(x/2,y/2,radius,paint);
-
-
-
         paint.setColor(Color.WHITE);
         canvas.drawCircle(x/2,y/2,radius/2,paint);
         if(completeCircle<350){
-            completeCircle+=5;
+            completeCircle+=10;
             invalidate();
         }
 

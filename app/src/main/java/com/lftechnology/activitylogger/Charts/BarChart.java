@@ -96,7 +96,7 @@ public class BarChart extends View implements View.OnTouchListener{
         }
 
         for (int i=0;i<5;i++){
-            barTop = barBottom -(durationOfAppsUsed[i]/totalValue*maxBarHeight);
+            barTop = barBottom -(float)0.8*(durationOfAppsUsed[i]/totalValue*maxBarHeight);
             if(barTop<marginY){barTop = marginY;}
             bar.set(barLeft,barTop,barRight,barBottom);
             paint.setColor(Color.parseColor(chartColors[i]));
@@ -110,13 +110,13 @@ public class BarChart extends View implements View.OnTouchListener{
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            canvas.drawBitmap(bitmapIconsOfApps,(barLeft+((float)0.2*barWidth)),barBottom,paint);
+            canvas.drawBitmap(bitmapIconsOfApps,(barLeft+((float)0.2*barWidth)),barTop-((float)0.6*barWidth),paint);
 //            canvas.drawText(text,barLeft,barBottom+spacing,paint);
             barLeft = barRight+spacing;
             barRight = barLeft + barWidth;
         }
         if(maxBarHeight < screenHeight*(float)1.1){
-            maxBarHeight+=25;
+            maxBarHeight+=50;
             invalidate();
         }
 
@@ -151,7 +151,7 @@ public class BarChart extends View implements View.OnTouchListener{
             barWidth --;
             invalidate();
         }
-
+        Log.d("LOG","BarWidth is"+barWidth);
         return true;
     }
 }
