@@ -91,7 +91,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
 
     private void gotoNext() {
-        startActivity(new Intent(SplashScreenActivity.this, LoggerActivity.class));//TODO change LoggerActivity To MainActivity
+        startActivity(new Intent(SplashScreenActivity.this, TimeActivity.class));//TODO
         finish();
     }
 }

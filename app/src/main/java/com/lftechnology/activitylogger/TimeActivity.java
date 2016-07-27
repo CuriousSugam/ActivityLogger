@@ -2,39 +2,26 @@ package com.lftechnology.activitylogger;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.graphics.drawable.Drawable;
 import android.provider.Settings;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.content.pm.PackageManager;
 
-import com.lftechnology.activitylogger.Adapters.CustomAdapterAppDetails;
 import com.lftechnology.activitylogger.Adapters.ViewPagerAdapter;
 import com.lftechnology.activitylogger.Fragments.FragmentUsageDaily;
 import com.lftechnology.activitylogger.Fragments.FragmentUsageMonthly;
 import com.lftechnology.activitylogger.Fragments.FragmentUsageWeekly;
 import com.lftechnology.activitylogger.Fragments.FragmentUsageYearly;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class LoggerActivity extends AppCompatActivity {
+public class TimeActivity extends AppCompatActivity {
     ViewPager viewPager;
     TabLayout tabLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         checkPermissionForAccess();
-        setContentView(R.layout.activity_logger);
+        setContentView(R.layout.activity_time);
         viewPager = (ViewPager)findViewById(R.id.chartsViewPager);
         setupViewPager(viewPager);
 
