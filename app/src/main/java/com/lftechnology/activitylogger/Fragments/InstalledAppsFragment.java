@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lftechnology.activitylogger.Adapter.AllInstalledAppsAdapter;
+import com.lftechnology.activitylogger.Adapter.AllAppsRecyclerViewAdapter;
 import com.lftechnology.activitylogger.R;
 import com.lftechnology.activitylogger.RawAppInfo;
 import com.lftechnology.activitylogger.model.AppDetails;
@@ -42,7 +42,7 @@ public class InstalledAppsFragment extends Fragment {
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(context, 4));
-        recyclerView.setAdapter(new AllInstalledAppsAdapter(context, appDetailsList));
+        recyclerView.setAdapter(new AllAppsRecyclerViewAdapter(context, appDetailsList));
 
         return view;
     }

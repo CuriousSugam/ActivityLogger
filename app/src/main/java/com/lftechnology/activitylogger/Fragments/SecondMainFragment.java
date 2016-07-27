@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.lftechnology.activitylogger.AllAppsActivity;
+import com.lftechnology.activitylogger.MainActivity;
 import com.lftechnology.activitylogger.MobileDataActivity;
 import com.lftechnology.activitylogger.R;
 import com.lftechnology.activitylogger.TimeActivity;
@@ -30,7 +31,7 @@ public class SecondMainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.second_main_fragment, container, false);
-        final List<AppDetails> appDetailsList = getArguments().getParcelableArrayList("appDetails");
+        final List<AppDetails> appDetailsList = getArguments().getParcelableArrayList(MainActivity.APP_DETAILS);
         Button btnWifi = (Button) view.findViewById(R.id.btn_wifi);
         btnWifi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +44,7 @@ public class SecondMainFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), AllAppsActivity.class);
-                intent.putParcelableArrayListExtra("appDetails", (ArrayList<? extends Parcelable>) appDetailsList);
+                intent.putParcelableArrayListExtra(MainActivity.APP_DETAILS, (ArrayList<? extends Parcelable>) appDetailsList);
                 startActivity(intent);
             }
         });

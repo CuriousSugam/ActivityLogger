@@ -6,12 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lftechnology.activitylogger.Adapter.AllSystemAppsRecyclerViewAdapter;
+import com.lftechnology.activitylogger.Adapter.AllAppsRecyclerViewAdapter;
 import com.lftechnology.activitylogger.R;
 import com.lftechnology.activitylogger.RawAppInfo;
 import com.lftechnology.activitylogger.model.AppDetails;
@@ -42,7 +41,7 @@ public class SystemAppsFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
 
         recyclerView.setLayoutManager(new GridLayoutManager(context, 4));
-        recyclerView.setAdapter(new AllSystemAppsRecyclerViewAdapter(context, appDetailsList));
+        recyclerView.setAdapter(new AllAppsRecyclerViewAdapter(context, appDetailsList));
         return v;
     }
 }

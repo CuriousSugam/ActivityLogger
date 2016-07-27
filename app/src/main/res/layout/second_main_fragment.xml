@@ -34,8 +34,6 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:layout_weight="1"
-        android:padding="0dp"
-        android:layout_margin="0dp"
         >
         <Button
             android:id="@+id/btn_time"
@@ -44,7 +42,7 @@
             android:text="Time"
             android:layout_weight="1"
             android:background="@drawable/button_gradient"
-            android:textColor="#333"
+            android:textColor="#333333"
             style="?android:attr/borderlessButtonStyle"
             />
         <Button
@@ -54,7 +52,7 @@
             android:text="All Apps"
             android:layout_weight="1"
             android:background="@drawable/button_gradient"
-            android:textColor="#333"
+            android:textColor="#333333"
             style="?android:attr/borderlessButtonStyle"/>
     </LinearLayout>
 </LinearLayout>

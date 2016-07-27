@@ -20,6 +20,7 @@ import java.util.List;
  */
 public class MainActivity extends AppCompatActivity {
 
+    public static String APP_DETAILS = "appDetails";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,9 +28,9 @@ public class MainActivity extends AppCompatActivity {
 
         Fragment lowerMainFragment = new SecondMainFragment();
         Intent intent = getIntent();
-        List<AppDetails> appDetailsFromDatabase = intent.getParcelableArrayListExtra("appDetails");
+        List<AppDetails> appDetailsFromDatabase = intent.getParcelableArrayListExtra(APP_DETAILS);
         Bundle fragmentArguments = new Bundle();
-        fragmentArguments.putParcelableArrayList("appDetails", (ArrayList<? extends Parcelable>) appDetailsFromDatabase);
+        fragmentArguments.putParcelableArrayList(APP_DETAILS, (ArrayList<? extends Parcelable>) appDetailsFromDatabase);
         lowerMainFragment.setArguments(fragmentArguments);
         getFragmentManager().beginTransaction().add(R.id.lower_fragment_container, lowerMainFragment, "lowerFragment").commit();
     }

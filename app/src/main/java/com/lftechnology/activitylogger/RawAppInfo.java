@@ -72,21 +72,6 @@ public class RawAppInfo {
                 systemPackageInfoList.add(packageInfo);
             }
         }
-
-
-//        List<ResolveInfo> resolveInfos = context.getPackageManager().queryIntentActivities(mainIntent, 0);
-//        List<ResolveInfo> installedResolveInfoList = new ArrayList<>();
-//        List<ResolveInfo> systemResolveInfoList = new ArrayList<>();
-
-//        Iterator iterator = resolveInfos.iterator();
-//        while(iterator.hasNext()){
-//            ResolveInfo resolveInfo = (ResolveInfo) iterator.next();
-//            if((resolveInfo.activityInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
-//                installedResolveInfoList.add(resolveInfo);
-//            }else{
-//                systemResolveInfoList.add(resolveInfo);
-//            }
-//        }
         appMap.put(INSTALLED_APP, installedPackageInfoList);
         appMap.put(SYSTEM_APP, systemPackageInfoList);
         return appMap;

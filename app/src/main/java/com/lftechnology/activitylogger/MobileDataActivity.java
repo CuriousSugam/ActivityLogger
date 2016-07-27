@@ -45,15 +45,13 @@ public class MobileDataActivity extends AppCompatActivity {
             if(!keyPackageName.contains(networkUsageDetails.getPackageName())){
                 keyPackageName.add(networkUsageDetails.getPackageName());
                 mapNetworkDetails.put(networkUsageDetails.getPackageName(), networkUsageDetails);
-                totalBytes += networkUsageDetails.getTotalRxBytes()+networkUsageDetails.getTotalTxBytes();
-                Log.e("keyPackage", "add to key package: "+networkUsageDetails.getPackageName());
+                totalBytes = totalBytes + networkUsageDetails.getTotalRxBytes()+networkUsageDetails.getTotalTxBytes();
             }else{
                 NetworkUsageDetails tempDetails = mapNetworkDetails.get(networkUsageDetails.getPackageName());
                 tempDetails.setTotalRxBytes(tempDetails.getTotalRxBytes()+networkUsageDetails.getTotalRxBytes());
                 tempDetails.setTotalTxBytes(tempDetails.getTotalTxBytes()+networkUsageDetails.getTotalTxBytes());
-                totalBytes += networkUsageDetails.getTotalRxBytes()+networkUsageDetails.getTotalTxBytes();
+                totalBytes = totalBytes + networkUsageDetails.getTotalRxBytes()+networkUsageDetails.getTotalTxBytes();
                 mapNetworkDetails.put(networkUsageDetails.getPackageName(), tempDetails);
-                Log.e("mapPackage", "mapUpdated: "+tempDetails.getPackageName()+" "+tempDetails.getTotalRxBytes()+" "+tempDetails.getTotalTxBytes());
             }
         }
 

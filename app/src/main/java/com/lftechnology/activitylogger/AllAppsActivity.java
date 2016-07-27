@@ -21,29 +21,27 @@ import java.util.List;
  */
 public class AllAppsActivity extends AppCompatActivity {
 
-    ViewPager viewPager;
-    TabLayout tabLayout;
-
-    List<AppDetails> installedAppDetailsList = new ArrayList<>();
-    List<AppDetails> systemAppDetailsList = new ArrayList<>();
-
-    Fragment installedAppsFragment, systemAppsFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_apps);
 
+        ViewPager viewPager;
+        TabLayout tabLayout;
+        List<AppDetails> installedAppDetailsList = new ArrayList<>();
+        List<AppDetails> systemAppDetailsList = new ArrayList<>();
+        Fragment installedAppsFragment, systemAppsFragment;
+
         Intent intent = getIntent();
         List<AppDetails> appDetailsList = intent.getParcelableArrayListExtra("appDetails");
-        if(appDetailsList == null){
+        if (appDetailsList == null) {
             appDetailsList = savedInstanceState.getParcelableArrayList("appDetails");
         }
 
-        for(AppDetails a : appDetailsList){
-            if(a.getApplicationType().equals(RawAppInfo.INSTALLED_APP)){
+        for (AppDetails a : appDetailsList) {
+            if (a.getApplicationType().equals(RawAppInfo.INSTALLED_APP)) {
                 installedAppDetailsList.add(a);
-            }else{
+            } else {
                 systemAppDetailsList.add(a);
             }
         }
