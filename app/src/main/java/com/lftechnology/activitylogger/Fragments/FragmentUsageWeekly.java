@@ -53,7 +53,7 @@ public class FragmentUsageWeekly extends Fragment implements View.OnClickListene
         initialize();
         sort();
         showInSortedList();
-        putTopFiveInDB();
+
     }
     public void initialize()
     {
@@ -151,6 +151,7 @@ public class FragmentUsageWeekly extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
+        putTopFiveInDB();
         startActivity(new Intent(getActivity(),ChartsActivity.class));
 
     }

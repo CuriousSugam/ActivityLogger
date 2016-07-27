@@ -54,7 +54,6 @@ public class FragmentUsageMonthly extends Fragment implements View.OnClickListen
         initialize();
         sort();
         showInSortedList();
-        putTopFiveInDB();
     }
     public void initialize()
     {
@@ -151,6 +150,7 @@ public class FragmentUsageMonthly extends Fragment implements View.OnClickListen
     }
     @Override
     public void onClick(View view) {
+        putTopFiveInDB();
         startActivity(new Intent(getActivity(),ChartsActivity.class));
 
     }

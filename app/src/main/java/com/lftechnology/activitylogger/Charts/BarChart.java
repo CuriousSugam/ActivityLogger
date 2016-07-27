@@ -115,7 +115,7 @@ public class BarChart extends View implements View.OnTouchListener{
             barLeft = barRight+spacing;
             barRight = barLeft + barWidth;
         }
-        if(maxBarHeight < screenHeight*(float)1.1){
+        if(maxBarHeight < screenHeight*(float)0.8){
             maxBarHeight+=50;
             invalidate();
         }

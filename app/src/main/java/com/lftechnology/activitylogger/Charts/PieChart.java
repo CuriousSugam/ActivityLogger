@@ -29,7 +29,7 @@ public class PieChart extends View {
         int radiusReference = x;
         if(x>y)radiusReference = y;
 
-        int radius = radiusReference/2;
+        int radius = radiusReference/3;
         RectF rectF = new RectF(x/2-radius,y/2-radius,x/2+radius,y/2+radius);
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
