@@ -1,36 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#000000"
-    tools:context="com.lftechnology.activitylogger.MainActivity">
-<!--Test only Dummy Items-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:id="@+id/textView2"
-        android:textColor="#ffffff"
-        android:textSize="30dp"
-        android:layout_above="@+id/textView"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="95dp"
-        android:layout_marginBottom="24dp" />
-
-    <TextView android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="Test Here"
-        android:textSize="30dp"
-        android:textColor="#ffffff"
-        android:id="@+id/textView"
-        android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/textView2"
-        android:layout_marginBottom="141dp" />
-
-    <!--Test only Dummy Items-->
-</RelativeLayout>
+    android:orientation="vertical"
+    >
+    <fragment
+        android:id="@+id/topfragment"
+        android:name="com.lftechnology.activitylogger.Fragments.FirstMainFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        tools:layout="@layout/first_main_fragment_layout" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/lower_fragment_container"
+        android:orientation="vertical">
+    </LinearLayout>
+</LinearLayout>

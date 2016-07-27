@@ -3,14 +3,15 @@ package com.lftechnology.activitylogger.model;
 import java.util.Date;
 
 /**
- * NetworkUsageDetails class stores the uid, package name, date, total received bytes and total transmitted bytes
+ * NetworkUsageDetails class stores the uid, package name, initialDate, total received bytes and total transmitted bytes
  * Created by Sugam on 7/11/2016.
  */
 public class NetworkUsageDetails {
     private String packageName;
-    private Date date;
+    private Date initialDate;
     private long totalRxBytes;
     private long totalTxBytes;
+    private Date finalDate;
 
     public NetworkUsageDetails() {
     }
@@ -21,12 +22,20 @@ public class NetworkUsageDetails {
         this.totalTxBytes = totalTxBytes;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getFinalDate() {
+        return finalDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setInitialDate(Date initialDate) {
+        this.initialDate = initialDate;
+    }
+
+    public void setFinalDate(Date finalDate) {
+        this.finalDate = finalDate;
+    }
+
+    public Date getInitialDate() {
+        return initialDate;
     }
 
     public String getPackageName() {
