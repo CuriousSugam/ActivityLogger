@@ -1,3 +1,4 @@
+
 package com.lftechnology.activitylogger;
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.lftechnology.activitylogger.Adapters.ViewPagerAdapter;
+import com.lftechnology.activitylogger.Adapter.ViewPagerAdapter;
 import com.lftechnology.activitylogger.Fragments.FragmentUsageDaily;
 import com.lftechnology.activitylogger.Fragments.FragmentUsageMonthly;
 import com.lftechnology.activitylogger.Fragments.FragmentUsageWeekly;

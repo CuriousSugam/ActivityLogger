@@ -5,7 +5,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.lftechnology.activitylogger.Adapters.ViewPagerAdapter;
+import com.lftechnology.activitylogger.Adapter.ViewPagerAdapter;
 import com.lftechnology.activitylogger.Fragments.FragmentChartsActivityBarChart;
 import com.lftechnology.activitylogger.Fragments.FragmentChartsActivityPieChart;
 
