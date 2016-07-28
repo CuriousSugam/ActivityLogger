@@ -37,9 +37,12 @@ public class CustomAdapterAppDetails extends RecyclerView.Adapter<CustomAdapterA
     @Override
     public void onBindViewHolder(DetailsViewHolder holder, int position) {
         final EachAppDetails current = eachAppDetailsList.get(position);
+        String durationInTime = String.format("%02d",(current.eachAppUsageDuration/1000/3600))
+                +":"+String.format("%02d",(((current.eachAppUsageDuration/1000)%3600)/60))
+                +":"+String.format("%02d",((current.eachAppUsageDuration/1000)%60));
         holder.appIconImage.setImageDrawable(current.eachAppIcon);
         holder.appNameText.setText(current.eachAppName);
-        holder.appUsageDurationText.setText(current.eachAppUsageDuration);
+        holder.appUsageDurationText.setText(durationInTime);
 
     }
 

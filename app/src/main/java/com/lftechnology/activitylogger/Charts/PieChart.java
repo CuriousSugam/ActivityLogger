@@ -9,16 +9,21 @@ import android.graphics.RectF;
 import android.util.Log;
 import android.view.View;
 
+import com.lftechnology.activitylogger.Communicators.CommunicatorEachAppDetailsValues;
+import com.lftechnology.activitylogger.EachAppDetails;
+
+import java.util.List;
+
 /**
  * Created by sparsha on 7/13/2016.
  */
 public class PieChart extends View {
-    SharedPreferences sharedPreferences;
     int completeCircle;
+    List<EachAppDetails> eachAppDetailsList;
     public PieChart(Context context) {
         super(context);
-        sharedPreferences = context.getSharedPreferences("Top5Apps",Context.MODE_PRIVATE);
         completeCircle = 0;
+        eachAppDetailsList = new CommunicatorEachAppDetailsValues().getEachAppDetailsList();
     }
     @Override
     public void onDraw(Canvas canvas){
@@ -40,8 +45,9 @@ public class PieChart extends View {
         float[] appValuesDuration = new float[5];
         String[] valueNames = new String[5];
         for(int i = 0;i<appValuesDuration.length;i++){
-            appValuesDuration[i] = (float)sharedPreferences.getLong("AppDuration"+i,1);
-            valueNames[i] = sharedPreferences.getString("AppName"+i,"n/A");
+            EachAppDetails current = eachAppDetailsList.get(i);
+            appValuesDuration[i] = (float)current.eachAppUsageDuration;
+            valueNames[i] = current.eachAppName;
         }
 
         for(float value: appValuesDuration){

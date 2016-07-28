@@ -22,6 +22,7 @@ import android.widget.Button;
 
 import com.lftechnology.activitylogger.Adapter.CustomAdapterAppDetails;
 import com.lftechnology.activitylogger.ChartsActivity;
+import com.lftechnology.activitylogger.Communicators.CommunicatorEachAppDetailsValues;
 import com.lftechnology.activitylogger.ConstantIntervals;
 import com.lftechnology.activitylogger.EachAppDetails;
 import com.lftechnology.activitylogger.R;
@@ -48,6 +49,12 @@ public class FragmentUsageDaily extends Fragment implements View.OnClickListener
         return view;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initialize();
+        sort();
+    }
 
     @Override
     public void onResume() {
@@ -55,22 +62,15 @@ public class FragmentUsageDaily extends Fragment implements View.OnClickListener
         chartsButton = (FloatingActionButton) view.findViewById(R.id.buttonShowsCharts);
         chartsButton.setOnClickListener(this);
         recyclerView = (RecyclerView)view.findViewById(R.id.customAppDetailsRecyclerView);
-        initialize();
-        sort();
         showInSortedList();
     }
     public void initialize()
     {
         int i =0;
         usageStatses = RawAppInfo.printCurrentUsageStats(getActivity(), ConstantIntervals.DAILY.value);
-//        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("appName", Context.MODE_PRIVATE);
         namesOfApp = new String[usageStatses.size()];
         runTimeOfApp = new Long[usageStatses.size()];
-        //Set the name of app and its corresponding foregroundRunning time
-//        for(i=0; i< sharedPreferences.getInt("count",1);i++){
-//            namesOfApp[i] = sharedPreferences.getString("packageName"+i,"N/A");
-//            runTimeOfApp[i] = sharedPreferences.getLong("runtime"+i,0);
-//        }
+
         for(UsageStats stats:usageStatses){
             namesOfApp[i] = stats.getPackageName();
             runTimeOfApp[i] = stats.getTotalTimeInForeground();
@@ -124,9 +124,7 @@ public class FragmentUsageDaily extends Fragment implements View.OnClickListener
                 if(PackageExists(namesOfApp[i])){
                     ApplicationInfo applicationInfo = getActivity().getPackageManager().getApplicationInfo(namesOfApp[i],0);
                     current.eachAppName = String.valueOf(getActivity().getPackageManager().getApplicationLabel(applicationInfo));
-                    current.eachAppUsageDuration = String.format("%02d",(runTimeOfApp[i]/1000/3600))
-                            +":"+String.format("%02d",(((runTimeOfApp[i]/1000)%3600)/60))
-                            +":"+String.format("%02d",((runTimeOfApp[i]/1000)%60));
+                    current.eachAppUsageDuration = runTimeOfApp[i];
                     Drawable icon =getActivity().getPackageManager().getApplicationIcon(applicationInfo);
                     current.eachAppIcon = icon;
                     eachAppDetailsList.add(current);
@@ -140,24 +138,15 @@ public class FragmentUsageDaily extends Fragment implements View.OnClickListener
     }
     @Override
     public void onClick(View view) {
-        putTopFiveInDB();
-        startActivity(new Intent(getActivity(),ChartsActivity.class));
+        passListToCommunicator();
+        Intent intent = new Intent(getActivity(),ChartsActivity.class);
+        startActivity(intent);
 
     }
-    private void putTopFiveInDB() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Top5Apps", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        int count = 0;
-        for (int i = 0; i < namesOfApp.length; i++) {
-            if(PackageExists(namesOfApp[i])){
-                editor.putLong("AppDuration" + count, runTimeOfApp[i]);
-                editor.putString("AppName"+count,namesOfApp[i]);
-                count++;
-            }
-            if (count == 5)
-                break;
-        }
-        editor.apply();
+    private void passListToCommunicator() {
+        CommunicatorEachAppDetailsValues values = new CommunicatorEachAppDetailsValues();
+        values.setDetailsList(eachAppDetailsList);
     }
+
 
 }

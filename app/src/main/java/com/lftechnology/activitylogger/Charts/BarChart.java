@@ -19,6 +19,11 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 
+import com.lftechnology.activitylogger.Communicators.CommunicatorEachAppDetailsValues;
+import com.lftechnology.activitylogger.EachAppDetails;
+
+import java.util.List;
+
 /**
  * Created by sparsha on 7/21/2016.
  */
@@ -35,10 +40,13 @@ public class BarChart extends View implements View.OnTouchListener{
     String text = "N/A";
     SharedPreferences sharedPreferences;
     Bitmap bitmapIconsOfApps;
+    List<EachAppDetails> eachAppDetailsList;
 
     public BarChart(Context context) {
         super(context);
         sharedPreferences = context.getSharedPreferences("Top5Apps",Context.MODE_PRIVATE);
+
+        eachAppDetailsList = new CommunicatorEachAppDetailsValues().getEachAppDetailsList();
 
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         screenWidth = displayMetrics.widthPixels;
@@ -90,8 +98,9 @@ public class BarChart extends View implements View.OnTouchListener{
         barTop = barBottom - maxBarHeight;
 
         for(int i=0;i<durationOfAppsUsed.length;i++){
-            durationOfAppsUsed[i] = (float) sharedPreferences.getLong("AppDuration"+i,1);
-            namesOfAppsUsed[i] = sharedPreferences.getString("AppName"+i,"N/A");
+            EachAppDetails current = eachAppDetailsList.get(i);
+            durationOfAppsUsed[i] = (float) current.eachAppUsageDuration;
+            namesOfAppsUsed[i] = current.eachAppName;
             totalValue = totalValue+ durationOfAppsUsed[i];
         }
 
@@ -101,17 +110,13 @@ public class BarChart extends View implements View.OnTouchListener{
             bar.set(barLeft,barTop,barRight,barBottom);
             paint.setColor(Color.parseColor(chartColors[i]));
             canvas.drawRect(bar,paint);
-            try {
-                ApplicationInfo applicationInfo =  getContext().getPackageManager().getApplicationInfo(namesOfAppsUsed[i],0);
-                text = String.valueOf(getContext().getPackageManager().getApplicationLabel(applicationInfo));
-                Drawable drawable = getContext().getPackageManager().getApplicationIcon(applicationInfo);
-                bitmapIconsOfApps = ((BitmapDrawable)drawable).getBitmap();
-                bitmapIconsOfApps = resizeBitmap(bitmapIconsOfApps,(float)0.6*barWidth);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            EachAppDetails current = eachAppDetailsList.get(i);
+            Drawable drawable = current.eachAppIcon;
+            bitmapIconsOfApps = ((BitmapDrawable)drawable).getBitmap();
+            bitmapIconsOfApps = resizeBitmap(bitmapIconsOfApps,(float)0.6*barWidth);
             canvas.drawBitmap(bitmapIconsOfApps,(barLeft+((float)0.2*barWidth)),barTop-((float)0.6*barWidth),paint);
-//            canvas.drawText(text,barLeft,barBottom+spacing,paint);
+            text = namesOfAppsUsed[i];
+            canvas.drawText(text,barLeft,barBottom+spacing,paint);
             barLeft = barRight+spacing;
             barRight = barLeft + barWidth;
         }
