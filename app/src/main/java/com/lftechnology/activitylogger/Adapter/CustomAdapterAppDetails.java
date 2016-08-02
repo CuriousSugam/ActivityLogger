@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.lftechnology.activitylogger.EachAppDetails;
+import com.lftechnology.activitylogger.model.EachAppDetails;
 import com.lftechnology.activitylogger.R;
 
 import java.util.List;
@@ -22,24 +22,24 @@ public class CustomAdapterAppDetails extends RecyclerView.Adapter<CustomAdapterA
     LayoutInflater inflater;
     Context context;
 
-    public CustomAdapterAppDetails(Context context,List<EachAppDetails> eachAppDetailsList){
+    public CustomAdapterAppDetails(Context context, List<EachAppDetails> eachAppDetailsList) {
         this.eachAppDetailsList = eachAppDetailsList;
-        inflater=LayoutInflater.from(context);
+        inflater = LayoutInflater.from(context);
         this.context = context;
     }
 
     @Override
     public DetailsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.layout_custom_app_info,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_custom_app_info, parent, false);
         return new DetailsViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(DetailsViewHolder holder, int position) {
         final EachAppDetails current = eachAppDetailsList.get(position);
-        String durationInTime = String.format("%02d",(current.eachAppUsageDuration/1000/3600))
-                +":"+String.format("%02d",(((current.eachAppUsageDuration/1000)%3600)/60))
-                +":"+String.format("%02d",((current.eachAppUsageDuration/1000)%60));
+        String durationInTime = String.format("%02d", (current.eachAppUsageDuration / 1000 / 3600))
+                + " : " + String.format("%02d", (((current.eachAppUsageDuration / 1000) % 3600) / 60))
+                + " : " + String.format("%02d", ((current.eachAppUsageDuration / 1000) % 60));
         holder.appIconImage.setImageDrawable(current.eachAppIcon);
         holder.appNameText.setText(current.eachAppName);
         holder.appUsageDurationText.setText(durationInTime);
@@ -51,13 +51,14 @@ public class CustomAdapterAppDetails extends RecyclerView.Adapter<CustomAdapterA
         return eachAppDetailsList.size();
     }
 
-    public class DetailsViewHolder extends RecyclerView.ViewHolder{
+    public class DetailsViewHolder extends RecyclerView.ViewHolder {
         ImageView appIconImage;
         TextView appNameText, appUsageDurationText;
+
         public DetailsViewHolder(View itemView) {
             super(itemView);
             appIconImage = (ImageView) itemView.findViewById(R.id.appIcon);
-            appNameText =(TextView) itemView.findViewById(R.id.textAppName);
+            appNameText = (TextView) itemView.findViewById(R.id.textAppName);
             appUsageDurationText = (TextView) itemView.findViewById(R.id.textAppUsageDuration);
         }
     }

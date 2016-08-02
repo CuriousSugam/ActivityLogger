@@ -18,7 +18,7 @@ public class FragmentChartsActivityBarChart extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        barChart = new BarChart(getActivity());
+        barChart = new BarChart(getActivity(), 5);
         return barChart;
     }
 

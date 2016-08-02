@@ -1,7 +1,6 @@
 package com.lftechnology.activitylogger.Charts;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -10,7 +9,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.lftechnology.activitylogger.Communicators.CommunicatorEachAppDetailsValues;
-import com.lftechnology.activitylogger.EachAppDetails;
+import com.lftechnology.activitylogger.model.EachAppDetails;
 
 import java.util.List;
 
@@ -20,10 +19,15 @@ import java.util.List;
 public class PieChart extends View {
     int completeCircle;
     List<EachAppDetails> eachAppDetailsList;
-    public PieChart(Context context) {
+    int numberOfPie;
+    public PieChart(Context context,int size) {
         super(context);
         completeCircle = 0;
         eachAppDetailsList = new CommunicatorEachAppDetailsValues().getEachAppDetailsList();
+        numberOfPie = size;
+
+        if(numberOfPie > eachAppDetailsList.size())
+            numberOfPie = eachAppDetailsList.size();
     }
     @Override
     public void onDraw(Canvas canvas){
@@ -35,15 +39,15 @@ public class PieChart extends View {
         if(x>y)radiusReference = y;
 
         int radius = radiusReference/3;
-        RectF rectF = new RectF(x/2-radius,y/2-radius,x/2+radius,y/2+radius);
+        RectF rectF = new RectF(x/2-radius,(4*y/6)-radius,x/2+radius,(4*y/6)+radius);
         Paint paint = new Paint();
-        paint.setStyle(Paint.Style.FILL);
+        paint.setStyle(Paint.Style.FILL_AND_STROKE);
         paint.setColor(Color.WHITE);
         canvas.drawPaint(paint);
 
-        String[] pieChartColors = {"#4D4D4D","#5DA5DA","#FAA43A","#60BD68","#F17CB0"};
-        float[] appValuesDuration = new float[5];
-        String[] valueNames = new String[5];
+        String[] pieChartColors = {"#4D4D4D", "#5DA5DA", "#FAA43A", "#60BD68", "#F17CB0","#B2912F","#B276B2","#DECF3F","#F15854"};
+        float[] appValuesDuration = new float[numberOfPie];
+        String[] valueNames = new String[numberOfPie];
         for(int i = 0;i<appValuesDuration.length;i++){
             EachAppDetails current = eachAppDetailsList.get(i);
             appValuesDuration[i] = (float)current.eachAppUsageDuration;
@@ -58,14 +62,12 @@ public class PieChart extends View {
         for(int i = 0; i<appValuesDuration.length;i++){
             makeAngle = appValuesDuration[i] * completeCircle / totalValue;
             paint.setColor(Color.parseColor(pieChartColors[i]));
-            canvas.drawArc(rectF,startAngle,makeAngle,true,paint);
-            startAngle = startAngle + makeAngle + 2;
+            canvas.drawArc(rectF,-startAngle,-makeAngle,true,paint);
+            startAngle = startAngle + makeAngle;
         }
 
-        paint.setColor(Color.WHITE);
-        canvas.drawCircle(x/2,y/2,radius/2,paint);
-        if(completeCircle<350){
-            completeCircle+=10;
+        if(completeCircle<360){
+            completeCircle+=5;
             invalidate();
         }
 

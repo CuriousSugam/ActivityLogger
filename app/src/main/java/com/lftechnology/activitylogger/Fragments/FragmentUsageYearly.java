@@ -1,9 +1,7 @@
 package com.lftechnology.activitylogger.Fragments;
 
 import android.app.usage.UsageStats;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
@@ -16,18 +14,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.lftechnology.activitylogger.Adapter.CustomAdapterAppDetails;
 import com.lftechnology.activitylogger.ChartsActivity;
 import com.lftechnology.activitylogger.Communicators.CommunicatorEachAppDetailsValues;
 import com.lftechnology.activitylogger.ConstantIntervals;
-import com.lftechnology.activitylogger.EachAppDetails;
+import com.lftechnology.activitylogger.model.EachAppDetails;
 import com.lftechnology.activitylogger.R;
 import com.lftechnology.activitylogger.RawAppInfo;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by sparsha on 7/26/2016.
@@ -112,9 +111,7 @@ public class FragmentUsageYearly extends Fragment implements View.OnClickListene
     }
 
     public  List<EachAppDetails> getData(){
-        if(!eachAppDetailsList.isEmpty()){
-            return eachAppDetailsList;
-        }
+        eachAppDetailsList.clear();
 
         try{
 
@@ -134,8 +131,13 @@ public class FragmentUsageYearly extends Fragment implements View.OnClickListene
         catch (Exception e){
             e.printStackTrace();
         }
+//        Set<EachAppDetails> set = new HashSet<>();
+//        set.addAll(eachAppDetailsList);
+//        eachAppDetailsList.clear();
+//        eachAppDetailsList.addAll(set);
         return eachAppDetailsList;
     }
+
     @Override
     public void onClick(View view) {
         passListToCommunicator();

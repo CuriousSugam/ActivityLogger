@@ -1,6 +1,6 @@
 package com.lftechnology.activitylogger.Communicators;
 
-import com.lftechnology.activitylogger.EachAppDetails;
+import com.lftechnology.activitylogger.model.EachAppDetails;
 
 import java.util.List;
 
@@ -10,11 +10,11 @@ import java.util.List;
 public class CommunicatorEachAppDetailsValues {
     private static List<EachAppDetails> eachAppDetailsList;
 
-    public void setDetailsList(List<EachAppDetails> eachAppDetailsList){
+    public void setDetailsList(List<EachAppDetails> eachAppDetailsList) {
         this.eachAppDetailsList = eachAppDetailsList;
     }
 
-    public List<EachAppDetails> getEachAppDetailsList(){
+    public List<EachAppDetails> getEachAppDetailsList() {
         return this.eachAppDetailsList;
     }
 }
