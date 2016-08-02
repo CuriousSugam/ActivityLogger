@@ -44,6 +44,14 @@
         </receiver>
 
         <service android:name=".Services.ConnectivityChangeMonitoringIntentService" />
+        <receiver android:name=".InstalledBroadcastReceiver">
+            <intent-filter android:priority="999">
+                <action android:name="android.intent.action.PACKAGE_INSTALL"/>
+                <action android:name="swa"/>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
 
         <activity
             android:name=".AllAppsActivity"

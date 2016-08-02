@@ -12,6 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabGravity="fill"
+
             app:tabMode="fixed"
             app:tabBackground="@color/windowBackground"
             app:tabSelectedTextColor="@android:color/black"
