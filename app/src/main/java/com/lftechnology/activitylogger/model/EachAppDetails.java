@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger;
+package com.lftechnology.activitylogger.model;
 
 import android.graphics.drawable.Drawable;
 
