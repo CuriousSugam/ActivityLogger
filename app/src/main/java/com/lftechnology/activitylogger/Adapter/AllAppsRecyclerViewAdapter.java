@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import com.lftechnology.activitylogger.AsynkTasks.BitmapWorkerTask;
 import com.lftechnology.activitylogger.R;
-import com.lftechnology.activitylogger.model.AppDetails;
+import com.lftechnology.activitylogger.Model.AppDetails;
 import com.lftechnology.activitylogger.Viewholders.AllAppsViewHolder;
 
 import java.util.List;

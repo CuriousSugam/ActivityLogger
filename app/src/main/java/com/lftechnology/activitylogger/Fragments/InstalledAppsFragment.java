@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import com.lftechnology.activitylogger.Adapter.AllAppsRecyclerViewAdapter;
 import com.lftechnology.activitylogger.R;
 import com.lftechnology.activitylogger.RawAppInfo;
-import com.lftechnology.activitylogger.model.AppDetails;
+import com.lftechnology.activitylogger.Model.AppDetails;
 
 import java.util.List;
 

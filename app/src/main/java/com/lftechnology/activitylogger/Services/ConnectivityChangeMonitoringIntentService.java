@@ -6,8 +6,8 @@ import android.content.SharedPreferences;
 import android.net.TrafficStats;
 
 import com.lftechnology.activitylogger.Controller.SQLiteAccessLayer;
-import com.lftechnology.activitylogger.model.AppDetails;
-import com.lftechnology.activitylogger.model.NetworkUsageDetails;
+import com.lftechnology.activitylogger.Model.AppDetails;
+import com.lftechnology.activitylogger.Model.NetworkUsageDetails;
 
 import java.util.List;
 

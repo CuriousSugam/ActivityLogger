@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">ActivityLogger</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="notification_status">Notification</string>
+    <string name="regular_notification_time">Always notify me at</string>
+    <string name="app_usage_duration_alert">App Usage Duration Alert</string>
+    <string name="app_usage_duration_alert_time">Alert Duration</string>
 </resources>

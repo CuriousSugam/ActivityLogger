@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger.model;
+package com.lftechnology.activitylogger.Model;
 
 import java.util.Date;
 

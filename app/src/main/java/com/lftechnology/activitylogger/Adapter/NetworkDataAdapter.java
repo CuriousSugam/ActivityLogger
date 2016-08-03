@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.lftechnology.activitylogger.R;
-import com.lftechnology.activitylogger.model.NetworkUsageDetails;
+import com.lftechnology.activitylogger.Model.NetworkUsageDetails;
 
 import java.util.List;
 

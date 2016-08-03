@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.lftechnology.activitylogger.Adapter.NetworkDataAdapter;
 import com.lftechnology.activitylogger.Controller.SQLiteAccessLayer;
 import com.lftechnology.activitylogger.Services.ConnectivityChangeMonitoringIntentService;
-import com.lftechnology.activitylogger.model.NetworkUsageDetails;
+import com.lftechnology.activitylogger.Model.NetworkUsageDetails;
 
 import java.util.ArrayList;
 import java.util.Collections;

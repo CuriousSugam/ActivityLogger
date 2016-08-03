@@ -9,12 +9,11 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
-import android.net.Network;
 import android.net.TrafficStats;
 import android.util.Log;
 
-import com.lftechnology.activitylogger.model.AppDetails;
-import com.lftechnology.activitylogger.model.NetworkUsageDetails;
+import com.lftechnology.activitylogger.Model.AppDetails;
+import com.lftechnology.activitylogger.Model.NetworkUsageDetails;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

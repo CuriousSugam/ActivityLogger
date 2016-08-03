@@ -11,7 +11,7 @@ import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 
 import com.lftechnology.activitylogger.Controller.SQLiteAccessLayer;
-import com.lftechnology.activitylogger.model.AppDetails;
+import com.lftechnology.activitylogger.Model.AppDetails;
 
 import java.util.ArrayList;
 import java.util.List;

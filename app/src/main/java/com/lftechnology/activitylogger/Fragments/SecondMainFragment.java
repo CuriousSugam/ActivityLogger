@@ -16,7 +16,7 @@ import com.lftechnology.activitylogger.MobileDataActivity;
 import com.lftechnology.activitylogger.R;
 import com.lftechnology.activitylogger.TimeActivity;
 import com.lftechnology.activitylogger.WifiActivity;
-import com.lftechnology.activitylogger.model.AppDetails;
+import com.lftechnology.activitylogger.Model.AppDetails;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger.model;
+package com.lftechnology.activitylogger.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

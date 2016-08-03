@@ -11,7 +11,7 @@ import android.os.Bundle;
 import com.lftechnology.activitylogger.Adapter.AllAppsViewPagerAdapter;
 import com.lftechnology.activitylogger.Fragments.InstalledAppsFragment;
 import com.lftechnology.activitylogger.Fragments.SystemAppsFragment;
-import com.lftechnology.activitylogger.model.AppDetails;
+import com.lftechnology.activitylogger.Model.AppDetails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +33,9 @@ public class AllAppsActivity extends AppCompatActivity {
         Fragment installedAppsFragment, systemAppsFragment;
 
         Intent intent = getIntent();
-        List<AppDetails> appDetailsList = intent.getParcelableArrayListExtra("appDetails");
+        List<AppDetails> appDetailsList = intent.getParcelableArrayListExtra(MainActivity.APP_DETAILS);
         if (appDetailsList == null) {
-            appDetailsList = savedInstanceState.getParcelableArrayList("appDetails");
+            appDetailsList = savedInstanceState.getParcelableArrayList(MainActivity.APP_DETAILS);
         }
 
         for (AppDetails a : appDetailsList) {
