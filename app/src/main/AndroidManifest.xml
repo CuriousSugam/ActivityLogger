@@ -57,9 +57,11 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".TimeActivity"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ChartsActivity"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".DetailsActivity"></activity>
     </application>
+
 </manifest>

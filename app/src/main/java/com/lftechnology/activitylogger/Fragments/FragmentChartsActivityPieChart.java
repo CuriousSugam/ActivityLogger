@@ -20,7 +20,7 @@ public class FragmentChartsActivityPieChart extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        return new PieChart(getActivity(), 5);
+        return new PieChart(getActivity(), 25);
     }
 
     @Override

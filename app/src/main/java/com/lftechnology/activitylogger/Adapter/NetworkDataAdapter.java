@@ -1,6 +1,7 @@
 package com.lftechnology.activitylogger.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.lftechnology.activitylogger.DetailsActivity;
 import com.lftechnology.activitylogger.R;
 import com.lftechnology.activitylogger.model.NetworkUsageDetails;
 
@@ -22,12 +24,13 @@ import java.util.List;
  *
  * Created by Sugam on 7/14/2016.
  */
-public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.NetworkViewHolder> {
+public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.NetworkViewHolder> implements View.OnClickListener{
 
     private Context context;
     private List<NetworkUsageDetails> networkUsageDetailsList;
     private int progressValue = 0;
     private float totalBytes;
+//    NetworkViewHolder current;
 
     /**
      *
@@ -49,6 +52,7 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
 
     @Override
     public void onBindViewHolder(NetworkViewHolder holder, int position) {
+//        holder = current;
         try {
             ApplicationInfo applicationInfo = context.getPackageManager()
                     .getApplicationInfo(networkUsageDetailsList
@@ -93,11 +97,17 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
             holder.totalBytes.setText("Total:  "+total+ " bytes");
         }
         holder.progressBar.setProgress((int)(total/totalBytes*100));
+
     }
 
     @Override
     public int getItemCount() {
         return networkUsageDetailsList.size();
+    }
+
+    @Override
+    public void onClick(View view) {
+        context.startActivity(new Intent(context, DetailsActivity.class));
     }
 
     /**
@@ -121,6 +131,8 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
             transmittedBytes = (TextView) itemView.findViewById(R.id.txt_network_data_trasmitted);
             totalBytes = (TextView) itemView.findViewById(R.id.txt_total_network_data);
             progressBar = (ProgressBar)itemView.findViewById(R.id.progressBar);
+
+            itemView.setOnClickListener(NetworkDataAdapter.this);
         }
     }
 }
