@@ -93,7 +93,7 @@ public class InstalledMonitoringService extends IntentService {
             appDetails.setApplicationName(Intent.ACTION_PACKAGE_REMOVED);
             appDetails.setPackageName(Intent.ACTION_PACKAGE_REMOVED);
             accessLayer.insertIntoAppDetails();
-            //ccessLayer.deleteAnAppDetail(appDetails.getPackageName());
+            //accessLayer.deleteAnAppDetail(appDetails.getPackageName());
             accessLayer.updateAppDetail(appDetails.getApplicationName(), true);
 //            if (intent.equals(Intent.ACTION_PACKAGE_REMOVED){
 //                accessLayer.updateAppDetail(appDetails.getPackageName(),);
