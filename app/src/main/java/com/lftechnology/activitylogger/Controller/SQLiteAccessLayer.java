@@ -149,7 +149,7 @@ public class SQLiteAccessLayer {
      * @param whereArgs   '?'s included in the where clause will be replaced by the values from whereArgs.
      * @return the number of rows affected
      */
-    public int updateAppDetail(String whereClause, String[] whereArgs) {
+    public int updateAppDetail(String whereClause, boolean whereArgs) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(TABLE_COLUMN_UID, this.appDetails.getUid());
         contentValues.put(TABLE_COLUMN_PACKAGE_NAME, this.appDetails.getPackageName());
