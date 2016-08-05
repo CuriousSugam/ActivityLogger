@@ -14,9 +14,9 @@ import com.lftechnology.activitylogger.Services.InstalledMonitoringService;
 /**
  * Created by DevilDewzone on 7/29/2016.
  */
-public class InstalledBroadcastReceiver extends BroadcastReceiver {
 
-    // PackageManager packageMngr;
+//Commented codes are to be deleted.
+public class InstalledBroadcastReceiver extends BroadcastReceiver {
 
 
     Context context;
@@ -27,47 +27,32 @@ public class InstalledBroadcastReceiver extends BroadcastReceiver {
 
         //get app status
         this.context = context;
-        //boolean appNotify = aboutAppInfo.getBooleanExtra(Intent.EXTRA_REPLACING, false);
-        //String toastMessage = null;
 
         // install uninstall display
-        if (aboutAppInfo.getAction().equals("android.intent.action.PACKAGE_INSTALL")) {
+        if (aboutAppInfo.getAction().equals("android.intent.action.PACKAGE_ADDED")) {
             // Log.e("BroadcastReceiver", "onReceive called" + "PACKAGE_INSTALLED");
             //Toast.makeText(context, "onReceive !!! PACKAGE_INSTALLED", Toast.LENGTH_LONG).show();
             //Intent insIntent = new Intent(this, InstalledMonitoringService.class);
 
-            Intent insIntent = new Intent(context, InstalledMonitoringService.class);
-            insIntent.putExtra("InsKey","android.intent.action.PACKAGE_INSTALLED");
-            context.startService(insIntent);
-
-            //packageMngr = (PackageManager)context.getPackageManager().queryIntentActivities(insIntent, 0);
-
-
-            // toastMessage = "PACKAGE_INSTALL: " + aboutAppInfo.getData().toString() + (context, aboutAppInfo.getData().toString(), PackageManager.MATCH_UNINSTALLED_PACKAGES);
-        } else if (aboutAppInfo.getAction().equals("android.intent.action.PACKAGE_ADDED")) {
-            //Log.e("BroadcastReceiver", "onReceive called" + "PACKAGE_ADDED");
-            //Toast.makeText(context, "onReceive!!! PACKAGE_ADDED", Toast.LENGTH_LONG).show();
-            //Intent addIntent = new Intent(Intent.ACTION_PACKAGE_ADDED, null);
-
             Intent addIntent = new Intent(context, InstalledMonitoringService.class);
-            addIntent.putExtra("AddKey","android.intent.action.PACKAGE_INSTALLED");
+            addIntent.putExtra("AddKey", "android.intent.action.PACKAGE_ADDED");
             context.startService(addIntent);
 
-            //packageMngr=(PackageManager)context.getPackageManager().queryIntentActivities(addIntent, 0);
-            //toastMessage = "PACKAGE_ADDED: " + aboutAppInfo.getData().toString() + getApplicationName(context, aboutAppInfo.getData().toString(), PackageManager.MATCH_UNINSTALLED_PACKAGES);
+        } else if (aboutAppInfo.getAction().equals("android.intent.action.PACKAGE_REPLACED")) {
+            //Log.e("BroadcastReceiver", "onReceive called" + "PACKAGE_ADDED");
+            //Toast.makeText(context, "onReceive!!! PACKAGE_ADDED", Toast.LENGTH_LONG).show();
+
+            Intent rpIntent = new Intent(context, InstalledMonitoringService.class);
+            rpIntent.putExtra("RpKey", "android.intent.action.PACKAGE_REPLACED");
+            context.startService(rpIntent);
 
         } else if (aboutAppInfo.getAction().equals("android.intent.action.PACKAGE_REMOVED")) {
             //Log.e("BroadcastReceiver", "onReceive !!! PACKAGE_REMOVED");
             //Toast.makeText(context, "onReceive  !!! PACKAGE_REMOVED", Toast.LENGTH_LONG).show();
-            //Intent rmIntent = new Intent(Intent.ACTION_PACKAGE_REMOVED, null);
 
             Intent rmIntent = new Intent(context, InstalledMonitoringService.class);
-            rmIntent.putExtra("KEY","android.intent.action.PACKAGE_INSTALLED");
-            rmIntent.getStringExtra("KEY");
+            rmIntent.putExtra("RmKey", "android.intent.action.PACKAGE_REMOVED");
             context.startService(rmIntent);
-
-            //packageMngr = (PackageManager)context.getPackageManager().queryIntentActivities(rmIntent,0);
-            // toastMessage = "PACKAGE_REMOVED:" + aboutAppInfo.getData().toString() + getApplicationName(context, aboutAppInfo.getData().toString(), PackageManager.MATCH_UNINSTALLED_PACKAGES);
 
         } else {
             Log.i("Message", "Nothing Done");
