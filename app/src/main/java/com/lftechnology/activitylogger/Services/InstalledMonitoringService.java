@@ -17,16 +17,21 @@ import com.lftechnology.activitylogger.model.AppDetails;
  */
 public class InstalledMonitoringService extends IntentService {
 
+
+    int uid;
     Context context;
-    private AppDetails appDetails;
+    AppDetails appDetails ;
 
 
-    SQLiteAccessLayer accessLayer = new SQLiteAccessLayer(context, appDetails);
+
+    SQLiteAccessLayer accessLayer;
 
 
     public InstalledMonitoringService() {
         super("InstalledMonitoringService");
     }
+
+
 
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -34,22 +39,25 @@ public class InstalledMonitoringService extends IntentService {
 
         if (intent.equals(Intent.ACTION_PACKAGE_ADDED)) {
             String dbAddIntent=intent.getStringExtra("AddKey");
-            appDetails= new AppDetails(appDetails.getUid(),Intent.ACTION_PACKAGE_ADDED,dbAddIntent);
+            appDetails= new AppDetails(uid,Intent.ACTION_PACKAGE_ADDED,dbAddIntent);
+            accessLayer = new SQLiteAccessLayer(this, appDetails);
             accessLayer.insertIntoAppDetails();
             accessLayer.closeDatabaseConnection();
-            //accessLayer.closeDatabaseConnection();
+
 
         } else if (intent.equals(Intent.ACTION_PACKAGE_REPLACED)) {
             String dbRpIntent=intent.getStringExtra("RpKey");
-            appDetails = new AppDetails(appDetails.getUid(),Intent.ACTION_PACKAGE_REPLACED,dbRpIntent);
+            appDetails = new AppDetails(uid,Intent.ACTION_PACKAGE_REPLACED,dbRpIntent);
+            accessLayer = new SQLiteAccessLayer(this,appDetails);
             accessLayer.insertIntoAppDetails();
             accessLayer.closeDatabaseConnection();
 
 
         } else if (intent.equals(Intent.ACTION_PACKAGE_REMOVED)) {
             String dbRmIntent=intent.getStringExtra("RmKey");
-            appDetails = new AppDetails(appDetails.getUid(), Intent.ACTION_PACKAGE_REMOVED,dbRmIntent);
-            accessLayer.deleteAnAppDetail("id=? and name=android.intent.action.PACKAGE_REMOVED", new String[]{appDetails.getApplicationName()});
+            appDetails = new AppDetails(uid, Intent.ACTION_PACKAGE_REMOVED,dbRmIntent);
+            accessLayer = new SQLiteAccessLayer(this,appDetails);
+            accessLayer.deleteAnAppDetail("id= and name=android.intent.action.PACKAGE_REMOVED", null);
             accessLayer.closeDatabaseConnection();
 
         } else {
