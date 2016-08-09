@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.lftechnology.activitylogger.AllAppsActivity;
 import com.lftechnology.activitylogger.MainActivity;
@@ -32,15 +33,15 @@ public class SecondMainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.second_main_fragment, container, false);
         final List<AppDetails> appDetailsList = getArguments().getParcelableArrayList(MainActivity.APP_DETAILS);
-        Button btnWifi = (Button) view.findViewById(R.id.btn_wifi);
-        btnWifi.setOnClickListener(new View.OnClickListener() {
+        TextView txtWifi = (TextView) view.findViewById(R.id.menu_wifi);
+        txtWifi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), WifiActivity.class));
             }
         });
-        Button btnAllApps = (Button) view.findViewById(R.id.btn_all_apps);
-        btnAllApps.setOnClickListener(new View.OnClickListener() {
+        TextView txtAllApps = (TextView) view.findViewById(R.id.menu_all_apps);
+        txtAllApps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), AllAppsActivity.class);
@@ -48,15 +49,15 @@ public class SecondMainFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        Button btnMobileData = (Button) view.findViewById(R.id.btn_mobile);
-        btnMobileData.setOnClickListener(new View.OnClickListener() {
+        TextView  txtMobileData= (TextView) view.findViewById(R.id.menu_mobile_data);
+        txtMobileData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), MobileDataActivity.class));
             }
         });
-        Button btnTime = (Button) view.findViewById(R.id.btn_time);
-        btnTime.setOnClickListener(new View.OnClickListener() {
+        TextView txtTime = (TextView) view.findViewById(R.id.menu_time);
+        txtTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), TimeActivity.class));

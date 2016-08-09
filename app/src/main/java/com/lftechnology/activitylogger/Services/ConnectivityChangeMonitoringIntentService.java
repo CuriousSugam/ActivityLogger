@@ -1,6 +1,7 @@
 package com.lftechnology.activitylogger.Services;
 
 import android.app.IntentService;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.TrafficStats;
@@ -24,6 +25,7 @@ public class ConnectivityChangeMonitoringIntentService extends IntentService {
     public final static String OFFLINE = "offline";
     public final static String NETWORK_TYPE = "networkType";
 
+
     public ConnectivityChangeMonitoringIntentService() {
         super("ConnectivityMonitorService");
     }
@@ -37,23 +39,23 @@ public class ConnectivityChangeMonitoringIntentService extends IntentService {
 
             if (networkType.equals(WIFI_NETWORK)) {    // when wifi is turned on
                 // fill into the temporary table and set the current network type i.e 'wifi' into the shared preference
-                fillIntoNetworkTempTable();
+                fillIntoNetworkTempTable(this);
                 sharedPreferences.edit().putBoolean(WIFI_NETWORK, true).apply();
             } else if (networkType.equals(MOBILE_NETWORK)) { // when mobile data is turned on
                 // fill into the temporary table
                 // set the current network type i.e 'mobile' into the shared preferences
-                fillIntoNetworkTempTable();
+                fillIntoNetworkTempTable(this);
                 sharedPreferences.edit().putBoolean(MOBILE_NETWORK, true).apply();
             } else if (networkType.equals(OFFLINE)) {  // when the neither wifi nor mobile data are turned on i.e when both are turned off
                 // get the recent network type from the shared preferences
                 if (sharedPreferences.getBoolean(WIFI_NETWORK, false)) {
-                    copyToNetworkTable(WIFI_NETWORK);
+                    copyToNetworkTable(WIFI_NETWORK, this);
                     sharedPreferences.edit().putBoolean(WIFI_NETWORK, false).apply();
-                    flushNetworkTempTable();
+                    flushNetworkTempTable(this);
                 }else if (sharedPreferences.getBoolean(MOBILE_NETWORK, false)) {
-                    copyToNetworkTable(MOBILE_NETWORK);
+                    copyToNetworkTable(MOBILE_NETWORK, this);
                     sharedPreferences.edit().putBoolean(MOBILE_NETWORK, false).apply();
-                    flushNetworkTempTable();
+                    flushNetworkTempTable(this);
                 }
             }
         }
@@ -63,15 +65,15 @@ public class ConnectivityChangeMonitoringIntentService extends IntentService {
      * This method fills the initial network usage bytes of every application into the table of the
      * database
      */
-    private void fillIntoNetworkTempTable() {
-        SQLiteAccessLayer sqLiteAccessLayer = new SQLiteAccessLayer(this);
+    public static void fillIntoNetworkTempTable(Context context) {
+        SQLiteAccessLayer sqLiteAccessLayer = new SQLiteAccessLayer(context);
         List<AppDetails> appDetailsList = sqLiteAccessLayer.queryAppDetails();
         for (AppDetails appDetails : appDetailsList) {
             long initialRxBytes = TrafficStats.getUidRxBytes(appDetails.getUid());
             long initialTxBytes = TrafficStats.getUidTxBytes(appDetails.getUid());
             NetworkUsageDetails networkUsageDetails = new NetworkUsageDetails(
                     appDetails.getPackageName(), initialRxBytes, initialTxBytes);
-            SQLiteAccessLayer mSqLiteAccessLayer = new SQLiteAccessLayer(this, networkUsageDetails);
+            SQLiteAccessLayer mSqLiteAccessLayer = new SQLiteAccessLayer(context, networkUsageDetails);
             mSqLiteAccessLayer.insertTempNetworkDetails();
             mSqLiteAccessLayer.closeDatabaseConnection();
         }
@@ -84,9 +86,9 @@ public class ConnectivityChangeMonitoringIntentService extends IntentService {
      * @param networkType is the type of network that the data of network statistics belongs to. It
      *                    is either 'mobile' or 'wifi'
      */
-    private void copyToNetworkTable(String networkType) {
-        SQLiteAccessLayer sqLiteAccessLayer = new SQLiteAccessLayer(this);
-        sqLiteAccessLayer.insertNetworkDetails(this, networkType);
+    public static void copyToNetworkTable(String networkType, Context context) {
+        SQLiteAccessLayer sqLiteAccessLayer = new SQLiteAccessLayer(context);
+        sqLiteAccessLayer.insertNetworkDetails(context, networkType);
         sqLiteAccessLayer.closeDatabaseConnection();
     }
 
@@ -94,11 +96,13 @@ public class ConnectivityChangeMonitoringIntentService extends IntentService {
      * This method deletes all the records of the temporary network table and empties it in order to
      * reuse it for next session.
      */
-    private void flushNetworkTempTable() {
-        SQLiteAccessLayer sqLiteAccessLayer = new SQLiteAccessLayer(this);
+    public static void flushNetworkTempTable(Context context) {
+        SQLiteAccessLayer sqLiteAccessLayer = new SQLiteAccessLayer(context);
         sqLiteAccessLayer.emptyTempNetworkUsageDetails();
         sqLiteAccessLayer.closeDatabaseConnection();
     }
+
+//    public static void updateNetworkTempTable()
 
 
 }

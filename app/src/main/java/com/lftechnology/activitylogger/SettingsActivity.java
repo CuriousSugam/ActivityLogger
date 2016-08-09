@@ -11,16 +11,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.support.v7.widget.SwitchCompat;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.lftechnology.activitylogger.BroadcastReceiver.NotificationBroadcastReceiver;
+import com.lftechnology.activitylogger.Services.AppUsageAlertService;
 import com.lftechnology.activitylogger.Utilities.SettingsData;
 
 import java.util.Calendar;
 
+import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -37,6 +40,9 @@ import butterknife.OnClick;
  * @author Sugam Shakya
  */
 public class SettingsActivity extends AppCompatActivity {
+
+    @BindView(R.id.notification_icon)
+    ImageView notificationIcon;
 
     @BindView(R.id.txt_notification_status)
     TextView notificationStatusTextView;
@@ -71,9 +77,15 @@ public class SettingsActivity extends AppCompatActivity {
     @BindView(R.id.settings_container)
     LinearLayout settingsContainerLinearLayout;
 
+
+    public final static String ALERT_TIME_MILLIS = "alert_time_in_millis";
+    public final static String ALERT_STATUS = "alert_status";
+
     private SettingsData settingsData;
     private Calendar notificationCalendarObj;
     private long alertTimeInMillis;
+    private boolean alertStatusChanged = false;
+    private boolean alertStatus = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,9 +97,11 @@ public class SettingsActivity extends AppCompatActivity {
         // check if the  notification is set or not
         //  if yes check mark the switch and display the time selection layout
         if (settingsData.getNotificationStatus()) {
+            notificationIcon.setImageResource(R.drawable.ic_notifications_black_24dp);
             notificationStatusSwitch.setChecked(true);
             linearLayout.setVisibility(View.VISIBLE);
         } else {
+            notificationIcon.setImageResource(R.drawable.ic_notifications_off_black_24dp);
             notificationStatusSwitch.setChecked(false);
             linearLayout.setVisibility(View.GONE);
         }
@@ -110,9 +124,11 @@ public class SettingsActivity extends AppCompatActivity {
         if (settingsData.getUsageAlertStatus()) {
             alertLinearLayout.setVisibility(View.VISIBLE);
             appUsageAlertSwitch.setChecked(true);
+            alertStatus = true;
         } else {
             appUsageAlertSwitch.setChecked(false);
             alertLinearLayout.setVisibility(View.GONE);
+            alertStatus = false;
         }
 
         // display the alert duration time that is/was set
@@ -130,9 +146,11 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
+                    notificationIcon.setImageResource(R.drawable.ic_notifications_black_24dp);
                     linearLayout.setVisibility(View.VISIBLE);
                     settingsData.setNotificationStatus(true);
                 } else {
+                    notificationIcon.setImageResource(R.drawable.ic_notifications_off_black_24dp);
                     linearLayout.setVisibility(View.GONE);
                     settingsData.setNotificationStatus(false);
                 }
@@ -146,10 +164,13 @@ public class SettingsActivity extends AppCompatActivity {
                 if (isChecked) {
                     alertLinearLayout.setVisibility(View.VISIBLE);
                     settingsData.setUsageAlertStatus(true);
+                    alertStatus = true;
                 } else {
                     alertLinearLayout.setVisibility(View.GONE);
                     settingsData.setUsageAlertStatus(false);
+                    alertStatus = false;
                 }
+                alertStatusChanged = true;
             }
         });
     }
@@ -178,6 +199,14 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         // intiate the service here to monitor the foreground running apps duration
+        if(alertStatusChanged){
+            Intent serviceIntent = new Intent(SettingsActivity.this, AppUsageAlertService.class);
+            serviceIntent.putExtra(ALERT_STATUS, alertStatus);
+            if(alertStatus){
+                serviceIntent.putExtra(ALERT_TIME_MILLIS, alertTimeInMillis);
+            }
+            startService(serviceIntent);
+        }
     }
 
     /**
@@ -249,6 +278,7 @@ public class SettingsActivity extends AppCompatActivity {
                 settingsData.setAlertTimeDuration(alertTimeInMillis);
             }
         }, alertHour, alertMinute, true);
+        alertStatusChanged = true;
         timePickerDialog.setTitle("Select Duration");
         timePickerDialog.show();
     }

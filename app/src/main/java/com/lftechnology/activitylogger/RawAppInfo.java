@@ -81,7 +81,7 @@ public class RawAppInfo {
     /**
     *Returns the list of apps in a List to read
     */
-    protected static List<UsageStats> getUsageStatsAppList(Context context){
+    public static List<UsageStats> getUsageStatsAppList(Context context){
         UsageStatsManager usageStatsManager = getUsageStatsManager(context);
         Calendar calendar = Calendar.getInstance();
         long endTime = calendar.getTimeInMillis();

@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger;
+package com.lftechnology.activitylogger.BroadcastReceiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
