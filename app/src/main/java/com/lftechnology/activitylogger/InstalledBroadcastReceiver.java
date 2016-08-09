@@ -32,13 +32,13 @@ public class InstalledBroadcastReceiver extends BroadcastReceiver {
         if (aboutAppInfo.getAction().equals("android.intent.action.PACKAGE_ADDED")) {
             // Log.e("BroadcastReceiver", "onReceive called" + "PACKAGE_INSTALLED");
             //Toast.makeText(context, "onReceive !!! PACKAGE_INSTALLED", Toast.LENGTH_LONG).show();
-            //Intent insIntent = new Intent(this, InstalledMonitoringService.class);
 
             Intent addIntent = new Intent(context, InstalledMonitoringService.class);
             addIntent.putExtra("AddKey", "android.intent.action.PACKAGE_ADDED");
             context.startService(addIntent);
 
-        } else if (aboutAppInfo.getAction().equals("android.intent.action.PACKAGE_REPLACED")) {
+        } else if (aboutAppInfo.getAction().equals(Intent.ACTION_PACKAGE_REPLACED)) {
+
             //Log.e("BroadcastReceiver", "onReceive called" + "PACKAGE_ADDED");
             //Toast.makeText(context, "onReceive!!! PACKAGE_ADDED", Toast.LENGTH_LONG).show();
 
@@ -46,7 +46,8 @@ public class InstalledBroadcastReceiver extends BroadcastReceiver {
             rpIntent.putExtra("RpKey", "android.intent.action.PACKAGE_REPLACED");
             context.startService(rpIntent);
 
-        } else if (aboutAppInfo.getAction().equals("android.intent.action.PACKAGE_REMOVED")) {
+
+        } else if (aboutAppInfo.getAction().equals(Intent.ACTION_PACKAGE_REMOVED)) {
             //Log.e("BroadcastReceiver", "onReceive !!! PACKAGE_REMOVED");
             //Toast.makeText(context, "onReceive  !!! PACKAGE_REMOVED", Toast.LENGTH_LONG).show();
 
@@ -56,12 +57,15 @@ public class InstalledBroadcastReceiver extends BroadcastReceiver {
 
         } else {
             Log.i("Message", "Nothing Done");
+
         }
 
-//        if (toastMessage != null) {
-//            Toast.makeText(context, toastMessage, Toast.LENGTH_LONG).show();
-//        }
+
     }
 }
+
+
+
+
 
 

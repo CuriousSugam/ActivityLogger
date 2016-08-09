@@ -46,6 +46,7 @@
         <service android:name=".Services.ConnectivityChangeMonitoringIntentService" />
         <receiver android:name=".InstalledBroadcastReceiver">
             <intent-filter android:priority="999">
+
                 <action android:name="android.intent.action.PACKAGE_ADDED"/>
                 <action android:name="android.intent.action.PACKAGE_REPLACED"/>
                 <action android:name="android.intent.action.PACKAGE_REMOVED"/>

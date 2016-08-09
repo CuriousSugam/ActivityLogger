@@ -1,16 +1,15 @@
 package com.lftechnology.activitylogger.Services;
 
 import android.app.IntentService;
-
 import android.content.Context;
 import android.content.Intent;
-
+import android.database.sqlite.SQLiteDatabase;
+import android.provider.ContactsContract;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.lftechnology.activitylogger.Controller.SQLiteAccessLayer;
-
 import com.lftechnology.activitylogger.model.AppDetails;
-
 
 
 /**
@@ -18,9 +17,10 @@ import com.lftechnology.activitylogger.model.AppDetails;
  */
 public class InstalledMonitoringService extends IntentService {
 
-
     Context context;
     private AppDetails appDetails;
+
+
     SQLiteAccessLayer accessLayer = new SQLiteAccessLayer(context, appDetails);
 
 
@@ -30,41 +30,34 @@ public class InstalledMonitoringService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+
+
         if (intent.equals(Intent.ACTION_PACKAGE_ADDED)) {
-            intent.getStringExtra("AddKey");
-            appDetails = new AppDetails();
-            appDetails.getUid();
-            appDetails.setApplicationName(Intent.ACTION_PACKAGE_ADDED);
-            appDetails.setPackageName(Intent.ACTION_PACKAGE_ADDED);
-            appDetails.setApplicationType(Intent.ACTION_PACKAGE_ADDED);
+            String dbAddIntent=intent.getStringExtra("AddKey");
+            appDetails= new AppDetails(appDetails.getUid(),Intent.ACTION_PACKAGE_ADDED,dbAddIntent);
             accessLayer.insertIntoAppDetails();
+            accessLayer.closeDatabaseConnection();
+            //accessLayer.closeDatabaseConnection();
 
         } else if (intent.equals(Intent.ACTION_PACKAGE_REPLACED)) {
-            intent.getStringExtra("RpKey");
-            appDetails = new AppDetails();
-            appDetails.getUid();
-            appDetails.setApplicationName(Intent.ACTION_PACKAGE_REPLACED);
-            appDetails.setPackageName(Intent.ACTION_PACKAGE_REPLACED);
-            appDetails.setApplicationType(Intent.ACTION_PACKAGE_REPLACED);
+            String dbRpIntent=intent.getStringExtra("RpKey");
+            appDetails = new AppDetails(appDetails.getUid(),Intent.ACTION_PACKAGE_REPLACED,dbRpIntent);
             accessLayer.insertIntoAppDetails();
+            accessLayer.closeDatabaseConnection();
+
 
         } else if (intent.equals(Intent.ACTION_PACKAGE_REMOVED)) {
-            intent.getStringExtra("RmKey");
-            appDetails = new AppDetails();
-            appDetails.getUid();
-            //accessLayer.updateAppDetail(null,new String[]{appDetails.getPackageName()});
-            //accessLayer.updateAppDetail(null,null);
-            accessLayer.deleteAnAppDetail("id=? and name=android.intent.action.PACKAGE_REMOVED", new String[]{appDetails.getPackageName()});
+            String dbRmIntent=intent.getStringExtra("RmKey");
+            appDetails = new AppDetails(appDetails.getUid(), Intent.ACTION_PACKAGE_REMOVED,dbRmIntent);
+            accessLayer.deleteAnAppDetail("id=? and name=android.intent.action.PACKAGE_REMOVED", new String[]{appDetails.getApplicationName()});
+            accessLayer.closeDatabaseConnection();
 
         } else {
-            Log.i("Error:", "Package Error");
-            //startService(intent);
+            //accessLayer.closeDatabaseConnection();
+            Log.i("Error", "Package Error");
         }
     }
-
-
 }
-
 
 
 
