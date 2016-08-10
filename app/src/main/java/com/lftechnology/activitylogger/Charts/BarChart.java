@@ -51,7 +51,7 @@ public class BarChart extends View implements View.OnTouchListener {
         screenWidth = displayMetrics.widthPixels;
         screenHeight = displayMetrics.heightPixels;
         Log.d("LOG", "Screen Width: " + screenWidth + "Screen Height" + screenHeight);
-        barWidth = (float) screenWidth / ((float) 3 * (numberOfBars) / (float) 2);
+        barWidth = (float) screenWidth / ((float) 1.29 * (numberOfBars));
         maxBarHeight = 0;//TODO remove
         setBackgroundColor(Color.WHITE);
         paint = new Paint();
@@ -74,7 +74,7 @@ public class BarChart extends View implements View.OnTouchListener {
         x = canvasWidth;
         y = canvasHeight - (canvasHeight / 10);
 
-        spacing = (float) x / (float) 21.6;
+        spacing = (float) x / (float) 50;
         marginX = spacing / 2;
         marginY = spacing / 2;
 
@@ -87,6 +87,14 @@ public class BarChart extends View implements View.OnTouchListener {
 
         canvas.drawLine(marginX, y - marginY, x - marginX, y - marginY, paint);
         canvas.drawLine(marginX, marginY, marginX, y - marginY, paint);
+
+        float graphLineSpacingHorizontal = (y - 2 * marginY)/10;
+        float graphLineHorizontal = y - marginY;
+
+        for(int i=0;i<10;i++){
+            canvas.drawLine(marginX, graphLineHorizontal, x - marginX, graphLineHorizontal, paint);
+            graphLineHorizontal = graphLineHorizontal - graphLineSpacingHorizontal;
+        }
 
         paint.setColor(Color.CYAN);
 
@@ -108,7 +116,7 @@ public class BarChart extends View implements View.OnTouchListener {
                 barTop = marginY;
             }
             bar.set(barLeft, barTop, barRight, barBottom);
-            paint.setColor(Color.parseColor(chartColors[i]));
+            paint.setColor(Color.parseColor(chartColors[i%9]));
             canvas.drawRect(bar, paint);
             EachAppDetails current = eachAppDetailsList.get(i);
             Drawable drawable = current.eachAppIcon;
@@ -116,7 +124,7 @@ public class BarChart extends View implements View.OnTouchListener {
             bitmapIconsOfApps = resizeBitmap(bitmapIconsOfApps, (float) 0.6 * barWidth);
             canvas.drawBitmap(bitmapIconsOfApps, (barLeft + ((float) 0.2 * barWidth)), barTop - ((float) 0.6 * barWidth), paint);
             text = namesOfAppsUsed[i];
-            canvas.drawText(text, barLeft, barBottom + spacing, paint);
+//            canvas.drawText(text, barLeft, barBottom + spacing, paint);
             barLeft = barRight + spacing;
             barRight = barLeft + barWidth;
         }

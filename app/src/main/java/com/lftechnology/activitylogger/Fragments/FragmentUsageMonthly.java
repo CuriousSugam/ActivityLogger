@@ -67,7 +67,8 @@ public class FragmentUsageMonthly extends Fragment implements View.OnClickListen
 
     public void initialize() {
         int i = 0;
-        usageStatses = RawAppInfo.printCurrentUsageStats(getActivity(), ConstantIntervals.MONTHLY.value);
+        RawAppInfo rawAppInfo = new RawAppInfo();
+        usageStatses = rawAppInfo.printCurrentUsageStats(getActivity(), ConstantIntervals.MONTHLY.value);
         namesOfApp = new String[usageStatses.size()];
         runTimeOfApp = new Long[usageStatses.size()];
 
@@ -129,16 +130,19 @@ public class FragmentUsageMonthly extends Fragment implements View.OnClickListen
                     current.eachAppUsageDuration = runTimeOfApp[i];
                     Drawable icon = getActivity().getPackageManager().getApplicationIcon(applicationInfo);
                     current.eachAppIcon = icon;
+                    boolean skip = false;
+                    for (EachAppDetails eachAppDetails : eachAppDetailsList) {
+                        if (current.eachAppName.equals(eachAppDetails.eachAppName))
+                            skip = true;
+                    }
+                    if(skip)
+                        continue;
                     eachAppDetailsList.add(current);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        Set<EachAppDetails> set = new HashSet<>();
-//        set.addAll(eachAppDetailsList);
-//        eachAppDetailsList.clear();
-//        eachAppDetailsList.addAll(set);
         return eachAppDetailsList;
     }
 
