@@ -20,7 +20,7 @@ public class FragmentChartsActivityPieChart extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        return new PieChart(getActivity(), 25);
+        return new PieChart(getActivity(), 25);             //A view created with a canvas
     }
 
     @Override

@@ -101,6 +101,7 @@ public class FragmentUsageYearly extends Fragment implements View.OnClickListene
             ApplicationInfo applicationInfo = pm.getApplicationInfo(mPackageName,0);
             if(((applicationInfo.flags & ApplicationInfo.FLAG_INSTALLED)!=1)&&
                     (applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM)!=1){
+                //i.e. if the application is installed and is not a system app
                 return true;
             }
         } catch (PackageManager.NameNotFoundException e) {

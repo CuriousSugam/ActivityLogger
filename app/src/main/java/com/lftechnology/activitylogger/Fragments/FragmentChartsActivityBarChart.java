@@ -13,13 +13,13 @@ import com.lftechnology.activitylogger.Charts.BarChart;
  * Created by sparsha on 7/21/2016.
  */
 public class FragmentChartsActivityBarChart extends Fragment {
-    BarChart barChart;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        barChart = new BarChart(getActivity(), 10);
-        return barChart;
+
+        return new BarChart(getActivity(), 10);     // Canvas with a barChart of max number 10
     }
 
     @Override

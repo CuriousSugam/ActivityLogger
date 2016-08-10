@@ -23,13 +23,19 @@ public class PieChart extends View {
     int completeCircle;
     List<EachAppDetails> eachAppDetailsList;
     int numberOfPie;
+    Paint paint;
+
+    /**
+     *
+     * @param context Calling Activity
+     * @param size Number of desired PIEs
+     */
     public PieChart(Context context,int size) {
         super(context);
         completeCircle = 0;
         eachAppDetailsList = new CommunicatorEachAppDetailsValues().getEachAppDetailsList();
         numberOfPie = size;
-
-
+        paint  = new Paint();
 
         if(numberOfPie > eachAppDetailsList.size())
             numberOfPie = eachAppDetailsList.size();
@@ -44,17 +50,17 @@ public class PieChart extends View {
         if(x>y)radiusReference = y;
         int imageY = y/15;
         int imageX = x - x/9;
-
         float imageSize = y/28;
 
         int radius = radiusReference/3;
-        RectF rectF = new RectF(x/2-x/15-radius,y/2-radius,x/2-x/15+radius,y/2+radius);
-        Paint paint = new Paint();
+        RectF rectF = new RectF(x/2-x/15-radius,y/2-radius,x/2-x/15+radius,y/2+radius);// A rect created with the circle's dimension
+
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         paint.setColor(Color.WHITE);
         canvas.drawPaint(paint);
 
-        String[] pieChartColors = {"#4D4D4D", "#5DA5DA", "#FAA43A", "#60BD68", "#F17CB0","#B2912F","#B276B2","#DECF3F","#F15854"};
+        String[] pieChartColors =
+                {"#4D4D4D", "#5DA5DA", "#FAA43A", "#60BD68", "#F17CB0","#B2912F","#B276B2","#DECF3F","#F15854"};//Default colors
         float[] appValuesDuration = new float[numberOfPie];
         String[] valueNames = new String[numberOfPie];
         Bitmap[] bitmaps = new Bitmap[numberOfPie];
@@ -79,10 +85,12 @@ public class PieChart extends View {
             imageY = imageY +(int) imageSize;
             startAngle = startAngle + makeAngle;
         }
-
+        /**
+         * animates the canvas
+         */
         if(completeCircle<360){
             completeCircle+=5;
-            invalidate();
+            invalidate();                           //Redraw canvas
         }
 
     }

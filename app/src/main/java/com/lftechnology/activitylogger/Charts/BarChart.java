@@ -22,6 +22,8 @@ import java.util.List;
 /**
  * Created by sparsha on 7/21/2016.
  */
+
+
 public class BarChart extends View implements View.OnTouchListener {
     int x, y;
     int canvasHeight, canvasWidth;
@@ -31,12 +33,18 @@ public class BarChart extends View implements View.OnTouchListener {
     float marginX, marginY, spacing;
     float barWidth, maxBarHeight, barLeft, barTop, barRight, barBottom;
     float textSize;
-    String[] chartColors = {"#4D4D4D", "#5DA5DA", "#FAA43A", "#60BD68", "#F17CB0", "#B2912F", "#B276B2", "#DECF3F", "#F15854"};
+    String[] chartColors =
+            {"#4D4D4D", "#5DA5DA", "#FAA43A", "#60BD68", "#F17CB0", "#B2912F", "#B276B2", "#DECF3F", "#F15854"};//Default Colors
     String text = "N/A";
     Bitmap bitmapIconsOfApps;
     List<EachAppDetails> eachAppDetailsList;
     int numberOfBars;
 
+    /**
+     *
+     * @param context The current UI/Activity
+     * @param size Numbers of bars needed
+     */
     public BarChart(Context context, int size) {
         super(context);
 
@@ -50,9 +58,9 @@ public class BarChart extends View implements View.OnTouchListener {
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         screenWidth = displayMetrics.widthPixels;
         screenHeight = displayMetrics.heightPixels;
-        Log.d("LOG", "Screen Width: " + screenWidth + "Screen Height" + screenHeight);
+        Log.d("LOG", "Screen Width: " + screenWidth + "Screen Height" + screenHeight);//TODO remove
         barWidth = (float) screenWidth / ((float) 1.29 * (numberOfBars));
-        maxBarHeight = 0;//TODO remove
+        maxBarHeight = 0;
         setBackgroundColor(Color.WHITE);
         paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
@@ -116,11 +124,11 @@ public class BarChart extends View implements View.OnTouchListener {
                 barTop = marginY;
             }
             bar.set(barLeft, barTop, barRight, barBottom);
-            paint.setColor(Color.parseColor(chartColors[i%9]));
+            paint.setColor(Color.parseColor(chartColors[i%9]));//Colors Repeat themselves after the 9th
             canvas.drawRect(bar, paint);
             EachAppDetails current = eachAppDetailsList.get(i);
             Drawable drawable = current.eachAppIcon;
-            bitmapIconsOfApps = ((BitmapDrawable) drawable).getBitmap();
+            bitmapIconsOfApps = ((BitmapDrawable) drawable).getBitmap();//Convert drawable to bitmap
             bitmapIconsOfApps = resizeBitmap(bitmapIconsOfApps, (float) 0.6 * barWidth);
             canvas.drawBitmap(bitmapIconsOfApps, (barLeft + ((float) 0.2 * barWidth)), barTop - ((float) 0.6 * barWidth), paint);
             text = namesOfAppsUsed[i];
@@ -128,13 +136,24 @@ public class BarChart extends View implements View.OnTouchListener {
             barLeft = barRight + spacing;
             barRight = barLeft + barWidth;
         }
-        if (maxBarHeight < screenHeight * (float) 0.8) {
+
+        /**
+         * Animates the canvas
+         */
+        if (maxBarHeight < screenHeight * (float) 0.8) {            //If drawing is not completed
             maxBarHeight += 50;
-            invalidate();
+            invalidate();                                           //Redraw the canvas
         }
 
 
     }
+
+    /**
+     * Returns a Square Bitmap object with the Desired size
+     * @param bitmap: The Bitmap object to be provided
+     * @param width: The desired width of the Bitmap
+     * @return
+     */
 
     private Bitmap resizeBitmap(Bitmap bitmap, float width) {
         int prevWidth = bitmap.getWidth();
@@ -147,6 +166,11 @@ public class BarChart extends View implements View.OnTouchListener {
         return resizedBitmap;
     }
 
+/*
+    Used for checking bar width
+    //TODO Remove
+
+*/
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
