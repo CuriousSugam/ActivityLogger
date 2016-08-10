@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger.Viewholders;
+package com.lftechnology.activitylogger.viewholders;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

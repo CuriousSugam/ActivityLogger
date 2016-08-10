@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger.AsynkTasks;
+package com.lftechnology.activitylogger.asyncTasks;
 
 import android.content.Context;
 import android.content.pm.PackageManager;

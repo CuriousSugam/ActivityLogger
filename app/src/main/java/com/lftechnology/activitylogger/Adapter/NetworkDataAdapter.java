@@ -1,8 +1,9 @@
-package com.lftechnology.activitylogger.Adapter;
+package com.lftechnology.activitylogger.adapter;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.lftechnology.activitylogger.asyncTasks.BitmapWorkerTask;
 import com.lftechnology.activitylogger.R;
 import com.lftechnology.activitylogger.model.NetworkUsageDetails;
 
@@ -54,45 +56,58 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
                     .getApplicationInfo(networkUsageDetailsList
                             .get(position).getPackageName(), PackageManager.GET_META_DATA);
             holder.applicationName.setText(context.getPackageManager().getApplicationLabel(applicationInfo));
-            holder.applicationIcon.setImageDrawable(context.getPackageManager().getApplicationIcon(applicationInfo));
-
+            loadBitmap(applicationInfo.packageName, holder.applicationIcon);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        float rxBytes = (float) networkUsageDetailsList.get(position).getTotalRxBytes();
-        float txBytes = (float) networkUsageDetailsList.get(position).getTotalTxBytes();
-        float total = rxBytes + txBytes;
+        long rxBytes = networkUsageDetailsList.get(position).getTotalRxBytes();
+        long txBytes = networkUsageDetailsList.get(position).getTotalTxBytes();
+        long total = rxBytes + txBytes;
 
-        if(rxBytes > (1024*1024*1024)){
-            holder.receivedBytes.setText(String.format("%.2f", rxBytes/(1024*1024*1024))+ " GB");
-        }else if(rxBytes > (1024*1024)){
-            holder.receivedBytes.setText("Down: "+String.format("%.2f", rxBytes/(1024*1024))+ " MB");
-        }else if(rxBytes > 1024){
-            holder.receivedBytes.setText("Down: "+String.format("%.2f", rxBytes/1024)+ " KB");
-        }else{
-            holder.receivedBytes.setText("Down: "+rxBytes+ " bytes");
-        }
-
-        if(rxBytes > (1024*1024*1024)){
-            holder.transmittedBytes.setText("Up: "+String.format("%.2f", txBytes/(1024*1024*1024))+" GB");
-        }else if(rxBytes > (1024*1024)){
-            holder.transmittedBytes.setText("Up  "+String.format("%.2f", txBytes/(1024*1024))+" MB");
-        }else if(rxBytes > 1024){
-            holder.transmittedBytes.setText("Up: "+String.format("%.2f", txBytes/1024)+" KB");
-        }else{
-            holder.transmittedBytes.setText("Up: "+txBytes+ " bytes");
-        }
-
-        if(rxBytes > (1024*1024*1024)){
-            holder.totalBytes.setText("Total:  "+ String.format("%.2f", total/(1024*1024*1024))+" GB");
-        }else if(rxBytes > (1024*1024)){
-            holder.totalBytes.setText("Total:  "+ String.format("%.2f", total/(1024*1024))+" MB");
-        }else if(rxBytes > 1024){
-            holder.totalBytes.setText("Total:  "+ String.format("%.2f", total/1024)+" KB");
-        }else{
-            holder.totalBytes.setText("Total:  "+total+ " bytes");
-        }
+        holder.receivedBytes.setText("Down: "+memorySizeFormat(rxBytes));
+        holder.transmittedBytes.setText("Up: "+memorySizeFormat(txBytes));
+        holder.totalBytes.setText("Total:  "+ memorySizeFormat(total));
         holder.progressBar.setProgress((int)(total/totalBytes*100));
+    }
+
+    /**
+     * takes the number of bytes as input and convert it to the readable memory format
+     * for eg: if the input to the method is 1024 then it returns 1KB
+     *
+     * @param membytes number of bytes
+     * @return memory size in the readable format
+     */
+    private String memorySizeFormat(long membytes){
+        float bytes = (float)membytes;
+        String returnValue;
+        if(bytes > (1024*1024*1024)){
+            returnValue = String.format("%.2f", bytes/(1024*1024*1024))+" GB";
+        }else if(bytes > (1024*1024)){
+            returnValue = String.format("%.2f", bytes/(1024*1024))+" MB";
+        }else if(bytes> 1024){
+            returnValue = String.format("%.2f", bytes/(1024))+" KB";
+        }else{
+            returnValue = String.format("%.2f", bytes)+" bytes";
+        }
+        return returnValue;
+    }
+
+    /**
+     * loads the application icon of the package to the image view.
+     *
+     * @param packageName name of the package whose icon is to be loaded
+     * @param imageView  reference to the ImageView where the application icon is to be loaded
+     */
+    public void loadBitmap(String packageName, ImageView imageView) {
+        BitmapWorkerTask bitmapWorkerTask = new BitmapWorkerTask();
+        final Bitmap bitmap = bitmapWorkerTask.getBitmapFromMemCache(packageName);
+        if (bitmap != null) {
+            imageView.setImageBitmap(bitmap);
+        } else {
+            imageView.setImageResource(R.mipmap.ic_launcher);
+            BitmapWorkerTask task = new BitmapWorkerTask();
+            task.execute(packageName, imageView, context);
+        }
     }
 
     @Override
@@ -118,7 +133,7 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
             applicationIcon = (ImageView) itemView.findViewById(R.id.main_app_icon);
             applicationName = (TextView) itemView.findViewById(R.id.main_app_name);
             receivedBytes = (TextView) itemView.findViewById(R.id.txt_network_data_received);
-            transmittedBytes = (TextView) itemView.findViewById(R.id.txt_network_data_trasmitted);
+            transmittedBytes = (TextView) itemView.findViewById(R.id.txt_network_data_transmitted);
             totalBytes = (TextView) itemView.findViewById(R.id.txt_total_network_data);
             progressBar = (ProgressBar)itemView.findViewById(R.id.progressBar);
         }

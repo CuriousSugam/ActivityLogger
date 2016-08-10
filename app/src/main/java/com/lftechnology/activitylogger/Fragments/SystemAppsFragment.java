@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger.Fragments;
+package com.lftechnology.activitylogger.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lftechnology.activitylogger.Adapter.AllAppsRecyclerViewAdapter;
+import com.lftechnology.activitylogger.adapter.AllAppsRecyclerViewAdapter;
 import com.lftechnology.activitylogger.R;
 import com.lftechnology.activitylogger.RawAppInfo;
 import com.lftechnology.activitylogger.model.AppDetails;

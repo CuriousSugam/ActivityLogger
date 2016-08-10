@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger.Controller;
+package com.lftechnology.activitylogger.controller;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,7 +9,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
-import android.net.Network;
 import android.net.TrafficStats;
 import android.util.Log;
 
@@ -36,8 +35,9 @@ public class SQLiteAccessLayer {
     private static final String TABLE_PACKAGE_INFO = "package_info_table";
     private static final String TABLE_NETWORK_TEMP = "network_temp_table";
     private static final String TABLE_NETWORK_INFO_TABLE = "network_info_table";
+    private static final String TABLE_FOREGROUND_DETAILS = "foreground_details_table";
 
-    private static final int DATABASE_VERSION = 12;
+    private static final int DATABASE_VERSION = 13;
 
     private static final String TABLE_COLUMN_ID = "_id";
     private static final String TABLE_COLUMN_UID = "uid";
@@ -52,6 +52,8 @@ public class SQLiteAccessLayer {
     private static final String TABLE_COLUMN_NET_TX_BYTES = "final_tx_bytes";
     private static final String TABLE_COLUMN_FINAL_DATE_TIME = "final_date_time";
     private static final String TABLE_COLUMN_NETWORK_TYPE = "network_type";
+    private static final String TABLE_COLUMN_FOREGROUND_TIME = "foreground_time";
+
 
 
     private ActivityLoggerSQLiteOpenHelper dbHelper;
@@ -294,6 +296,19 @@ public class SQLiteAccessLayer {
         return networkUsageDetailsList;
     }
 
+    public long insertIntoForegroundTable(String packageName, long foregroundTime){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TABLE_COLUMN_PACKAGE_NAME, packageName);
+        contentValues.put(TABLE_COLUMN_FOREGROUND_TIME, foregroundTime);
+
+        // insert the new row, returning the primary key of the row inserted
+        long newInsertedRowId;
+        newInsertedRowId = db.insert(TABLE_FOREGROUND_DETAILS, null, contentValues);
+        // TODO remove this code
+        Log.e("foregroundDetails", "Inserted:=> "+this.appDetails.getApplicationName());
+        return newInsertedRowId;
+    }
+
     public void closeDatabaseConnection() {
         db.close();
     }
@@ -330,12 +345,17 @@ public class SQLiteAccessLayer {
                     + TABLE_COLUMN_FINAL_DATE_TIME + " datetime default current_timestamp,"
                     + TABLE_COLUMN_NETWORK_TYPE + " varchar(7)"
                     + " );";
+            String createForegroundDetailsTableQuery = "CREATE TABLE IF NOT EXISTS "+ TABLE_FOREGROUND_DETAILS + " ("
+                    + TABLE_COLUMN_PACKAGE_NAME + " varchar(255), "
+                    + TABLE_COLUMN_FOREGROUND_TIME + " integer"
+                    + " );";
 
 
             try {
                 sqLiteDatabase.execSQL(query);
                 sqLiteDatabase.execSQL(createNetworkTempTableQuery);
                 sqLiteDatabase.execSQL(createNetworkInfoTableQuery);
+                sqLiteDatabase.execSQL(createForegroundDetailsTableQuery);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -346,6 +366,7 @@ public class SQLiteAccessLayer {
             sqLiteDatabase.execSQL("Drop table if exists " + TABLE_PACKAGE_INFO);
             sqLiteDatabase.execSQL("Drop table if exists " + TABLE_NETWORK_TEMP);
             sqLiteDatabase.execSQL("Drop table if exists " + TABLE_NETWORK_INFO_TABLE);
+            sqLiteDatabase.execSQL("Drop table if exists " + TABLE_FOREGROUND_DETAILS);
             try {
                 onCreate(sqLiteDatabase);
             } catch (SQLException e) {
