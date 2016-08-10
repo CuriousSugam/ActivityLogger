@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ActivityLogger.iml" filepath="$PROJECT_DIR$/ActivityLogger.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ActivityLogger-bck.iml" filepath="$PROJECT_DIR$/ActivityLogger-bck.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
