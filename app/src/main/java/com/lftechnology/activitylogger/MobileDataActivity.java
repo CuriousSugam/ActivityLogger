@@ -8,11 +8,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
-import com.lftechnology.activitylogger.Adapter.NetworkDataAdapter;
-import com.lftechnology.activitylogger.Controller.SQLiteAccessLayer;
-import com.lftechnology.activitylogger.Services.ConnectivityChangeMonitoringIntentService;
-import com.lftechnology.activitylogger.Model.NetworkUsageDetails;
-import com.lftechnology.activitylogger.Utilities.NetworkStatus;
+import com.lftechnology.activitylogger.adapter.NetworkDataAdapter;
+import com.lftechnology.activitylogger.controller.SQLiteAccessLayer;
+import com.lftechnology.activitylogger.services.ConnectivityChangeMonitoringIntentService;
+import com.lftechnology.activitylogger.model.NetworkUsageDetails;
+import com.lftechnology.activitylogger.utilities.NetworkStatus;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,7 +31,6 @@ import butterknife.ButterKnife;
  */
 public class MobileDataActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
-    private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private NetworkDataAdapter adapter;
     private long totalBytes = 0;
@@ -39,6 +38,9 @@ public class MobileDataActivity extends AppCompatActivity implements SwipeRefres
 
     @BindView(R.id.swipeRefreshMobileActivity)
     SwipeRefreshLayout swipeRefreshLayout;
+
+    @BindView(R.id.application_list_mobile_usage)
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,6 @@ public class MobileDataActivity extends AppCompatActivity implements SwipeRefres
         swipeRefreshLayout.setOnRefreshListener(this);
         networkDetailsListToAdapter = getMobileUsageDetails();
 
-        recyclerView = (RecyclerView) findViewById(R.id.application_list_mobile_usage);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(MobileDataActivity.this);

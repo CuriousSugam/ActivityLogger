@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger.BroadcastReceiver;
+package com.lftechnology.activitylogger.broadcastReceiver;
 
 import android.app.Notification;
 import android.app.NotificationManager;

@@ -8,11 +8,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
-import com.lftechnology.activitylogger.Adapter.NetworkDataAdapter;
-import com.lftechnology.activitylogger.Controller.SQLiteAccessLayer;
-import com.lftechnology.activitylogger.Services.ConnectivityChangeMonitoringIntentService;
-import com.lftechnology.activitylogger.Model.NetworkUsageDetails;
-import com.lftechnology.activitylogger.Utilities.NetworkStatus;
+import com.lftechnology.activitylogger.adapter.NetworkDataAdapter;
+import com.lftechnology.activitylogger.controller.SQLiteAccessLayer;
+import com.lftechnology.activitylogger.services.ConnectivityChangeMonitoringIntentService;
+import com.lftechnology.activitylogger.model.NetworkUsageDetails;
+import com.lftechnology.activitylogger.utilities.NetworkStatus;
 
 import java.util.ArrayList;
 import java.util.Collections;

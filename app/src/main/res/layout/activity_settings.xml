@@ -1,37 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settings_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:animateLayoutChanges="true"
+    android:background="@color/windowBackground"
     android:divider="?android:dividerHorizontal"
     android:dividerPadding="10dp"
     android:orientation="vertical"
     android:showDividers="middle"
-    tools:context="com.lftechnology.activitylogger.SettingsActivity"
-    android:background="@color/windowBackground"
-    android:id="@+id/settings_container"
-    android:animateLayoutChanges="true">
+    tools:context="com.lftechnology.activitylogger.SettingsActivity">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:padding="16dp">
 
         <ImageView
             android:id="@+id/notification_icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginRight="8dp"
-            />
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="8dp" />
 
         <TextView
             android:id="@+id/txt_notification_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
+            android:layout_toEndOf="@id/notification_icon"
             android:text="@string/notification_status"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -39,23 +38,22 @@
             android:id="@+id/switch_notification_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:checked="true"
             android:theme="@style/MySwitch" />
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
-
+    <RelativeLayout
         android:id="@+id/notification_time_selection_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:padding="16dp">
 
         <TextView
             android:id="@+id/txt_regular_notification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
+            android:layout_alignParentStart="true"
             android:text="@string/regular_notification_time"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -64,54 +62,53 @@
             style="@style/MyLightText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:padding="16dp">
 
         <TextView
             android:id="@+id/txt_app_usage_alert_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/app_usage_duration_alert"/>
+            android:text="@string/app_usage_duration_alert"
+            android:layout_alignParentStart="true"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <android.support.v7.widget.SwitchCompat
             android:id="@+id/switch_app_usage_alert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:theme="@style/MySwitch" />
-    </LinearLayout>
+            android:theme="@style/MySwitch"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/alert_usage_duration_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:padding="16dp">
 
         <TextView
             android:id="@+id/txt_app_usage_alert"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_height="wrap_content"
             android:text="@string/app_usage_duration_alert_time"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:gravity="center_vertical"/>
+            android:layout_alignParentStart="true"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/txt_app_usage_alert_time"
             style="@style/MyLightText"
             android:layout_width="wrap_content"
-            android:text="12:08"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

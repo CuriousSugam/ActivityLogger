@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger.Services;
+package com.lftechnology.activitylogger.services;
 
 import android.app.IntentService;
 import android.content.Context;
@@ -6,9 +6,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.TrafficStats;
 
-import com.lftechnology.activitylogger.Controller.SQLiteAccessLayer;
-import com.lftechnology.activitylogger.Model.AppDetails;
-import com.lftechnology.activitylogger.Model.NetworkUsageDetails;
+import com.lftechnology.activitylogger.controller.SQLiteAccessLayer;
+import com.lftechnology.activitylogger.model.AppDetails;
+import com.lftechnology.activitylogger.model.NetworkUsageDetails;
 
 import java.util.List;
 

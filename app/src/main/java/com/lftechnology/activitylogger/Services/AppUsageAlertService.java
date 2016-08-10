@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger.Services;
+package com.lftechnology.activitylogger.services;
 
 import android.app.Service;
 import android.app.usage.UsageStats;
@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.lftechnology.activitylogger.Controller.SQLiteAccessLayer;
+import com.lftechnology.activitylogger.controller.SQLiteAccessLayer;
 import com.lftechnology.activitylogger.RawAppInfo;
 import com.lftechnology.activitylogger.SettingsActivity;
 

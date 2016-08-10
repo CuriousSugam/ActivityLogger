@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger.Adapter;
+package com.lftechnology.activitylogger.adapter;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -12,9 +12,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.lftechnology.activitylogger.AsynkTasks.BitmapWorkerTask;
+import com.lftechnology.activitylogger.asyncTasks.BitmapWorkerTask;
 import com.lftechnology.activitylogger.R;
-import com.lftechnology.activitylogger.Model.NetworkUsageDetails;
+import com.lftechnology.activitylogger.model.NetworkUsageDetails;
 
 import java.util.List;
 

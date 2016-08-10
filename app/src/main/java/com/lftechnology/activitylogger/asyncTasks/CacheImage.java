@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger.AsynkTasks;
+package com.lftechnology.activitylogger.asyncTasks;
 
 import android.graphics.Bitmap;
 import android.util.LruCache;

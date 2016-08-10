@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger.Adapter;
+package com.lftechnology.activitylogger.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

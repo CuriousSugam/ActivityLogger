@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger.Adapter;
+package com.lftechnology.activitylogger.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,10 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.lftechnology.activitylogger.AsynkTasks.BitmapWorkerTask;
+import com.lftechnology.activitylogger.asyncTasks.BitmapWorkerTask;
 import com.lftechnology.activitylogger.R;
-import com.lftechnology.activitylogger.Model.AppDetails;
-import com.lftechnology.activitylogger.Viewholders.AllAppsViewHolder;
+import com.lftechnology.activitylogger.model.AppDetails;
+import com.lftechnology.activitylogger.viewholders.AllAppsViewHolder;
 
 import java.util.List;
 

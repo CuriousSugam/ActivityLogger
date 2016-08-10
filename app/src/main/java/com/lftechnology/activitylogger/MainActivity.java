@@ -9,8 +9,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.lftechnology.activitylogger.Fragments.SecondMainFragment;
-import com.lftechnology.activitylogger.Model.AppDetails;
+import com.lftechnology.activitylogger.fragments.SecondMainFragment;
+import com.lftechnology.activitylogger.model.AppDetails;
 
 import java.util.ArrayList;
 import java.util.List;

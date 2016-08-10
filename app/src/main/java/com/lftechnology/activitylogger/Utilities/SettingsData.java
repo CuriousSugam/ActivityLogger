@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger.Utilities;
+package com.lftechnology.activitylogger.utilities;
 
 import android.content.Context;
 

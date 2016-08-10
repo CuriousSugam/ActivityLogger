@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger.Controller;
+package com.lftechnology.activitylogger.controller;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -12,8 +12,8 @@ import android.database.sqlite.SQLiteStatement;
 import android.net.TrafficStats;
 import android.util.Log;
 
-import com.lftechnology.activitylogger.Model.AppDetails;
-import com.lftechnology.activitylogger.Model.NetworkUsageDetails;
+import com.lftechnology.activitylogger.model.AppDetails;
+import com.lftechnology.activitylogger.model.NetworkUsageDetails;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

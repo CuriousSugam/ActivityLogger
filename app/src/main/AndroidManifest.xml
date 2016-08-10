@@ -37,14 +37,14 @@
             <!-- <meta-data android:name="Wifi Data Usage" /> -->
         </activity>
 
-        <receiver android:name=".BroadcastReceiver.ConnectivityChangeBroadcastReceiver">
+        <receiver android:name=".broadcastReceiver.ConnectivityChangeBroadcastReceiver">
             <intent-filter android:priority="999">
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".BroadcastReceiver.NotificationBroadcastReceiver"></receiver>
+        <receiver android:name=".broadcastReceiver.NotificationBroadcastReceiver"></receiver>
 
-        <service android:name=".Services.ConnectivityChangeMonitoringIntentService" />
+        <service android:name=".services.ConnectivityChangeMonitoringIntentService" />
 
         <activity
             android:name=".AllAppsActivity"
@@ -67,7 +67,7 @@
             android:parentActivityName=".MainActivity" />
 
         <service
-            android:name=".Services.AppUsageAlertService"
+            android:name=".services.AppUsageAlertService"
             android:enabled="true"
             android:exported="true"></service>
     </application>

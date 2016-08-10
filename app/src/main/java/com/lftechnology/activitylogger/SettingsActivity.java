@@ -9,21 +9,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.support.v7.widget.SwitchCompat;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.lftechnology.activitylogger.BroadcastReceiver.NotificationBroadcastReceiver;
-import com.lftechnology.activitylogger.Services.AppUsageAlertService;
-import com.lftechnology.activitylogger.Utilities.SettingsData;
+import com.lftechnology.activitylogger.broadcastReceiver.NotificationBroadcastReceiver;
+import com.lftechnology.activitylogger.services.AppUsageAlertService;
+import com.lftechnology.activitylogger.utilities.SettingsData;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -69,10 +71,10 @@ public class SettingsActivity extends AppCompatActivity {
     TextView appUsageAlertTimeTextView;
 
     @BindView(R.id.notification_time_selection_container)
-    LinearLayout linearLayout;
+    RelativeLayout linearLayout;
 
     @BindView(R.id.alert_usage_duration_container)
-    LinearLayout alertLinearLayout;
+    RelativeLayout alertLinearLayout;
 
     @BindView(R.id.settings_container)
     LinearLayout settingsContainerLinearLayout;
@@ -221,46 +223,64 @@ public class SettingsActivity extends AppCompatActivity {
                 regularNotificationTime.setText(timeToString(selectedHour, selectedMinute) + amPm);
                 // create a pending intent
                 Intent intent = new Intent(SettingsActivity.this, NotificationBroadcastReceiver.class);
-
-                // Build a notification to be display with appropriate message
-                Notification.Builder notificationBuilder = new Notification.Builder(SettingsActivity.this);
-                notificationBuilder.setContentTitle("Time to check activity log");
-//                notificationBuilder.setContentText("");
-                notificationBuilder.setSmallIcon(R.drawable.applogo).setDefaults(Notification.DEFAULT_ALL);
-                notificationBuilder.setPriority(Notification.PRIORITY_HIGH);
-
-                // Prepare a pending intent to be initiated when the notification is clicked
-                Intent intentForNotification = new Intent(SettingsActivity.this, MainActivity.class);
-                TaskStackBuilder stackBuilder = TaskStackBuilder.create(SettingsActivity.this);
-                stackBuilder.addParentStack(MainActivity.class);
-                stackBuilder.addNextIntent(intentForNotification);
-                PendingIntent pendingIntentForNotification = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-                notificationBuilder.setContentIntent(pendingIntentForNotification);
-                Notification notification = notificationBuilder.build();
-                notification.flags |= Notification.FLAG_AUTO_CANCEL;
-
+                Notification notification = prepareNotification();
                 intent.putExtra(NotificationBroadcastReceiver.NOTIFICATION_ID, 1);
                 intent.putExtra(NotificationBroadcastReceiver.NOTIFICATION, notification);
-
                 // Prepare a pending intent to be initiated when the alarm goes off
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(SettingsActivity.this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                setAlarm(selectedHour, selectedMinute, pendingIntent);
 
-                Calendar currentTime = Calendar.getInstance();
-                notificationCalendarObj = Calendar.getInstance();
-                notificationCalendarObj.set(currentTime.get(Calendar.YEAR),
-                        currentTime.get(Calendar.MONTH),
-                        currentTime.get(Calendar.DATE),
-                        selectedHour, selectedMinute);
-                settingsData.setNotificationTime(notificationCalendarObj.getTimeInMillis());
-
-                // Set the alarm to go off when at the selected time
-                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                long interval = 24 * 60 * 60 * 1000;      // convert 24hours to milliseconds
-                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, notificationCalendarObj.getTimeInMillis(), interval, pendingIntent);
             }
         }, notificationCalendarObj.get(Calendar.HOUR_OF_DAY), notificationCalendarObj.get(Calendar.MINUTE), true);
         timePicker.setTitle("Select time");
         timePicker.show();
+    }
+
+    /**
+     * prepare the heads up notification on the notification panel
+     *
+     * @return a Notification
+     */
+    private Notification prepareNotification(){
+        // Build a notification to be display with appropriate message
+        Notification.Builder notificationBuilder = new Notification.Builder(SettingsActivity.this);
+        notificationBuilder.setContentTitle("Time to check activity log");
+//                notificationBuilder.setContentText("");
+        notificationBuilder.setSmallIcon(R.drawable.applogo).setDefaults(Notification.DEFAULT_ALL);
+        notificationBuilder.setPriority(Notification.PRIORITY_HIGH);
+
+        // Prepare a pending intent to be initiated when the notification is clicked
+        Intent intentForNotification = new Intent(SettingsActivity.this, MainActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(SettingsActivity.this);
+        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addNextIntent(intentForNotification);
+        PendingIntent pendingIntentForNotification = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        notificationBuilder.setContentIntent(pendingIntentForNotification);
+        Notification notification = notificationBuilder.build();
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+        return notification;
+    }
+
+    /**
+     * set the alarm to trigger on the given time
+     *
+     * @param selectedHour hour of time when to trigger the alarm
+     * @param selectedMinute minute of time when to trigger the alarm
+     * @param pendingIntent action to perform when the alarm goes off
+     */
+    private void setAlarm(int selectedHour, int selectedMinute, PendingIntent pendingIntent){
+        Calendar currentTime = Calendar.getInstance();
+        notificationCalendarObj = Calendar.getInstance();
+        notificationCalendarObj.set(currentTime.get(Calendar.YEAR),currentTime.get(Calendar.MONTH),
+                currentTime.get(Calendar.DATE),
+                selectedHour, selectedMinute);
+        settingsData.setNotificationTime(notificationCalendarObj.getTimeInMillis());
+
+        // Set the alarm to go off when at the selected time
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        long interval = 24 * 60 * 60 * 1000;      // convert 24hours to milliseconds
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, notificationCalendarObj.getTimeInMillis(), interval, pendingIntent);
     }
 
     /**
@@ -270,6 +290,7 @@ public class SettingsActivity extends AppCompatActivity {
     public void showAlertTimeSelector() {
         int alertHour = (int) (alertTimeInMillis / (1000 * 60 * 60)) % 24;
         int alertMinute = (int) (alertTimeInMillis / (1000 * 60)) % 60;
+
         TimePickerDialog timePickerDialog = new TimePickerDialog(SettingsActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {

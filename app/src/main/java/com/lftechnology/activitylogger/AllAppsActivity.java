@@ -8,10 +8,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.lftechnology.activitylogger.Adapter.AllAppsViewPagerAdapter;
-import com.lftechnology.activitylogger.Fragments.InstalledAppsFragment;
-import com.lftechnology.activitylogger.Fragments.SystemAppsFragment;
-import com.lftechnology.activitylogger.Model.AppDetails;
+import com.lftechnology.activitylogger.adapter.AllAppsViewPagerAdapter;
+import com.lftechnology.activitylogger.fragments.InstalledAppsFragment;
+import com.lftechnology.activitylogger.fragments.SystemAppsFragment;
+import com.lftechnology.activitylogger.model.AppDetails;
 
 import java.util.ArrayList;
 import java.util.List;

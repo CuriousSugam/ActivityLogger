@@ -1,11 +1,9 @@
-package com.lftechnology.activitylogger.Utilities;
+package com.lftechnology.activitylogger.utilities;
 
 import android.app.AppOpsManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.provider.Settings;
 
 /**
  * This class checks if the permission required by the Activity Logger app is set.

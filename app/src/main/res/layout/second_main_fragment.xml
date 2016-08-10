@@ -12,7 +12,7 @@
         android:layout_weight="1"
         android:layout_gravity="center_vertical">
         <TextView
-            android:id="@+id/menu_wifi"
+            android:id="@+id/tv_menu_wifi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Wifi"
@@ -21,7 +21,7 @@
             android:textAlignment="center"
             android:layout_gravity="center_vertical" />
         <TextView
-            android:id="@+id/menu_mobile_data"
+            android:id="@+id/tv_menu_mobile_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mobile Data"
@@ -36,7 +36,7 @@
         android:orientation="horizontal"
         android:layout_weight="1">
         <TextView
-            android:id="@+id/menu_time"
+            android:id="@+id/tv_menu_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Time"
@@ -45,7 +45,7 @@
             android:textAlignment="center"
             android:layout_gravity="center_vertical"/>
         <TextView
-            android:id="@+id/menu_all_apps"
+            android:id="@+id/tv_menu_all_apps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="All Apps"
