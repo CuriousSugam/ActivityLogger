@@ -11,9 +11,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by sparsha on 6/29/2016.
@@ -82,11 +84,12 @@ public class RawAppInfo {
     /**
     *Returns the list of apps in a List to read
     */
-    public static List<UsageStats> getUsageStatsAppList(Context context){
+    public List<UsageStats> getUsageStatsAppList(Context context){
         UsageStatsManager usageStatsManager = getUsageStatsManager(context);
         Calendar calendar = Calendar.getInstance();
         long endTime = calendar.getTimeInMillis();
-        calendar.add(Calendar.YEAR, -1);
+        calendar.add(Calendar.YEAR,-1);
+//        calendar.add(Calendar.YEAR, -5);
         long startTime = calendar.getTimeInMillis();
         Log.d("LOG","Date Start:\t"+ DATE_FORMAT.format(startTime));//TODO remove
         Log.d("LOG","Date End:\t"+ DATE_FORMAT.format(endTime));//TODO remove
@@ -104,7 +107,7 @@ public class RawAppInfo {
      *                                        3 For Yearly
      *                                        4 For From the Beginning
      */
-    public static List<UsageStats> printCurrentUsageStats(Context context, int mInterval){
+    public List<UsageStats> printCurrentUsageStats(Context context, int mInterval){
         interval = mInterval;
         List<UsageStats> usageStats = getUsageStatsAppList(context);
         return usageStats;

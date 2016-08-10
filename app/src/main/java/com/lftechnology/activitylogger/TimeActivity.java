@@ -21,7 +21,7 @@ public class TimeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        checkPermissionForAccess();
+//        checkPermissionForAccess();
         setContentView(R.layout.activity_time);
         viewPager = (ViewPager)findViewById(R.id.chartsViewPager);
         setupViewPager(viewPager);
@@ -39,12 +39,12 @@ public class TimeActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
-    private void checkPermissionForAccess(){
-        if(RawAppInfo.getUsageStatsAppList(this).isEmpty()){
-            startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
-            finish();
-        }
-    }
+//    private void checkPermissionForAccess(){
+//        if(new RawAppInfo().getUsageStatsAppList(this).isEmpty()){
+//            startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
+//            finish();
+//        }
+//    }
     @Override
     protected void onDestroy() {
         SharedPreferences sharedPreferences = getSharedPreferences("appName", Context.MODE_PRIVATE);

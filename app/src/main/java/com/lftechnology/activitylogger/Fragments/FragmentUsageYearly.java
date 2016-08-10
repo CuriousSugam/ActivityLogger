@@ -65,7 +65,8 @@ public class FragmentUsageYearly extends Fragment implements View.OnClickListene
     public void initialize()
     {
         int i =0;
-        usageStatses = RawAppInfo.printCurrentUsageStats(getActivity(), ConstantIntervals.YEARLY.value);
+        RawAppInfo rawAppInfo = new RawAppInfo();
+        usageStatses = rawAppInfo.printCurrentUsageStats(getActivity(), ConstantIntervals.YEARLY.value);
         namesOfApp = new String[usageStatses.size()];
         runTimeOfApp = new Long[usageStatses.size()];
 
@@ -111,7 +112,9 @@ public class FragmentUsageYearly extends Fragment implements View.OnClickListene
     }
 
     public  List<EachAppDetails> getData(){
-        eachAppDetailsList.clear();
+        if(!eachAppDetailsList.isEmpty())
+            return eachAppDetailsList;
+//        eachAppDetailsList.clear();
 
         try{
 
@@ -122,8 +125,15 @@ public class FragmentUsageYearly extends Fragment implements View.OnClickListene
                     ApplicationInfo applicationInfo = getActivity().getPackageManager().getApplicationInfo(namesOfApp[i],0);
                     current.eachAppName = String.valueOf(getActivity().getPackageManager().getApplicationLabel(applicationInfo));
                     current.eachAppUsageDuration = runTimeOfApp[i];
-                    Drawable icon =getActivity().getPackageManager().getApplicationIcon(applicationInfo);
+                    Drawable icon = getActivity().getPackageManager().getApplicationIcon(applicationInfo);
                     current.eachAppIcon = icon;
+                    boolean skip = false;
+                    for (EachAppDetails eachAppDetails : eachAppDetailsList) {
+                        if (current.eachAppName.equals(eachAppDetails.eachAppName))
+                            skip = true;
+                    }
+                    if(skip)
+                        continue;
                     eachAppDetailsList.add(current);
                 }
             }
@@ -131,10 +141,7 @@ public class FragmentUsageYearly extends Fragment implements View.OnClickListene
         catch (Exception e){
             e.printStackTrace();
         }
-//        Set<EachAppDetails> set = new HashSet<>();
-//        set.addAll(eachAppDetailsList);
-//        eachAppDetailsList.clear();
-//        eachAppDetailsList.addAll(set);
+
         return eachAppDetailsList;
     }
 
