@@ -44,6 +44,7 @@
         </receiver>
 
         <service android:name=".Services.ConnectivityChangeMonitoringIntentService" />
+        <service android:name=".Services.InstalledMonitoringService"/>
         <receiver android:name=".InstalledBroadcastReceiver">
             <intent-filter android:priority="999">
 
