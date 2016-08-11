@@ -16,16 +16,17 @@
 <!--<?xml version="1.0" encoding="utf-8"?>-->
 <resources>
     <color name="primary">#03A9F4</color>
-    <color name="primary_dark">#0288D1</color>
+    <!--<color name="primary_dark">#0288D1</color>-->
     <color name="primary_light">#B3E5FC</color>
+    <color name="primary_dark">#2737a0</color>
     <color name="accent">#FF5722</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
 
-    <color name="colorPrimary">#03A9F4</color>
-    <color name="colorPrimaryDark">#0288D1</color>
+    <color name="colorPrimary">#353C58</color>
+    <color name="colorPrimaryDark">#282E48</color>
     <color name="textColorPrimary">#212121</color>
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#000000</color>
@@ -33,4 +34,5 @@
     <color name="darkGrey">#484848</color>
     <color name="lightBlue">#1a74f2</color>
     <color name="lightGrey">#8f8f8f</color>
+    <color name="mainMenuBackground">#009688</color>
 </resources>

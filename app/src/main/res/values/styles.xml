@@ -22,7 +22,13 @@
         <item name="colorControlActivated">@color/lightBlue</item>
     </style>
     <style name="MyLightText" parent="MyMaterialTheme">
-        <item name="android:textColor">@color/lightGrey</item>
+        <item name="android:textColor">@color/icons</item>
+    </style>
+    <style name="divider" >
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">?android:attr/listDivider</item>
+
     </style>
 
 </resources>

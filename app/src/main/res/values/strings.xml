@@ -5,4 +5,11 @@
     <string name="regular_notification_time">Always notify me at</string>
     <string name="app_usage_duration_alert">App Usage Duration Alert</string>
     <string name="app_usage_duration_alert_time">Alert Duration</string>
+
+    <string-array name="main_menu_items">
+        <item>WiFi</item>
+        <item>Mobile Data</item>
+        <item>Time</item>
+        <item>All Apps</item>
+    </string-array>
 </resources>
