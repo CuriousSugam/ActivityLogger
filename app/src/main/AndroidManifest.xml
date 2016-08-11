@@ -66,10 +66,6 @@
             android:label="Information"
             android:parentActivityName=".MainActivity" />
 
-        <service
-            android:name=".services.AppUsageAlertService"
-            android:enabled="true"
-            android:exported="true"></service>
     </application>
 
 </manifest>

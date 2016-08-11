@@ -21,25 +21,42 @@ import com.lftechnology.activitylogger.model.AppDetails;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * This Fragment displays the grid menu
+ * <p/>
  * Created by Sugam Shakya on 7/12/2016.
  */
 public class SecondMainFragment extends Fragment {
+
+    @BindView(R.id.tv_menu_wifi)
+    TextView txtWifi;
+
+    @BindView(R.id.tv_menu_all_apps)
+    TextView txtAllApps;
+
+    @BindView(R.id.tv_menu_mobile_data)
+    TextView txtMobileData;
+
+    @BindView(R.id.tv_menu_time)
+    TextView txtTime;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.second_main_fragment, container, false);
+        ButterKnife.bind(this, view);
+
         final List<AppDetails> appDetailsList = getArguments().getParcelableArrayList(MainActivity.APP_DETAILS);
-        TextView txtWifi = (TextView) view.findViewById(R.id.tv_menu_wifi);
         txtWifi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), WifiActivity.class));
             }
         });
-        TextView txtAllApps = (TextView) view.findViewById(R.id.tv_menu_all_apps);
+
         txtAllApps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,14 +65,14 @@ public class SecondMainFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        TextView  txtMobileData= (TextView) view.findViewById(R.id.tv_menu_mobile_data);
+
         txtMobileData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), MobileDataActivity.class));
             }
         });
-        TextView txtTime = (TextView) view.findViewById(R.id.tv_menu_time);
+
         txtTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

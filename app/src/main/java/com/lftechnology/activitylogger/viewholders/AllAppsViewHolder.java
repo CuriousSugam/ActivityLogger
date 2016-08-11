@@ -7,18 +7,23 @@ import android.widget.TextView;
 
 import com.lftechnology.activitylogger.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by Sugam on 7/27/2016.
  */
 public class AllAppsViewHolder extends RecyclerView.ViewHolder {
 
-    private ImageView applicationIconImageView;
-    private TextView applicationNameTextView;
+    @BindView(R.id.image_view_app_icon)
+    ImageView applicationIconImageView;
+
+    @BindView(R.id.txt_app_name)
+    TextView applicationNameTextView;
 
     public AllAppsViewHolder(View itemView) {
         super(itemView);
-        applicationIconImageView = (ImageView) itemView.findViewById(R.id.image_view_app_icon);
-        applicationNameTextView = (TextView) itemView.findViewById(R.id.txt_app_name);
+        ButterKnife.bind(this, itemView);
     }
 
     public ImageView getApplicationIconImageView() {

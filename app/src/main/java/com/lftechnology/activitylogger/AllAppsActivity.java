@@ -16,18 +16,26 @@ import com.lftechnology.activitylogger.model.AppDetails;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * It is an activity that displays all the installed and system applications of the system.
  */
 public class AllAppsActivity extends AppCompatActivity {
 
+    @BindView(R.id.viewpager_all_apps)
+    ViewPager viewPager;
+
+    @BindView(R.id.tab_container)
+    TabLayout tabLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_apps);
+        ButterKnife.bind(this);
 
-        ViewPager viewPager;
-        TabLayout tabLayout;
         List<AppDetails> installedAppDetailsList = new ArrayList<>();
         List<AppDetails> systemAppDetailsList = new ArrayList<>();
         Fragment installedAppsFragment, systemAppsFragment;
@@ -46,8 +54,6 @@ public class AllAppsActivity extends AppCompatActivity {
             }
         }
 
-        // get the reference to the viewpager
-        viewPager = (ViewPager) findViewById(R.id.viewpager_all_apps);
         // setup the viewpager
         AllAppsViewPagerAdapter viewPagerAdapter = new AllAppsViewPagerAdapter(getSupportFragmentManager());
         installedAppsFragment = new InstalledAppsFragment();
@@ -66,8 +72,6 @@ public class AllAppsActivity extends AppCompatActivity {
         viewPagerAdapter.addFragment(systemAppsFragment, "System Apps");
 
         viewPager.setAdapter(viewPagerAdapter);
-        // get the reference to the tablayout and setup it with viewpager
-        tabLayout = (TabLayout) findViewById(R.id.tab_container);
         tabLayout.setupWithViewPager(viewPager);
 
     }

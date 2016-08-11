@@ -17,12 +17,18 @@ import com.lftechnology.activitylogger.model.AppDetails;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
+/**
+ * This fragment displays all the system applications of the device in a grid format
+ */
 public class SystemAppsFragment extends Fragment {
 
     private Context context;
 
-    public SystemAppsFragment(){}
+    @BindView(R.id.recycler_view_all_apps)
+    RecyclerView recyclerView;
 
     @Override
     public void onAttach(Context context) {
@@ -34,14 +40,14 @@ public class SystemAppsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         List<AppDetails> appDetailsList = getArguments().getParcelableArrayList(RawAppInfo.SYSTEM_APP);
-        View v = inflater.inflate(R.layout.layout_all_apps_fragment, container, false);
+        View view = inflater.inflate(R.layout.layout_all_apps_fragment, container, false);
+        ButterKnife.bind(this, view);
 
-        RecyclerView recyclerView = (RecyclerView)v.findViewById(R.id.recycler_view_all_apps);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setHasFixedSize(true);
 
         recyclerView.setLayoutManager(new GridLayoutManager(context, 4));
         recyclerView.setAdapter(new AllAppsRecyclerViewAdapter(context, appDetailsList));
-        return v;
+        return view;
     }
 }
