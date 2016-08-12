@@ -125,14 +125,19 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
 
         @BindView(R.id.main_app_icon)
         ImageView applicationIcon;
+
         @BindView(R.id.main_app_name)
         TextView applicationName;
+
         @BindView(R.id.txt_network_data_received)
         TextView receivedBytes;
+
         @BindView(R.id.txt_network_data_transmitted)
         TextView transmittedBytes;
+
         @BindView(R.id.txt_total_network_data)
         TextView totalBytes;
+
         @BindView(R.id.progressBar)
         ProgressBar progressBar;
 

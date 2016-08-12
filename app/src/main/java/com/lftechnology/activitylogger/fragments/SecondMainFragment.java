@@ -23,6 +23,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * This Fragment displays the grid menu
@@ -31,54 +32,37 @@ import butterknife.ButterKnife;
  */
 public class SecondMainFragment extends Fragment {
 
-    @BindView(R.id.tv_menu_wifi)
-    TextView txtWifi;
-
-    @BindView(R.id.tv_menu_all_apps)
-    TextView txtAllApps;
-
-    @BindView(R.id.tv_menu_mobile_data)
-    TextView txtMobileData;
-
-    @BindView(R.id.tv_menu_time)
-    TextView txtTime;
+    private List<AppDetails> appDetailsList;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.second_main_fragment, container, false);
         ButterKnife.bind(this, view);
-
-        final List<AppDetails> appDetailsList = getArguments().getParcelableArrayList(MainActivity.APP_DETAILS);
-        txtWifi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), WifiActivity.class));
-            }
-        });
-
-        txtAllApps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AllAppsActivity.class);
-                intent.putParcelableArrayListExtra(MainActivity.APP_DETAILS, (ArrayList<? extends Parcelable>) appDetailsList);
-                startActivity(intent);
-            }
-        });
-
-        txtMobileData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), MobileDataActivity.class));
-            }
-        });
-
-        txtTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), TimeActivity.class));
-            }
-        });
+        appDetailsList = getArguments().getParcelableArrayList(MainActivity.APP_DETAILS);
         return view;
     }
+
+    @OnClick(R.id.tv_menu_wifi)
+    public void onClickWifiMenu(){
+        startActivity(new Intent(getActivity(), WifiActivity.class));
+    }
+
+    @OnClick(R.id.tv_menu_all_apps)
+    public void onClickAllAppsMenu(){
+        Intent intent = new Intent(getActivity(), AllAppsActivity.class);
+        intent.putParcelableArrayListExtra(MainActivity.APP_DETAILS, (ArrayList<? extends Parcelable>) appDetailsList);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.tv_menu_mobile_data)
+    public void onClickMobileDataMenu(){
+        startActivity(new Intent(getActivity(), MobileDataActivity.class));
+    }
+
+    @OnClick(R.id.tv_menu_time)
+    public void OnClickTimeMenu(){
+        startActivity(new Intent(getActivity(), TimeActivity.class));
+    }
+
 }

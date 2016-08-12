@@ -11,6 +11,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * It is a Viewholder for the RecyclerView of the AllAppsActivity
+ * <p/>
  * Created by Sugam on 7/27/2016.
  */
 public class AllAppsViewHolder extends RecyclerView.ViewHolder {

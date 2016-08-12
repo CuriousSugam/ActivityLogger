@@ -38,7 +38,7 @@ public class WifiActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     private boolean activityBlank = false;
 
-    @BindView(R.id.swipeRefreshWifiActivity)
+    @BindView(R.id.swipe_refresh_wifi_activity)
     SwipeRefreshLayout swipeRefreshLayout;
 
     @BindView(R.id.application_list_wifi_usage)
