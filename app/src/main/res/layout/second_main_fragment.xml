@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation= "vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/windowBackground"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+        <Button
+            android:id="@+id/btn_wifi"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Wifi"
+            android:layout_weight="1"
+            android:background="@drawable/button_gradient"
+            android:textColor="#333"
+            style="?android:attr/borderlessButtonStyle"/>
+        <Button
+            android:id="@+id/btn_mobile"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Mobile DAta"
+            android:layout_weight="1"
+            android:background="@drawable/button_gradient"
+            android:textColor="#333"
+            style="?android:attr/borderlessButtonStyle"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        >
+        <Button
+            android:id="@+id/btn_time"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Time"
+            android:layout_weight="1"
+            android:background="@drawable/button_gradient"
+            android:textColor="#333333"
+            style="?android:attr/borderlessButtonStyle"
+            />
+        <Button
+            android:id="@+id/btn_all_apps"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="All Apps"
+            android:layout_weight="1"
+            android:background="@drawable/button_gradient"
+            android:textColor="#333333"
+            style="?android:attr/borderlessButtonStyle"/>
+    </LinearLayout>
+</LinearLayout>
+
