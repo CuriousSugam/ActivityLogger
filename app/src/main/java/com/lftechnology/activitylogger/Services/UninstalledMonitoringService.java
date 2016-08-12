@@ -50,7 +50,6 @@ public class UninstalledMonitoringService extends IntentService {
                     .getApplicationLabel(rmApplicationInfo) : "Unknown");
             rmAppDetails = new AppDetails(rmUid, newRmKey, rmAppName);
             rmAccessLayer = new SQLiteAccessLayer(this, rmAppDetails);
-            Log.e("RmAppDetails", rmUid + "" + rmAppName + "" + newRmKey);
             rmAccessLayer.deleteAnAppDetail(SQLiteAccessLayer.TABLE_COLUMN_PACKAGE_NAME + "=? ",
                     new String[]{newRmKey});
             rmAccessLayer.closeDatabaseConnection();

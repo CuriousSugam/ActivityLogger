@@ -46,7 +46,6 @@ public class InstalledMonitoringService extends IntentService {
                     .getApplicationLabel(insApplicationInfo) : "Unknown");
             insAppDetails = new AppDetails(insUid, newInsKey, insAppName);
             insAccessLayer = new SQLiteAccessLayer(this, insAppDetails);
-            Log.e("InsAppDetails", insUid + "" + insAppName + "" + newInsKey);
             insAccessLayer.insertIntoAppDetails();
             insAccessLayer.closeDatabaseConnection();
         }

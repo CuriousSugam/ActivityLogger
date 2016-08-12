@@ -31,7 +31,6 @@ public class InstalledBroadcastReceiver extends BroadcastReceiver {
          */
 
         String newPackage = insIntent.getData().getSchemeSpecificPart();
-        Log.e("InstallCheckReceiver", newPackage);
 
         if (insIntent.getAction().equals("android.intent.action.PACKAGE_ADDED")) {
             Toast.makeText(context, "Package Added By User", Toast.LENGTH_LONG).show();
@@ -40,13 +39,8 @@ public class InstalledBroadcastReceiver extends BroadcastReceiver {
             newIntent.putExtra("AddAction", insIntent.getAction());
             context.startService(newIntent);
 
-        } else {
-            Log.e("InstallPackage", "InstallError");
-
         }
-
     }
-
 }
 
 

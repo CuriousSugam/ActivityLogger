@@ -24,7 +24,6 @@ public class UninstalledBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent rmIntent) {
         this.context = context;
         String uninstallPackageName = rmIntent.getData().getSchemeSpecificPart();
-        Log.e("UninstallCheckReceiver", uninstallPackageName);
 
         if (rmIntent.getAction().equals(Intent.ACTION_PACKAGE_FULLY_REMOVED) ||
                 rmIntent.getAction().equals(Intent.ACTION_PACKAGE_REMOVED)) {
@@ -33,8 +32,6 @@ public class UninstalledBroadcastReceiver extends BroadcastReceiver {
             newIntent.putExtra("RemovedAppKey", uninstallPackageName);
             newIntent.putExtra("RmAction", rmIntent.getAction());
             context.startService(newIntent);
-        } else {
-            Log.e("UninstallPackage", "RemoveError");
         }
     }
 }
