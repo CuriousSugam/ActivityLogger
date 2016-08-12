@@ -34,7 +34,6 @@
             android:parentActivityName=".MainActivity"
             android:theme="@style/MyMaterialTheme">
 
-            <!-- <meta-data android:name="Wifi Data Usage" /> -->
         </activity>
 
         <receiver android:name=".ConnectivityChangeBroadcastReceiver">
@@ -44,16 +43,25 @@
         </receiver>
 
         <service android:name=".Services.ConnectivityChangeMonitoringIntentService" />
-        <service android:name=".Services.InstalledMonitoringService"/>
+
         <receiver android:name=".InstalledBroadcastReceiver">
             <intent-filter android:priority="999">
-
-                <action android:name="android.intent.action.PACKAGE_ADDED"/>
-                <action android:name="android.intent.action.PACKAGE_REPLACED"/>
-                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
-                <data android:scheme="package"/>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+                <data android:scheme="package" />
             </intent-filter>
         </receiver>
+
+        <service android:name=".Services.InstalledMonitoringService" />
+
+        <receiver android:name=".UninstalledBroadcastReceiver">
+            <intent-filter android:priority="999">
+                <action android:name="android.intent.action.PACKAGE_FULLY_REMOVED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <service android:name=".Services.UninstalledMonitoringService" />
 
         <activity
             android:name=".AllAppsActivity"
@@ -65,7 +73,7 @@
             android:label="Mobile Data"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".TimeActivity"></activity>
+        <activity android:name=".TimeActivity" />
     </application>
 
 </manifest>
