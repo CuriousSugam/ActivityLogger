@@ -10,6 +10,8 @@ import com.lftechnology.activitylogger.Services.UninstalledMonitoringService;
 
 /**
  * Created by DevilDewzone on 8/12/2016.
+ * Checks the broadcast of Uninstalled Apps
+ *
  */
 public class UninstalledBroadcastReceiver extends BroadcastReceiver {
     Context context;
