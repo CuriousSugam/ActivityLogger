@@ -4,13 +4,13 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.util.Log;
 
 import com.lftechnology.activitylogger.controller.SQLiteAccessLayer;
 import com.lftechnology.activitylogger.model.AppDetails;
 
 /**
- * This service performs the action of inserting and deleting
+ * @author DevilDewzone
+ * This service performs the action of inserting installed apps in db.
  */
 public class InstalledMonitoringService extends IntentService {
 

@@ -4,13 +4,13 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.util.Log;
 
 import com.lftechnology.activitylogger.controller.SQLiteAccessLayer;
 import com.lftechnology.activitylogger.model.AppDetails;
 
 /**
- * Created by DevilDewzone on 8/12/2016.
+ * @autho DevilDewzone on 8/12/2016.
+ * this service performs action of deleting uninstalled apps in db.
  */
 
 public class UninstalledMonitoringService extends IntentService {
