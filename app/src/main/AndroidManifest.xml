@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.lftechnology.activitylogger">
+    <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="24" />
 
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
@@ -34,7 +35,6 @@
             android:parentActivityName=".MainActivity"
             android:theme="@style/MyMaterialTheme">
 
-            <!-- <meta-data android:name="Wifi Data Usage" /> -->
         </activity>
 
         <receiver android:name=".broadcastReceiver.ConnectivityChangeBroadcastReceiver">
@@ -45,6 +45,25 @@
         <receiver android:name=".broadcastReceiver.NotificationBroadcastReceiver"></receiver>
 
         <service android:name=".services.ConnectivityChangeMonitoringIntentService" />
+
+        <receiver android:name=".InstalledBroadcastReceiver">
+            <intent-filter android:priority="999">
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".services.InstalledMonitoringService" />
+
+        <receiver android:name=".UninstalledBroadcastReceiver">
+            <intent-filter android:priority="999">
+                <action android:name="android.intent.action.PACKAGE_FULLY_REMOVED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <service android:name=".services.UninstalledMonitoringService" />
 
         <activity
             android:name=".AllAppsActivity"

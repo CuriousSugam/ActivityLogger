@@ -41,7 +41,7 @@ public class SQLiteAccessLayer {
 
     private static final String TABLE_COLUMN_ID = "_id";
     private static final String TABLE_COLUMN_UID = "uid";
-    private static final String TABLE_COLUMN_PACKAGE_NAME = "package_name";
+    public static final String TABLE_COLUMN_PACKAGE_NAME = "package_name";
     private static final String TABLE_COLUMN_APPLICATION_NAME = "application_name";
     private static final String TABLE_COLUMN_APPLICATION_TYPE = "application_type";
     private static final String TABLE_COLUMN_INITIAL_RX_BYTES = "initial_rx_bytes";
