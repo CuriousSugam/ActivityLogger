@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.lftechnology.activitylogger.Services.UninstalledMonitoringService;
+import com.lftechnology.activitylogger.services.UninstalledMonitoringService;
 
 /**
  * Created by DevilDewzone on 8/12/2016.

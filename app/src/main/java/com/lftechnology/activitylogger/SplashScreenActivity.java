@@ -10,8 +10,9 @@ import android.os.Parcelable;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 
-import com.lftechnology.activitylogger.Controller.SQLiteAccessLayer;
+import com.lftechnology.activitylogger.controller.SQLiteAccessLayer;
 import com.lftechnology.activitylogger.model.AppDetails;
+import com.lftechnology.activitylogger.utilities.CheckPermissions;
 
 import java.util.ArrayList;
 import java.util.List;

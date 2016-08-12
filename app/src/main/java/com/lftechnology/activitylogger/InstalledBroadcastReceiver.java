@@ -3,13 +3,11 @@ package com.lftechnology.activitylogger;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.util.Log;
 import android.widget.Toast;
 
 
-import com.lftechnology.activitylogger.Services.InstalledMonitoringService;
-import com.lftechnology.activitylogger.model.AppDetails;
+import com.lftechnology.activitylogger.services.InstalledMonitoringService;
 
 /**
  * This class receives the broadcast of the installed apps and its package name
