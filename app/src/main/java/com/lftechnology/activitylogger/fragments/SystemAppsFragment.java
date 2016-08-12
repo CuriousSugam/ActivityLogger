@@ -17,14 +17,18 @@ import com.lftechnology.activitylogger.model.AppDetails;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
- * It is a fragment which displays all the installed applications in the system
+ * This fragment displays all the system applications of the device in a grid format
  */
-public class InstalledAppsFragment extends Fragment {
+public class SystemAppsFragment extends Fragment {
 
     private Context context;
 
-    public InstalledAppsFragment(){}
+    @BindView(R.id.recycler_view_all_apps)
+    RecyclerView recyclerView;
 
     @Override
     public void onAttach(Context context) {
@@ -35,15 +39,15 @@ public class InstalledAppsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        List<AppDetails> appDetailsList = getArguments().getParcelableArrayList(RawAppInfo.INSTALLED_APP);
+        List<AppDetails> appDetailsList = getArguments().getParcelableArrayList(RawAppInfo.SYSTEM_APP);
         View view = inflater.inflate(R.layout.layout_all_apps_fragment, container, false);
+        ButterKnife.bind(this, view);
 
-        RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view_all_apps);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setHasFixedSize(true);
+
         recyclerView.setLayoutManager(new GridLayoutManager(context, 4));
         recyclerView.setAdapter(new AllAppsRecyclerViewAdapter(context, appDetailsList));
-
         return view;
     }
 }

@@ -10,7 +10,7 @@ import android.util.LruCache;
  * Created by Sugam on 7/26/2016.
  */
 public class CacheImage {
-    private LruCache<String, Bitmap> mMemoryCache;
+    private LruCache<String, Bitmap> memoryCache;
     private static CacheImage ourInstance = new CacheImage();
 
     /**
@@ -31,7 +31,7 @@ public class CacheImage {
         // Use 1/8th of the available memory for this memory cache.
         final int cacheSize = maxMemory / 8;
 
-        mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
+        memoryCache = new LruCache<String, Bitmap>(cacheSize) {
             @Override
             protected int sizeOf(String key, Bitmap bitmap) {
                 // The cache size will be measured in kilobytes rather than
@@ -45,6 +45,6 @@ public class CacheImage {
      * @return the reference of the LruCache
      */
     public LruCache<String, Bitmap> getLruCache() {
-        return mMemoryCache;
+        return memoryCache;
     }
 }

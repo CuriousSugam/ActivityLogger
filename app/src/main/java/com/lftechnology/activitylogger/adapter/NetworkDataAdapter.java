@@ -18,6 +18,9 @@ import com.lftechnology.activitylogger.model.NetworkUsageDetails;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * NetworkDataAdapter is an adapter class that binds the data (such as: application name, network bytes)
  * to the recycler view layout.
@@ -28,7 +31,6 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
 
     private Context context;
     private List<NetworkUsageDetails> networkUsageDetailsList;
-    private int progressValue = 0;
     private float totalBytes;
 
     /**
@@ -98,7 +100,7 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
      * @param packageName name of the package whose icon is to be loaded
      * @param imageView  reference to the ImageView where the application icon is to be loaded
      */
-    public void loadBitmap(String packageName, ImageView imageView) {
+    private void loadBitmap(String packageName, ImageView imageView) {
         BitmapWorkerTask bitmapWorkerTask = new BitmapWorkerTask();
         final Bitmap bitmap = bitmapWorkerTask.getBitmapFromMemCache(packageName);
         if (bitmap != null) {
@@ -121,21 +123,27 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
      */
     public class NetworkViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView applicationIcon;
-        private TextView applicationName;
-        private TextView receivedBytes;
-        private TextView transmittedBytes;
-        private TextView totalBytes;
-        private ProgressBar progressBar;
+        @BindView(R.id.main_app_icon)
+        ImageView applicationIcon;
+
+        @BindView(R.id.main_app_name)
+        TextView applicationName;
+
+        @BindView(R.id.txt_network_data_received)
+        TextView receivedBytes;
+
+        @BindView(R.id.txt_network_data_transmitted)
+        TextView transmittedBytes;
+
+        @BindView(R.id.txt_total_network_data)
+        TextView totalBytes;
+
+        @BindView(R.id.progressBar)
+        ProgressBar progressBar;
 
         public NetworkViewHolder(View itemView) {
             super(itemView);
-            applicationIcon = (ImageView) itemView.findViewById(R.id.main_app_icon);
-            applicationName = (TextView) itemView.findViewById(R.id.main_app_name);
-            receivedBytes = (TextView) itemView.findViewById(R.id.txt_network_data_received);
-            transmittedBytes = (TextView) itemView.findViewById(R.id.txt_network_data_transmitted);
-            totalBytes = (TextView) itemView.findViewById(R.id.txt_total_network_data);
-            progressBar = (ProgressBar)itemView.findViewById(R.id.progressBar);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

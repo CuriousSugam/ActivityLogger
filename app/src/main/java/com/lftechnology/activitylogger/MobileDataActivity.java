@@ -36,7 +36,7 @@ public class MobileDataActivity extends AppCompatActivity implements SwipeRefres
     private long totalBytes = 0;
     private List<NetworkUsageDetails> networkDetailsListToAdapter;
 
-    @BindView(R.id.swipeRefreshMobileActivity)
+    @BindView(R.id.swipe_refresh_mobile_activity)
     SwipeRefreshLayout swipeRefreshLayout;
 
     @BindView(R.id.application_list_mobile_usage)

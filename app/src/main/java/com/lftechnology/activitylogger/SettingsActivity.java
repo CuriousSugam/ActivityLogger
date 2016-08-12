@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -20,10 +19,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.lftechnology.activitylogger.broadcastReceiver.NotificationBroadcastReceiver;
-import com.lftechnology.activitylogger.services.AppUsageAlertService;
 import com.lftechnology.activitylogger.utilities.SettingsData;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import butterknife.BindView;
@@ -194,21 +191,6 @@ public class SettingsActivity extends AppCompatActivity {
             minuteValue = "0" + String.valueOf(minute);
         }
         return hourValue + ":" + minuteValue;
-    }
-
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        // intiate the service here to monitor the foreground running apps duration
-        if(alertStatusChanged){
-            Intent serviceIntent = new Intent(SettingsActivity.this, AppUsageAlertService.class);
-            serviceIntent.putExtra(ALERT_STATUS, alertStatus);
-            if(alertStatus){
-                serviceIntent.putExtra(ALERT_TIME_MILLIS, alertTimeInMillis);
-            }
-            startService(serviceIntent);
-        }
     }
 
     /**

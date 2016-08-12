@@ -18,10 +18,10 @@ import java.util.Map;
  * Created by Sugam on 7/26/2016.
  */
 public class BitmapWorkerTask extends AsyncTask<Object, Void, Map<String, Object>> {
-    private LruCache<String, Bitmap> mMemoryCache;
+    private LruCache<String, Bitmap> memoryCache;
 
     public BitmapWorkerTask() {
-        this.mMemoryCache = CacheImage.getInstance().getLruCache();
+        this.memoryCache = CacheImage.getInstance().getLruCache();
     }
 
     @Override
@@ -61,7 +61,7 @@ public class BitmapWorkerTask extends AsyncTask<Object, Void, Map<String, Object
      */
     public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
         if (getBitmapFromMemCache(key) != null) {
-            mMemoryCache.put(key, bitmap);
+            memoryCache.put(key, bitmap);
         }
     }
 
@@ -72,7 +72,7 @@ public class BitmapWorkerTask extends AsyncTask<Object, Void, Map<String, Object
      * @return the bitmap image of the corresponding key
      */
     public Bitmap getBitmapFromMemCache(String key) {
-        return mMemoryCache.get(key);
+        return memoryCache.get(key);
     }
 
 }
