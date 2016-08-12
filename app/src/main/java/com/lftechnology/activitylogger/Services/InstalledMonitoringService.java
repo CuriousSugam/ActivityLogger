@@ -10,7 +10,7 @@ import com.lftechnology.activitylogger.Controller.SQLiteAccessLayer;
 import com.lftechnology.activitylogger.model.AppDetails;
 
 
-import java.util.List;
+//import java.util.List;
 
 
 /**
@@ -51,7 +51,7 @@ public class InstalledMonitoringService extends IntentService {
                 insApplicationInfo = null;
             }
             final String insAppName = (String) (insApplicationInfo != null ? insPackageManager.getApplicationLabel(insApplicationInfo) : "Unknown");
-            insAppDetails = new AppDetails(insApplicationInfo.uid, newInsKey, insAppName);
+            insAppDetails = new AppDetails(insUid, newInsKey, insAppName);
             insAccessLayer = new SQLiteAccessLayer(this, insAppDetails);
             Log.e("InsAppDetails", insUid + "" + insAppName + "" + newInsKey);
             insAccessLayer.insertIntoAppDetails();

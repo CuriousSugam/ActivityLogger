@@ -9,7 +9,7 @@ import android.util.Log;
 import com.lftechnology.activitylogger.Controller.SQLiteAccessLayer;
 import com.lftechnology.activitylogger.model.AppDetails;
 
-import java.util.List;
+//import java.util.List;
 
 /**
  * Created by DevilDewzone on 8/12/2016.
