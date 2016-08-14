@@ -41,6 +41,7 @@ public class SecondMainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.second_main_fragment, container, false);
         ButterKnife.bind(this, view);
+
         final List<AppDetails> appDetailsList = getArguments().getParcelableArrayList(MainActivity.APP_DETAILS);
         TextView txtWifi = (TextView) view.findViewById(R.id.tv_menu_wifi);
         txtWifi.setOnClickListener(new View.OnClickListener() {

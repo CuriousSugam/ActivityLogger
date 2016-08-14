@@ -6,6 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     tools:context="com.lftechnology.activitylogger.WifiActivity"
+    android:theme="@drawable/primary_dark_gradient"
     >
 
     <android.support.v4.widget.SwipeRefreshLayout

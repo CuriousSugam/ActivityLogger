@@ -1,18 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="#00ffffff"
-    android:theme="@style/MyLightText">
+    android:paddingBottom="8dp"
+    android:background="@color/transparent">
 
+    <LinearLayout
+        android:id="@+id/indicator_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:id="@+id/first_indicator"
+            android:src="@drawable/current_page_circular_indicator"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"/>
+        <ImageView
+            android:layout_margin="3dp"
+            android:layout_width="wrap_content"
+            android:id="@+id/second_indicator"
+            android:src="@drawable/page_circular_indicator"
+            android:layout_height="wrap_content"
+            />
+        <ImageView
+            android:layout_margin="3dp"
+            android:id="@+id/third_indicator"
+            android:layout_width="wrap_content"
+            android:src="@drawable/page_circular_indicator"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_margin="3dp"
+            android:id="@+id/forth_indicator"
+            android:layout_width="wrap_content"
+            android:src="@drawable/page_circular_indicator"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager_main_activity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:overScrollMode="always"/>
+        android:overScrollMode="always"
+        android:background="@color/transparent"/>
+
 
     
-</LinearLayout>
+</RelativeLayout>

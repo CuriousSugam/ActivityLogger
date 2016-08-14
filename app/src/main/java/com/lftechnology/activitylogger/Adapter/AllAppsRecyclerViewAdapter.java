@@ -61,7 +61,7 @@ public class AllAppsRecyclerViewAdapter extends RecyclerView.Adapter<AllAppsView
         if (bitmap != null) {
             imageView.setImageBitmap(bitmap);
         } else {
-            imageView.setImageResource(R.mipmap.ic_launcher);
+            imageView.setImageResource(R.drawable.ic_android_light_green_24dp);
             BitmapWorkerTask task = new BitmapWorkerTask();
             task.execute(packageName, imageView, context);
         }

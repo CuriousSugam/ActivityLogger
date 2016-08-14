@@ -13,9 +13,10 @@
             android:layout_height="wrap_content"
             app:tabGravity="fill"
             app:tabMode="fixed"
-            app:tabBackground="@color/windowBackground"
-            app:tabSelectedTextColor="@android:color/black"
-            app:tabIndicatorColor="@color/colorPrimary"
+            app:tabBackground="@color/colorPrimary"
+            app:tabTextColor="@color/lightGrey"
+            app:tabSelectedTextColor="@color/white"
+            app:tabIndicatorColor="@color/lightGreen"
 
             />
     <ProgressBar
@@ -34,6 +35,5 @@
         android:layout_height="wrap_content"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:background="@color/windowBackground"
         />
 </LinearLayout>

@@ -43,9 +43,6 @@ import butterknife.OnClick;
  */
 public class SettingsActivity extends AppCompatActivity {
 
-    @BindView(R.id.notification_icon)
-    ImageView notificationIcon;
-
     @BindView(R.id.txt_notification_status)
     TextView notificationStatusTextView;
 
@@ -99,11 +96,9 @@ public class SettingsActivity extends AppCompatActivity {
         // check if the  notification is set or not
         //  if yes check mark the switch and display the time selection layout
         if (settingsData.getNotificationStatus()) {
-            notificationIcon.setImageResource(R.drawable.ic_notifications_black_24dp);
             notificationStatusSwitch.setChecked(true);
             linearLayout.setVisibility(View.VISIBLE);
         } else {
-            notificationIcon.setImageResource(R.drawable.ic_notifications_off_black_24dp);
             notificationStatusSwitch.setChecked(false);
             linearLayout.setVisibility(View.GONE);
         }
@@ -116,7 +111,7 @@ public class SettingsActivity extends AppCompatActivity {
         hour = notificationCalendarObj.get(Calendar.HOUR_OF_DAY);
         minute = notificationCalendarObj.get(Calendar.MINUTE);
         if (hour == 0) {
-            regularNotificationTime.setText("Not Set");
+            regularNotificationTime.setText(R.string.not_set);
         } else {
             regularNotificationTime.setText(timeToString(hour, minute));
         }
@@ -136,7 +131,7 @@ public class SettingsActivity extends AppCompatActivity {
         // display the alert duration time that is/was set
         alertTimeInMillis = settingsData.getAlertTimeDuration();
         if (alertTimeInMillis == 0) {
-            appUsageAlertTimeTextView.setText("Not Set");
+            appUsageAlertTimeTextView.setText(R.string.not_set);
         } else {
             int alertHour = (int) (alertTimeInMillis / (1000 * 60 * 60)) % 24;
             int alertMinute = (int) (alertTimeInMillis / (1000 * 60)) % 60;
@@ -148,11 +143,9 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
-                    notificationIcon.setImageResource(R.drawable.ic_notifications_black_24dp);
                     linearLayout.setVisibility(View.VISIBLE);
                     settingsData.setNotificationStatus(true);
                 } else {
-                    notificationIcon.setImageResource(R.drawable.ic_notifications_off_black_24dp);
                     linearLayout.setVisibility(View.GONE);
                     settingsData.setNotificationStatus(false);
                 }
