@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by sparsha on 7/26/2016.
+ * Displays the usage stats of Apps used monthly In recycler view
  */
 public class FragmentUsageMonthly extends Fragment implements View.OnClickListener {
     View view;
@@ -116,7 +116,7 @@ public class FragmentUsageMonthly extends Fragment implements View.OnClickListen
     }
 
     public List<EachAppDetails> getData() {
-        if(!eachAppDetailsList.isEmpty())
+        if (!eachAppDetailsList.isEmpty())
             return eachAppDetailsList;
 
         try {
@@ -132,11 +132,11 @@ public class FragmentUsageMonthly extends Fragment implements View.OnClickListen
                     current.eachAppIcon = icon;
                     boolean skip = false;
                     for (EachAppDetails eachAppDetails : eachAppDetailsList) {
-                        if (current.eachAppName.equals(eachAppDetails.eachAppName))
+                        if (current.eachAppName.equals(eachAppDetails.eachAppName)) // i.e. If duplicate exists
                             skip = true;
                     }
-                    if(skip)
-                        continue;
+                    if (skip)
+                        continue;   //Will not be added to the list
 
                     eachAppDetailsList.add(current);
                 }
@@ -154,6 +154,10 @@ public class FragmentUsageMonthly extends Fragment implements View.OnClickListen
         startActivity(intent);
 
     }
+
+    /**
+     * pass the list of app details to a list that can be
+     */
 
     private void passListToCommunicator() {
         CommunicatorEachAppDetailsValues values = new CommunicatorEachAppDetailsValues();

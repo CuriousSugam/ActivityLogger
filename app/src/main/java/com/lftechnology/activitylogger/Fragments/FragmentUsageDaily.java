@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by sparsha on 7/26/2016.
+ * Displays the usage stats of Apps used daily In recycler view
  */
 public class FragmentUsageDaily extends Fragment implements View.OnClickListener {
     View view;
@@ -115,7 +115,7 @@ public class FragmentUsageDaily extends Fragment implements View.OnClickListener
     }
 
     public List<EachAppDetails> getData() {
-        if(!eachAppDetailsList.isEmpty())
+        if (!eachAppDetailsList.isEmpty())
             return eachAppDetailsList;
 
         try {
@@ -134,7 +134,7 @@ public class FragmentUsageDaily extends Fragment implements View.OnClickListener
                         if (current.eachAppName.equals(eachAppDetails.eachAppName))
                             skip = true;
                     }
-                    if(skip)
+                    if (skip)
                         continue;
                     eachAppDetailsList.add(current);
                 }

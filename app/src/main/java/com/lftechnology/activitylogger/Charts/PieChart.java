@@ -18,7 +18,7 @@ import com.lftechnology.activitylogger.model.EachAppDetails;
 import java.util.List;
 
 /**
- * Created by sparsha on 7/13/2016.
+ * Creates a graphical representation of data in Pie Charts
  */
 public class PieChart extends View {
     int completeCircle;
@@ -27,36 +27,36 @@ public class PieChart extends View {
     Paint paint;
 
     /**
-     *
      * @param context Calling Activity
-     * @param size Number of desired PIEs
+     * @param size    Number of desired PIEs
      */
-    public PieChart(Context context,int size) {
+    public PieChart(Context context, int size) {
         super(context);
         completeCircle = 0;
         eachAppDetailsList = new CommunicatorEachAppDetailsValues().getEachAppDetailsList();
         numberOfPie = size;
-        paint  = new Paint();
+        paint = new Paint();
 
-        if(numberOfPie > eachAppDetailsList.size())
+        if (numberOfPie > eachAppDetailsList.size())
             numberOfPie = eachAppDetailsList.size();
     }
+
     @Override
-    public void onDraw(Canvas canvas){
+    public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        float totalValue=0,startAngle=0,makeAngle;
+        float totalValue = 0, startAngle = 0, makeAngle;
         int x = getWidth(); // The Width of the canvas created
         int y = getHeight();// The height of the canvas created
 
         int radiusReference = x; //If if the device is in portrait mode
-        if(x>y)radiusReference = y;// If the device is in landscape mode
+        if (x > y) radiusReference = y;// If the device is in landscape mode
 
-        int imageY = y/15;
-        int imageX = x - x/9;
-        float imageSize = y/28;
+        int imageY = y / 15;
+        int imageX = x - x / 9;
+        float imageSize = y / 28;
 
-        int radius = radiusReference/3;
-        RectF rectF = new RectF(x/2-x/15-radius,y/2-radius,x/2-x/15+radius,y/2+radius);// A rect created with the circle's dimension
+        int radius = radiusReference / 3;
+        RectF rectF = new RectF(x / 2 - x / 15 - radius, y / 2 - radius, x / 2 - x / 15 + radius, y / 2 + radius);// A rect created with the circle's dimension
 
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         paint.setColor(Color.WHITE);
@@ -67,35 +67,35 @@ public class PieChart extends View {
         float[] appValuesDuration = new float[numberOfPie];
         String[] valueNames = new String[numberOfPie];
         Bitmap[] bitmaps = new Bitmap[numberOfPie];
-        for(int i = 0;i<appValuesDuration.length;i++){
+        for (int i = 0; i < appValuesDuration.length; i++) {
             EachAppDetails current = eachAppDetailsList.get(i);
-            appValuesDuration[i] = (float)current.eachAppUsageDuration;
+            appValuesDuration[i] = (float) current.eachAppUsageDuration;
             valueNames[i] = current.eachAppName;
-            bitmaps[i] = ((BitmapDrawable)current.eachAppIcon).getBitmap();
+            bitmaps[i] = ((BitmapDrawable) current.eachAppIcon).getBitmap();
         }
 
-        for(float value: appValuesDuration){
-            totalValue = totalValue +value;
+        for (float value : appValuesDuration) {
+            totalValue = totalValue + value;
         }
-        Log.d("LOG","Total value is"+totalValue);
+        Log.d("LOG", "Total value is" + totalValue);
 
-        for(int i = 0; i<appValuesDuration.length;i++){
+        for (int i = 0; i < appValuesDuration.length; i++) {
             makeAngle = appValuesDuration[i] * completeCircle / totalValue;
-            paint.setColor((pieChartColors[i%9]));
-            canvas.drawArc(rectF,-startAngle,-makeAngle,true,paint);
-            canvas.drawBitmap(resizeBitmap(bitmaps[i],imageSize),imageX,imageY,paint);
-            canvas.drawCircle(imageX-imageSize/2,imageY+imageSize/2,10,paint);
-            imageY = imageY +(int) imageSize;
+            paint.setColor((pieChartColors[i % pieChartColors.length]));
+            canvas.drawArc(rectF, -startAngle, -makeAngle, true, paint);
+            canvas.drawBitmap(resizeBitmap(bitmaps[i], imageSize), imageX, imageY, paint);
+            canvas.drawCircle(imageX - imageSize / 2, imageY + imageSize / 2, 10, paint);
+            imageY = imageY + (int) imageSize;
             startAngle = startAngle + makeAngle;
         }
 
         paint.setColor(Color.WHITE);
-        canvas.drawCircle(x/2-x/15,y/2,2*radius/3,paint);
+        canvas.drawCircle(x / 2 - x / 15, y / 2, 2 * radius / 3, paint);
         /**
          * animates the canvas
          */
-        if(completeCircle<360){
-            completeCircle+=5;
+        if (completeCircle < 360) {
+            completeCircle += 5;
             invalidate();   //Redraw canvas
         }
 
@@ -103,8 +103,9 @@ public class PieChart extends View {
 
     /**
      * Returns a square bitmap with the desired width
+     *
      * @param bitmap The bitmap image to be resized
-     * @param width The desired width that you want to resize with
+     * @param width  The desired width that you want to resize with
      * @return
      */
 

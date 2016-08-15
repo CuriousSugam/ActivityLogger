@@ -17,7 +17,7 @@ public class FirstMainFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.first_main_fragment_layout,container,false);
+        return inflater.inflate(R.layout.first_main_fragment_layout, container, false);
     }
 
 }

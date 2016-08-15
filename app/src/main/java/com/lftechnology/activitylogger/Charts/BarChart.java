@@ -11,7 +11,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 
 import com.lftechnology.activitylogger.R;
@@ -21,7 +20,7 @@ import com.lftechnology.activitylogger.model.EachAppDetails;
 import java.util.List;
 
 /**
- * Created by sparsha on 7/21/2016.
+ * Gives a graphical representation of data in bar charts
  */
 
 
@@ -35,7 +34,6 @@ public class BarChart extends View {
     float barWidth, maxBarHeight, barLeft, barTop, barRight, barBottom;
     float textSize;
     int[] chartColors = getResources().getIntArray(R.array.chartsColors);
-//            {"#4D4D4D", "#5DA5DA", "#FAA43A", "#60BD68", "#F17CB0", "#B2912F", "#B276B2", "#DECF3F", "#F15854"};//Default Colors
     String text = "N/A";
     Bitmap bitmapIconsOfApps;
     List<EachAppDetails> eachAppDetailsList;
@@ -43,24 +41,22 @@ public class BarChart extends View {
     int maxBars;
 
     /**
-     *
      * @param context The current UI/Activity
-     * @param size Numbers of bars needed
+     * @param size    Numbers of bars needed
      */
     public BarChart(Context context, int size) {
         super(context);
 
         eachAppDetailsList = new CommunicatorEachAppDetailsValues().getEachAppDetailsList();
-        maxBars =size;
+        maxBars = size;
         numberOfBars = size;
 
-        if(numberOfBars > eachAppDetailsList.size())
+        if (numberOfBars > eachAppDetailsList.size())
             numberOfBars = eachAppDetailsList.size();
 
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         screenWidth = displayMetrics.widthPixels;
         screenHeight = displayMetrics.heightPixels;
-        Log.d("LOG", "Screen Width: " + screenWidth + "Screen Height" + screenHeight);//TODO remove
         barWidth = (float) screenWidth / ((float) 2 * (maxBars));
         maxBarHeight = 0;
         setBackgroundColor(Color.WHITE);
@@ -69,7 +65,7 @@ public class BarChart extends View {
         textSize = 25;
         paint.setTextSize(textSize);
         bar = new RectF();
-      //  this.setOnTouchListener(this);
+        //  this.setOnTouchListener(this);
 
 
     }
@@ -77,8 +73,8 @@ public class BarChart extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvasHeight = getHeight();
-        canvasWidth = getWidth();
+        canvasHeight = getHeight();//Height of canvas created
+        canvasWidth = getWidth();//Width of canvas created
 
         paint.setColor(Color.BLACK);
         x = canvasWidth;
@@ -88,9 +84,6 @@ public class BarChart extends View {
         marginX = spacing / 2;
         marginY = spacing / 2;
 
-
-        Log.d("LOG", Integer.toString(x));
-        Log.d("LOG", Integer.toString(y));
         float[] durationOfAppsUsed = new float[numberOfBars];
         String[] namesOfAppsUsed = new String[numberOfBars];
         float totalValue = 0;
@@ -98,10 +91,10 @@ public class BarChart extends View {
         canvas.drawLine(marginX, y - marginY, x - marginX, y - marginY, paint);
         canvas.drawLine(marginX, marginY, marginX, y - marginY, paint);
 
-        float graphLineSpacingHorizontal = (y - 2 * marginY)/10;
+        float graphLineSpacingHorizontal = (y - 2 * marginY) / 10;
         float graphLineHorizontal = y - marginY;
 
-        for(int i=0;i<10;i++){
+        for (int i = 0; i < 10; i++) {
             canvas.drawLine(marginX, graphLineHorizontal, x - marginX, graphLineHorizontal, paint);
             graphLineHorizontal = graphLineHorizontal - graphLineSpacingHorizontal;
         }
@@ -122,11 +115,11 @@ public class BarChart extends View {
 
         for (int i = 0; i < numberOfBars; i++) {
             barTop = barBottom - (float) 0.8 * (durationOfAppsUsed[i] / totalValue * maxBarHeight);
-            if (barTop < graphLineHorizontal+graphLineSpacingHorizontal) {
-                barTop = graphLineHorizontal+graphLineSpacingHorizontal;
+            if (barTop < graphLineHorizontal + graphLineSpacingHorizontal) {
+                barTop = graphLineHorizontal + graphLineSpacingHorizontal;
             }
             bar.set(barLeft, barTop, barRight, barBottom);
-            paint.setColor((chartColors[i%9]));//Colors Repeat themselves after the 9th
+            paint.setColor((chartColors[i % chartColors.length]));//Colors Repeat themselves after the 9th
             canvas.drawRect(bar, paint);
             EachAppDetails current = eachAppDetailsList.get(i);
             Drawable drawable = current.eachAppIcon;
@@ -150,9 +143,10 @@ public class BarChart extends View {
 
     /**
      * Returns a Square Bitmap object with the Desired size
+     *
      * @param bitmap: The Bitmap object to be provided
-     * @param width: The desired width of the Bitmap
-     * @return
+     * @param width:  The desired width of the Bitmap
+     * @return Resized square bitmap of desired width
      */
 
     private Bitmap resizeBitmap(Bitmap bitmap, float width) {
@@ -161,9 +155,8 @@ public class BarChart extends View {
         float scale = width / (float) prevWidth;
         Matrix matrix = new Matrix();
         matrix.postScale(scale, scale);
-        Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0, prevWidth, prevHeight, matrix, false);
 
-        return resizedBitmap;
+        return Bitmap.createBitmap(bitmap, 0, 0, prevWidth, prevHeight, matrix, false);
     }
 
 /*

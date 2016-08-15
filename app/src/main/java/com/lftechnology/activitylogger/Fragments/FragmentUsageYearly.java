@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by sparsha on 7/26/2016.
+ * Displays the usage stats of Apps used yearly In recycler view
  */
 public class FragmentUsageYearly extends Fragment implements View.OnClickListener{
     View view;
@@ -124,8 +124,7 @@ public class FragmentUsageYearly extends Fragment implements View.OnClickListene
                     ApplicationInfo applicationInfo = getActivity().getPackageManager().getApplicationInfo(namesOfApp[i],0);
                     current.eachAppName = String.valueOf(getActivity().getPackageManager().getApplicationLabel(applicationInfo));
                     current.eachAppUsageDuration = runTimeOfApp[i];
-                    Drawable icon = getActivity().getPackageManager().getApplicationIcon(applicationInfo);
-                    current.eachAppIcon = icon;
+                    current.eachAppIcon = getActivity().getPackageManager().getApplicationIcon(applicationInfo);
                     boolean skip = false;
                     for (EachAppDetails eachAppDetails : eachAppDetailsList) {
                         if (current.eachAppName.equals(eachAppDetails.eachAppName))

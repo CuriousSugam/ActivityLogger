@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by sparsha on 7/26/2016.
+ * Displays the usage stats of Apps used weekly In recycler view
  */
 public class FragmentUsageWeekly extends Fragment implements View.OnClickListener {
     View view;
