@@ -1,13 +1,8 @@
 package com.lftechnology.activitylogger.fragments;
 
-//import android.app.Fragment;
-
-import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -15,16 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.lftechnology.activitylogger.R;
 import com.lftechnology.activitylogger.adapter.MainMenuViewPagerAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.LogRecord;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -106,7 +97,7 @@ public class FirstMainFragment extends Fragment {
                 handler.post(updateInfoThread);
             }
         }, 2000, 4000);
-        
+
         return view;
     }
 }
