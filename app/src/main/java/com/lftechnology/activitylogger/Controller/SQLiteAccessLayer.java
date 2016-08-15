@@ -296,6 +296,26 @@ public class SQLiteAccessLayer {
         return networkUsageDetailsList;
     }
 
+    public Map<String, Long> queryForegroundTable(){
+        Map<String, Long> foregroundTimeMap = new HashMap<>();
+        String[] columns = {TABLE_COLUMN_PACKAGE_NAME, TABLE_COLUMN_FOREGROUND_TIME};
+        Cursor cursor = db.query(TABLE_FOREGROUND_DETAILS, columns, null, null, null, null, null);
+        while(cursor.moveToNext()){
+            foregroundTimeMap.put(cursor.getString(cursor.getColumnIndex(TABLE_COLUMN_PACKAGE_NAME)),
+                    cursor.getLong(cursor.getColumnIndex(TABLE_COLUMN_FOREGROUND_TIME)));
+        }
+        cursor.close();
+        return foregroundTimeMap;
+    }
+
+    public void updateForegroundTableRecord(String packagename, long updatedTimeInMillis){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TABLE_COLUMN_FOREGROUND_TIME, updatedTimeInMillis);
+        String whereClause = TABLE_COLUMN_PACKAGE_NAME+"=?";
+        String[] whereArgs = {packagename};
+        db.update(TABLE_FOREGROUND_DETAILS, contentValues, whereClause, whereArgs);
+    }
+
     public long insertIntoForegroundTable(String packageName, long foregroundTime){
         ContentValues contentValues = new ContentValues();
         contentValues.put(TABLE_COLUMN_PACKAGE_NAME, packageName);
@@ -307,6 +327,23 @@ public class SQLiteAccessLayer {
         // TODO remove this code
         Log.e("foregroundDetails", "Inserted:=> "+this.appDetails.getApplicationName());
         return newInsertedRowId;
+    }
+
+
+
+    public boolean isForegroundTableEmpty(){
+        String query = "SELECT Count(*) FROM "+TABLE_FOREGROUND_DETAILS;
+        Cursor cursor = db.rawQuery(query, null);
+        int count = 0;
+        while(cursor.moveToNext()){
+            count = cursor.getCount();
+        }
+        cursor.close();
+        return count == 0;
+    }
+
+    public void flushForegroundTable() {
+        db.delete(TABLE_FOREGROUND_DETAILS, null, null);
     }
 
     public void closeDatabaseConnection() {
