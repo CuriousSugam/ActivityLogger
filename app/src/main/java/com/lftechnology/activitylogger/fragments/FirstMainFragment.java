@@ -33,12 +33,15 @@ import butterknife.ButterKnife;
  * This fragment shows the slider of the information like:
  * - time of usage of most used app in the device
  * - application tha used most of the network data
+
+ * This fragment displays the slider of the important information like the most used app of the day,
+ * application that used the most network data and other random productivity guidelines.
+>>>>>>> dev:app/src/main/java/com/lftechnology/activitylogger/fragments/FirstMainFragment.java
  * <p/>
  * Created by DevilDewzone on 7/11/2016.
  */
 public class FirstMainFragment extends Fragment {
 
-    private Context context;
 
     @BindView(R.id.viewpager_main_activity)
     ViewPager informationViewPager;
@@ -61,6 +64,7 @@ public class FirstMainFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.first_main_fragment_layout, container, false);
         ButterKnife.bind(this, view);
 
@@ -153,11 +157,5 @@ public class FirstMainFragment extends Fragment {
             }
         }, 2000, 4000);
         return view;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        this.context = context;
-        super.onAttach(context);
     }
 }

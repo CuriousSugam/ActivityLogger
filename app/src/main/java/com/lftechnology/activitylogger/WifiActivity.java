@@ -34,13 +34,16 @@ public class WifiActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     private NetworkDataAdapter adapter;
     private List<NetworkUsageDetails> networkDetailsListToAdapter;
-    private RecyclerView recyclerView;
-    private LinearLayoutManager layoutManager;
+
 
     private boolean activityBlank = false;
 
-    @BindView(R.id.swipeRefreshWifiActivity)
+    @BindView(R.id.swipe_refresh_wifi_activity)
     SwipeRefreshLayout swipeRefreshLayout;
+
+    @BindView(R.id.application_list_wifi_usage)
+    RecyclerView recyclerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +51,9 @@ public class WifiActivity extends AppCompatActivity implements SwipeRefreshLayou
         setContentView(R.layout.activity_wifi);
         ButterKnife.bind(this);
 
+        LinearLayoutManager layoutManager;
         swipeRefreshLayout.setOnRefreshListener(this);
         networkDetailsListToAdapter = getWifiUsageDetails();
-
-        recyclerView = (RecyclerView) findViewById(R.id.application_list_wifi_usage);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(WifiActivity.this);

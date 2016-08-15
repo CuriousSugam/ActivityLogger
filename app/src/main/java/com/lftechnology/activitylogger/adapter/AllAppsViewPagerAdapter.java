@@ -37,10 +37,11 @@ public class AllAppsViewPagerAdapter extends FragmentPagerAdapter {
 
     /**
      * add the fragments to the view pager
+     *
      * @param fragment fragment to be added to the view pager
-     * @param title title to be assigned to the corresponding fragment in view pager
+     * @param title    title to be assigned to the corresponding fragment in view pager
      */
-    public void addFragment(Fragment fragment, String title){
+    public void addFragment(Fragment fragment, String title) {
         fragmentList.add(fragment);
         fragmentTitleList.add(title);
     }

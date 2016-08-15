@@ -1,21 +1,14 @@
 package com.lftechnology.activitylogger.adapter;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
-
-import com.lftechnology.activitylogger.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * It is a FragmentPagerAdapter for the Viewpager
  * Created by Sugam on 8/10/2016.
  */
 public class MainMenuViewPagerAdapter extends FragmentPagerAdapter {

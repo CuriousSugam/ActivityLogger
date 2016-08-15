@@ -18,29 +18,30 @@ import com.lftechnology.activitylogger.model.NetworkUsageDetails;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * NetworkDataAdapter is an adapter class that binds the data (such as: application name, network bytes)
  * to the recycler view layout.
- *
+ * <p/>
  * Created by Sugam on 7/14/2016.
  */
 public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.NetworkViewHolder> {
 
     private Context context;
     private List<NetworkUsageDetails> networkUsageDetailsList;
-    private int progressValue = 0;
     private float totalBytes;
 
     /**
-     *
-     * @param context context of the calling
+     * @param context                 context of the calling
      * @param networkUsageDetailsList List that contains the object of NetworkUsageDetails to bind
      *                                the data to the view.
      */
-    public NetworkDataAdapter(Context context, List<NetworkUsageDetails> networkUsageDetailsList, long totalBytes){
+    public NetworkDataAdapter(Context context, List<NetworkUsageDetails> networkUsageDetailsList, long totalBytes) {
         this.context = context;
         this.networkUsageDetailsList = networkUsageDetailsList;
-        this.totalBytes = (float)totalBytes;
+        this.totalBytes = (float) totalBytes;
     }
 
     @Override
@@ -64,10 +65,10 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
         long txBytes = networkUsageDetailsList.get(position).getTotalTxBytes();
         long total = rxBytes + txBytes;
 
-        holder.receivedBytes.setText("Down: "+memorySizeFormat(rxBytes));
-        holder.transmittedBytes.setText("Up: "+memorySizeFormat(txBytes));
-        holder.totalBytes.setText("Total:  "+ memorySizeFormat(total));
-        holder.progressBar.setProgress((int)(total/totalBytes*100));
+        holder.receivedBytes.setText("Down: " + memorySizeFormat(rxBytes));
+        holder.transmittedBytes.setText("Up: " + memorySizeFormat(txBytes));
+        holder.totalBytes.setText("Total:  " + memorySizeFormat(total));
+        holder.progressBar.setProgress((int) (total / totalBytes * 100));
     }
 
     /**
@@ -77,17 +78,17 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
      * @param membytes number of bytes
      * @return memory size in the readable format
      */
-    private String memorySizeFormat(long membytes){
-        float bytes = (float)membytes;
+    private String memorySizeFormat(long membytes) {
+        float bytes = (float) membytes;
         String returnValue;
-        if(bytes > (1024*1024*1024)){
-            returnValue = String.format("%.2f", bytes/(1024*1024*1024))+" GB";
-        }else if(bytes > (1024*1024)){
-            returnValue = String.format("%.2f", bytes/(1024*1024))+" MB";
-        }else if(bytes> 1024){
-            returnValue = String.format("%.2f", bytes/(1024))+" KB";
-        }else{
-            returnValue = String.format("%.2f", bytes)+" bytes";
+        if (bytes > (1024 * 1024 * 1024)) {
+            returnValue = String.format("%.2f", bytes / (1024 * 1024 * 1024)) + " GB";
+        } else if (bytes > (1024 * 1024)) {
+            returnValue = String.format("%.2f", bytes / (1024 * 1024)) + " MB";
+        } else if (bytes > 1024) {
+            returnValue = String.format("%.2f", bytes / (1024)) + " KB";
+        } else {
+            returnValue = String.format("%.2f", bytes) + " bytes";
         }
         return returnValue;
     }
@@ -96,9 +97,9 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
      * loads the application icon of the package to the image view.
      *
      * @param packageName name of the package whose icon is to be loaded
-     * @param imageView  reference to the ImageView where the application icon is to be loaded
+     * @param imageView   reference to the ImageView where the application icon is to be loaded
      */
-    public void loadBitmap(String packageName, ImageView imageView) {
+    private void loadBitmap(String packageName, ImageView imageView) {
         BitmapWorkerTask bitmapWorkerTask = new BitmapWorkerTask();
         final Bitmap bitmap = bitmapWorkerTask.getBitmapFromMemCache(packageName);
         if (bitmap != null) {
@@ -121,21 +122,27 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
      */
     public class NetworkViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView applicationIcon;
-        private TextView applicationName;
-        private TextView receivedBytes;
-        private TextView transmittedBytes;
-        private TextView totalBytes;
-        private ProgressBar progressBar;
+        @BindView(R.id.main_app_icon)
+        ImageView applicationIcon;
+
+        @BindView(R.id.main_app_name)
+        TextView applicationName;
+
+        @BindView(R.id.txt_network_data_received)
+        TextView receivedBytes;
+
+        @BindView(R.id.txt_network_data_transmitted)
+        TextView transmittedBytes;
+
+        @BindView(R.id.txt_total_network_data)
+        TextView totalBytes;
+
+        @BindView(R.id.progressBar)
+        ProgressBar progressBar;
 
         public NetworkViewHolder(View itemView) {
             super(itemView);
-            applicationIcon = (ImageView) itemView.findViewById(R.id.main_app_icon);
-            applicationName = (TextView) itemView.findViewById(R.id.main_app_name);
-            receivedBytes = (TextView) itemView.findViewById(R.id.txt_network_data_received);
-            transmittedBytes = (TextView) itemView.findViewById(R.id.txt_network_data_transmitted);
-            totalBytes = (TextView) itemView.findViewById(R.id.txt_total_network_data);
-            progressBar = (ProgressBar)itemView.findViewById(R.id.progressBar);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

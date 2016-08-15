@@ -24,9 +24,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author Sugam Shakya
- *         Created by Sugam on 7/5/2016.
- *         This class provides the methods to insert, update, delete and query the app details in the application database
+ * This class provides the methods to insert, update, delete and query the app details in the application database
+ * <p/>
+ * Created by Sugam on 7/5/2016.
  */
 public class SQLiteAccessLayer {
 
@@ -41,7 +41,7 @@ public class SQLiteAccessLayer {
 
     private static final String TABLE_COLUMN_ID = "_id";
     private static final String TABLE_COLUMN_UID = "uid";
-    private static final String TABLE_COLUMN_PACKAGE_NAME = "package_name";
+    public static final String TABLE_COLUMN_PACKAGE_NAME = "package_name";
     private static final String TABLE_COLUMN_APPLICATION_NAME = "application_name";
     private static final String TABLE_COLUMN_APPLICATION_TYPE = "application_type";
     private static final String TABLE_COLUMN_INITIAL_RX_BYTES = "initial_rx_bytes";
@@ -53,7 +53,6 @@ public class SQLiteAccessLayer {
     private static final String TABLE_COLUMN_FINAL_DATE_TIME = "final_date_time";
     private static final String TABLE_COLUMN_NETWORK_TYPE = "network_type";
     private static final String TABLE_COLUMN_FOREGROUND_TIME = "foreground_time";
-
 
 
     private ActivityLoggerSQLiteOpenHelper dbHelper;
@@ -79,6 +78,15 @@ public class SQLiteAccessLayer {
     public SQLiteAccessLayer(Context context, NetworkUsageDetails networkUsageDetails) {
         dbHelper = new ActivityLoggerSQLiteOpenHelper(context);
         this.db = dbHelper.getWritableDatabase();
+        this.networkUsageDetails = networkUsageDetails;
+    }
+
+    /**
+     * set the NetworkUsageDetails object for further database processing
+     *
+     * @param networkUsageDetails NetworkUsageDetails object
+     */
+    public void setNetworkUsageDetails(NetworkUsageDetails networkUsageDetails) {
         this.networkUsageDetails = networkUsageDetails;
     }
 
@@ -263,6 +271,7 @@ public class SQLiteAccessLayer {
 
     /**
      * This method extracts the network details of an application from the database
+     *
      * @param networkType the type of the network whose that is to be fetched. There are two options:
      *                    ConnectivityChangeMonitoringIntentService.MOBILE_NETWORK or
      *                    ConnectivityChangeMonitoringIntentService.WIFI_NETWORK
@@ -296,6 +305,12 @@ public class SQLiteAccessLayer {
         return networkUsageDetailsList;
     }
 
+    /**
+     * This method extracts all the information about the foreground usage of the application from the
+     * database.
+     *
+     * @return a map with packagename as key and foreground time in milliseconds
+     */
     public Map<String, Long> queryForegroundTable(){
         Map<String, Long> foregroundTimeMap = new HashMap<>();
         String[] columns = {TABLE_COLUMN_PACKAGE_NAME, TABLE_COLUMN_FOREGROUND_TIME};
@@ -308,6 +323,12 @@ public class SQLiteAccessLayer {
         return foregroundTimeMap;
     }
 
+    /**
+     * This method update a record of the foreground table
+     *
+     * @param packagename packagename whose record is to be updated
+     * @param updatedTimeInMillis updated foreground time in milliseconds
+     */
     public void updateForegroundTableRecord(String packagename, long updatedTimeInMillis){
         ContentValues contentValues = new ContentValues();
         contentValues.put(TABLE_COLUMN_FOREGROUND_TIME, updatedTimeInMillis);
@@ -316,6 +337,13 @@ public class SQLiteAccessLayer {
         db.update(TABLE_FOREGROUND_DETAILS, contentValues, whereClause, whereArgs);
     }
 
+    /**
+     * This method insert a record to the foreground table of the database
+     *
+     * @param packageName package name of the application
+     * @param foregroundTime total time in foreground in milliseconds
+     * @return the id of the record inserted in the table
+     */
     public long insertIntoForegroundTable(String packageName, long foregroundTime){
         ContentValues contentValues = new ContentValues();
         contentValues.put(TABLE_COLUMN_PACKAGE_NAME, packageName);
@@ -325,12 +353,14 @@ public class SQLiteAccessLayer {
         long newInsertedRowId;
         newInsertedRowId = db.insert(TABLE_FOREGROUND_DETAILS, null, contentValues);
         // TODO remove this code
-        Log.e("foregroundDetails", "Inserted:=> "+this.appDetails.getApplicationName());
+        Log.e("foregroundDetails", "Inserted:=> " + this.appDetails.getApplicationName());
         return newInsertedRowId;
     }
 
-
-
+    /**
+     * This method checks if the foreground table is empty
+     * @return true if the foreground table is empty otherwise false
+     */
     public boolean isForegroundTableEmpty(){
         String query = "SELECT Count(*) FROM "+TABLE_FOREGROUND_DETAILS;
         Cursor cursor = db.rawQuery(query, null);
@@ -342,10 +372,16 @@ public class SQLiteAccessLayer {
         return count == 0;
     }
 
+    /**
+     * deletes all the record from the foreground table
+     */
     public void flushForegroundTable() {
         db.delete(TABLE_FOREGROUND_DETAILS, null, null);
     }
 
+    /**
+     * close the database connection
+     */
     public void closeDatabaseConnection() {
         db.close();
     }
@@ -382,7 +418,7 @@ public class SQLiteAccessLayer {
                     + TABLE_COLUMN_FINAL_DATE_TIME + " datetime default current_timestamp,"
                     + TABLE_COLUMN_NETWORK_TYPE + " varchar(7)"
                     + " );";
-            String createForegroundDetailsTableQuery = "CREATE TABLE IF NOT EXISTS "+ TABLE_FOREGROUND_DETAILS + " ("
+            String createForegroundDetailsTableQuery = "CREATE TABLE IF NOT EXISTS " + TABLE_FOREGROUND_DETAILS + " ("
                     + TABLE_COLUMN_PACKAGE_NAME + " varchar(255), "
                     + TABLE_COLUMN_FOREGROUND_TIME + " integer"
                     + " );";

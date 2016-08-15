@@ -1,6 +1,5 @@
 package com.lftechnology.activitylogger;
 
-//import android.app.Fragment;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;

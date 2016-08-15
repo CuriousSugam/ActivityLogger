@@ -53,7 +53,7 @@ public class AllAppsRecyclerViewAdapter extends RecyclerView.Adapter<AllAppsView
      * loads the application icon of the package to the image view.
      *
      * @param packageName name of the package whose icon is to be loaded
-     * @param imageView  reference to the ImageView where the application icon is to be loaded
+     * @param imageView   reference to the ImageView where the application icon is to be loaded
      */
     public void loadBitmap(String packageName, ImageView imageView) {
         BitmapWorkerTask bitmapWorkerTask = new BitmapWorkerTask();

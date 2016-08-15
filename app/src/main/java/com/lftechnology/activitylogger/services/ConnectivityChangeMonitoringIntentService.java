@@ -38,16 +38,12 @@ public class ConnectivityChangeMonitoringIntentService extends IntentService {
             SharedPreferences sharedPreferences = getSharedPreferences("networkState", MODE_PRIVATE);
 
             if (networkType.equals(WIFI_NETWORK)) {    // when wifi is turned on
-                // fill into the temporary table and set the current network type i.e 'wifi' into the shared preference
                 fillIntoNetworkTempTable(this);
                 sharedPreferences.edit().putBoolean(WIFI_NETWORK, true).apply();
             } else if (networkType.equals(MOBILE_NETWORK)) { // when mobile data is turned on
-                // fill into the temporary table
-                // set the current network type i.e 'mobile' into the shared preferences
                 fillIntoNetworkTempTable(this);
                 sharedPreferences.edit().putBoolean(MOBILE_NETWORK, true).apply();
             } else if (networkType.equals(OFFLINE)) {  // when the neither wifi nor mobile data are turned on i.e when both are turned off
-                // get the recent network type from the shared preferences
                 if (sharedPreferences.getBoolean(WIFI_NETWORK, false)) {
                     copyToNetworkTable(WIFI_NETWORK, this);
                     sharedPreferences.edit().putBoolean(WIFI_NETWORK, false).apply();
@@ -73,10 +69,10 @@ public class ConnectivityChangeMonitoringIntentService extends IntentService {
             long initialTxBytes = TrafficStats.getUidTxBytes(appDetails.getUid());
             NetworkUsageDetails networkUsageDetails = new NetworkUsageDetails(
                     appDetails.getPackageName(), initialRxBytes, initialTxBytes);
-            SQLiteAccessLayer mSqLiteAccessLayer = new SQLiteAccessLayer(context, networkUsageDetails);
-            mSqLiteAccessLayer.insertTempNetworkDetails();
-            mSqLiteAccessLayer.closeDatabaseConnection();
+            sqLiteAccessLayer.setNetworkUsageDetails(networkUsageDetails);
+            sqLiteAccessLayer.insertTempNetworkDetails();
         }
+        sqLiteAccessLayer.closeDatabaseConnection();
     }
 
     /**
@@ -101,8 +97,6 @@ public class ConnectivityChangeMonitoringIntentService extends IntentService {
         sqLiteAccessLayer.emptyTempNetworkUsageDetails();
         sqLiteAccessLayer.closeDatabaseConnection();
     }
-
-//    public static void updateNetworkTempTable()
 
 
 }
