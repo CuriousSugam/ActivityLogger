@@ -99,32 +99,11 @@ public class AppUsageAlertService extends Service {
                     }
                 }
 
-//                Calendar currentTime = Calendar.getInstance();
-//                Calendar notificationCalendarObj;
-//                notificationCalendarObj = Calendar.getInstance();
-//                notificationCalendarObj.set(currentTime.get(Calendar.YEAR),currentTime.get(Calendar.MONTH),
-//                        currentTime.get(Calendar.DATE),
-//                        selectedHour, selectedMinute);
-//
-//                // Set the alarm to go off when at the selected time
-//                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-//                long interval = 24 * 60 * 60 * 1000;      // convert 24hours to milliseconds
-//                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, notificationCalendarObj.getTimeInMillis(), interval, pendingIntent);
-
-                // calculate the net foreground time of every app
-                // reset the initial foreground time of the app which has not been active for more than 5mins
-                // if any app usage exceeds or is equal to the specified time period the notify users
-                // set alarm for next wake up ==>> interval being 2 mins
             }
 
 
         }
         sqLiteAccessLayer.closeDatabaseConnection();
-
-//        Log.e("appUsageService", "alert status = "+alertStatus+" time : "+(alertTimeInMillis/(1000*60*60))%24 + "count: "+count);
-//
-
-//
         return START_STICKY;
     }
 

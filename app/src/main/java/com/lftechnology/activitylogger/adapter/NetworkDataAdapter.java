@@ -81,10 +81,10 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
     private String memorySizeFormat(long membytes) {
         float bytes = (float) membytes;
         String returnValue;
-        if (bytes > (1024 * 1024 * 1024)) {
-            returnValue = String.format("%.2f", bytes / (1024 * 1024 * 1024)) + " GB";
-        } else if (bytes > (1024 * 1024)) {
-            returnValue = String.format("%.2f", bytes / (1024 * 1024)) + " MB";
+        if (bytes > Math.pow(1024, 3)) {
+            returnValue = String.format("%.2f", bytes / Math.pow(1024, 3)) + " GB";
+        } else if (bytes > Math.pow(1024, 2)) {
+            returnValue = String.format("%.2f", bytes / Math.pow(1024, 2)) + " MB";
         } else if (bytes > 1024) {
             returnValue = String.format("%.2f", bytes / (1024)) + " KB";
         } else {

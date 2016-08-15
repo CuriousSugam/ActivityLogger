@@ -26,18 +26,6 @@
             android:src="@drawable/page_circular_indicator"
             android:layout_height="wrap_content"
             />
-        <ImageView
-            android:layout_margin="3dp"
-            android:id="@+id/third_indicator"
-            android:layout_width="wrap_content"
-            android:src="@drawable/page_circular_indicator"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:layout_margin="3dp"
-            android:id="@+id/forth_indicator"
-            android:layout_width="wrap_content"
-            android:src="@drawable/page_circular_indicator"
-            android:layout_height="wrap_content" />
     </LinearLayout>
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager_main_activity"
