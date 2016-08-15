@@ -26,11 +26,15 @@
     <style name="MySwitch" parent="Theme.AppCompat.Light">
         <item name="colorControlActivated">@color/lightGreen</item>
     </style>
-    <style name="divider" >
+    <style name="horizontal_divider" >
         <item name="android:layout_height">1dp</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:background">?android:attr/listDivider</item>
-
+        <item name="android:background">@color/colorPrimaryDark</item>
+    </style>
+    <style name="vertical_divider">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">1dp</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
     </style>
 
 </resources>

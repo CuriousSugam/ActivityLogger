@@ -29,7 +29,7 @@
                 android:text="@string/wifiMenu"
                 android:textAlignment="center" />
         </LinearLayout>
-
+        <View style="@style/vertical_divider"/>
         <LinearLayout
             android:id="@+id/ll_menu_mobile_data"
             android:layout_width="0dp"
@@ -48,7 +48,7 @@
                 android:textAlignment="center" />
         </LinearLayout>
     </LinearLayout>
-
+    <View style="@style/horizontal_divider"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
                 android:text="@string/timeMenu"
                 android:textAlignment="center" />
         </LinearLayout>
-
+        <View style="@style/vertical_divider"/>
         <LinearLayout
             android:id="@+id/ll_menu_all_apps"
             android:layout_width="0dp"
