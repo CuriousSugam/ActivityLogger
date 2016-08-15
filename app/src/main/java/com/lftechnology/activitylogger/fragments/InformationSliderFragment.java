@@ -15,6 +15,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * It is fragment that displays the information  about the top usage applicaiton
+ * <p/>
  * Created by Sugam on 8/11/2016.
  */
 public class InformationSliderFragment extends Fragment {
@@ -26,7 +28,7 @@ public class InformationSliderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_information_slider, container, false);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
 
 //         get the arguments from bundle and assign it to textview of the fragment
         Bundle b = getArguments();

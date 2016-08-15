@@ -24,6 +24,9 @@ import java.util.List;
  */
 public class MainActivity extends AppCompatActivity {
 
+    private final static String LOWER_FRAGMENT = "lowerFragment";
+    private final static String UPPER_FRAGMENT = "upperFragment";
+
     public static String APP_DETAILS = "appDetails";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
         fragmentArguments.putParcelableArrayList(APP_DETAILS, (ArrayList<? extends Parcelable>) appDetailsFromDatabase);
         lowerMainFragment.setArguments(fragmentArguments);
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.lower_fragment_container, lowerMainFragment, "lowerFragment")
-                .add(R.id.upper_fragment_container, upperMainFragment, "upperFragment")
+                .add(R.id.lower_fragment_container, lowerMainFragment, LOWER_FRAGMENT)
+                .add(R.id.upper_fragment_container, upperMainFragment, UPPER_FRAGMENT)
                 .commit();
     }
 

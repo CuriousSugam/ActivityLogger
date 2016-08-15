@@ -24,10 +24,6 @@ import butterknife.ButterKnife;
  * This fragment shows the slider of the information like:
  * - time of usage of most used app in the device
  * - application tha used most of the network data
-
- * This fragment displays the slider of the important information like the most used app of the day,
- * application that used the most network data and other random productivity guidelines.
->>>>>>> dev:app/src/main/java/com/lftechnology/activitylogger/fragments/FirstMainFragment.java
  * <p/>
  * Created by DevilDewzone on 7/11/2016.
  */
@@ -38,10 +34,10 @@ public class FirstMainFragment extends Fragment {
     ViewPager informationViewPager;
 
     @BindView(R.id.first_indicator)
-    ImageView first_indicator;
+    ImageView iv_first_indicator;
 
     @BindView(R.id.second_indicator)
-    ImageView second_indicator;
+    ImageView iv_second_indicator;
 
     private static final int FIRST_PAGE = 0;
     private static final int SECOND_PAGE = 1;
@@ -74,24 +70,22 @@ public class FirstMainFragment extends Fragment {
             @Override
             public void run() {
                 int currentItem = informationViewPager.getCurrentItem();
-                Log.e("pagerPosition", currentItem + "th item");
                 currentItem = currentItem + 1;
                 if (currentItem > SECOND_PAGE) {
                     currentItem = FIRST_PAGE;
                 }
                 informationViewPager.setCurrentItem(currentItem, true);
                 switch (informationViewPager.getCurrentItem()){
-                    case FIRST_PAGE : first_indicator.setImageResource(R.drawable.current_page_circular_indicator);
-                        second_indicator.setImageResource(R.drawable.page_circular_indicator);
+                    case FIRST_PAGE : iv_first_indicator.setImageResource(R.drawable.current_page_circular_indicator);
+                        iv_second_indicator.setImageResource(R.drawable.page_circular_indicator);
                         break;
-                    case SECOND_PAGE : first_indicator.setImageResource(R.drawable.page_circular_indicator);
-                        second_indicator.setImageResource(R.drawable.current_page_circular_indicator);
+                    case SECOND_PAGE : iv_first_indicator.setImageResource(R.drawable.page_circular_indicator);
+                        iv_second_indicator.setImageResource(R.drawable.current_page_circular_indicator);
                         break;
                 }
             }
         };
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
+        new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
                 handler.post(updateInfoThread);
