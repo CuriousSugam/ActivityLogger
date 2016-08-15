@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger.Communicators;
+package com.lftechnology.activitylogger.communicators;
 
 import com.lftechnology.activitylogger.model.EachAppDetails;
 

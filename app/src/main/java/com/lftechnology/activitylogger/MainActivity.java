@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 
-import com.lftechnology.activitylogger.Fragments.SecondMainFragment;
+import com.lftechnology.activitylogger.fragments.SecondMainFragment;
 import com.lftechnology.activitylogger.model.AppDetails;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger.Interfaces;
+package com.lftechnology.activitylogger.interfaces;
 
 /**
  * Created by sparsha on 7/18/2016.

@@ -5,9 +5,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.lftechnology.activitylogger.Adapter.ViewPagerAdapter;
-import com.lftechnology.activitylogger.Fragments.FragmentChartsActivityBarChart;
-import com.lftechnology.activitylogger.Fragments.FragmentChartsActivityPieChart;
+import com.lftechnology.activitylogger.adapter.ViewPagerAdapter;
+import com.lftechnology.activitylogger.fragments.FragmentChartsActivityBarChart;
+import com.lftechnology.activitylogger.fragments.FragmentChartsActivityPieChart;
 
 public class ChartsActivity extends AppCompatActivity{
     ViewPager viewPager;
@@ -17,10 +17,10 @@ public class ChartsActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_charts);
 
-        viewPager = (ViewPager)findViewById(R.id.chartsViewPager);
+        viewPager = (ViewPager)findViewById(R.id.upperChartsViewPagerFragment);
         setupViewPager(viewPager);
 
-        tabLayout = (TabLayout)findViewById(R.id.fragmentTabs);
+        tabLayout = (TabLayout)findViewById(R.id.fragmentChartTabs);
         tabLayout.setupWithViewPager(viewPager);
     }
 

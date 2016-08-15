@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger.Fragments;
+package com.lftechnology.activitylogger.fragments;
 
 import android.app.usage.UsageStats;
 import android.content.Intent;
@@ -16,18 +16,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-import com.lftechnology.activitylogger.Adapter.CustomAdapterAppDetails;
+import com.lftechnology.activitylogger.adapter.CustomAdapterAppDetails;
 import com.lftechnology.activitylogger.ChartsActivity;
-import com.lftechnology.activitylogger.Communicators.CommunicatorEachAppDetailsValues;
+import com.lftechnology.activitylogger.communicators.CommunicatorEachAppDetailsValues;
 import com.lftechnology.activitylogger.ConstantIntervals;
 import com.lftechnology.activitylogger.model.EachAppDetails;
 import com.lftechnology.activitylogger.R;
 import com.lftechnology.activitylogger.RawAppInfo;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by sparsha on 7/26/2016.

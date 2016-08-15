@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger.Fragments;
+package com.lftechnology.activitylogger.fragments;
 
 
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lftechnology.activitylogger.Charts.PieChart;
+import com.lftechnology.activitylogger.charts.PieChart;
 
 
 /**

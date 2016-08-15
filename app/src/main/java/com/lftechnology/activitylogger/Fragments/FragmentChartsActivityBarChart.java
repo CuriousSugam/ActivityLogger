@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger.Fragments;
+package com.lftechnology.activitylogger.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lftechnology.activitylogger.Charts.BarChart;
+import com.lftechnology.activitylogger.charts.BarChart;
 
 /**
  * Created by sparsha on 7/21/2016.

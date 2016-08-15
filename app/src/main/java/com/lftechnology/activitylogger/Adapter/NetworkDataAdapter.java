@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger.Adapter;
+package com.lftechnology.activitylogger.adapter;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;

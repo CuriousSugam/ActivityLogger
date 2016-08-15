@@ -5,9 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
 
-import com.lftechnology.activitylogger.Services.ConnectivityChangeMonitoringIntentService;
+import com.lftechnology.activitylogger.services.ConnectivityChangeMonitoringIntentService;
 
 /**
  * ConnectivityChangeBroadcastReceiver is a broadcast receiver. It receives the broadcast from the

@@ -9,11 +9,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.lftechnology.activitylogger.Adapter.ViewPagerAdapter;
-import com.lftechnology.activitylogger.Fragments.FragmentUsageDaily;
-import com.lftechnology.activitylogger.Fragments.FragmentUsageMonthly;
-import com.lftechnology.activitylogger.Fragments.FragmentUsageWeekly;
-import com.lftechnology.activitylogger.Fragments.FragmentUsageYearly;
+import com.lftechnology.activitylogger.adapter.ViewPagerAdapter;
+import com.lftechnology.activitylogger.fragments.FragmentUsageDaily;
+import com.lftechnology.activitylogger.fragments.FragmentUsageMonthly;
+import com.lftechnology.activitylogger.fragments.FragmentUsageWeekly;
+import com.lftechnology.activitylogger.fragments.FragmentUsageYearly;
 
 public class TimeActivity extends AppCompatActivity {
     ViewPager viewPager;
@@ -32,10 +32,10 @@ public class TimeActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager){
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FragmentUsageDaily(),"Today");
-        adapter.addFragment(new FragmentUsageWeekly(),"Last Week");
-        adapter.addFragment(new FragmentUsageMonthly(),"Last Month");
-        adapter.addFragment(new FragmentUsageYearly(),"Last Year");
+        adapter.addFragment(new FragmentUsageDaily(),"Daily");
+        adapter.addFragment(new FragmentUsageWeekly(),"Weekly");
+        adapter.addFragment(new FragmentUsageMonthly(),"Monthly");
+        adapter.addFragment(new FragmentUsageYearly(),"Yearly");
         viewPager.setAdapter(adapter);
     }
 
@@ -47,10 +47,6 @@ public class TimeActivity extends AppCompatActivity {
     }
     @Override
     protected void onDestroy() {
-        SharedPreferences sharedPreferences = getSharedPreferences("appName", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
-        editor.apply();
         super.onDestroy();
     }
 }

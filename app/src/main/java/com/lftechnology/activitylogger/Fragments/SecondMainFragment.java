@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger.Fragments;
+package com.lftechnology.activitylogger.fragments;
 
 import android.app.Fragment;
 import android.content.Intent;

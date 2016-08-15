@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger.Adapter;
+package com.lftechnology.activitylogger.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.lftechnology.activitylogger.AsynkTasks.BitmapWorkerTask;
+import com.lftechnology.activitylogger.asynkTasks.BitmapWorkerTask;
 import com.lftechnology.activitylogger.R;
 import com.lftechnology.activitylogger.model.AppDetails;
 

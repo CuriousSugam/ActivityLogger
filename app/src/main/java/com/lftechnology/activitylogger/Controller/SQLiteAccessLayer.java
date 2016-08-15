@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger.Controller;
+package com.lftechnology.activitylogger.controller;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -37,7 +37,7 @@ public class SQLiteAccessLayer {
     private static final String TABLE_NETWORK_TEMP = "network_temp_table";
     private static final String TABLE_NETWORK_INFO_TABLE = "network_info_table";
 
-    private static final int DATABASE_VERSION = 12;
+    private static final int DATABASE_VERSION = 13;
 
     private static final String TABLE_COLUMN_ID = "_id";
     private static final String TABLE_COLUMN_UID = "uid";

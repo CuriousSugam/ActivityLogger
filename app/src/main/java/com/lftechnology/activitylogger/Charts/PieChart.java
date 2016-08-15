@@ -1,4 +1,4 @@
-package com.lftechnology.activitylogger.Charts;
+package com.lftechnology.activitylogger.charts;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,7 +11,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 import android.view.View;
 
-import com.lftechnology.activitylogger.Communicators.CommunicatorEachAppDetailsValues;
+import com.lftechnology.activitylogger.R;
+import com.lftechnology.activitylogger.communicators.CommunicatorEachAppDetailsValues;
 import com.lftechnology.activitylogger.model.EachAppDetails;
 
 import java.util.List;
@@ -44,10 +45,12 @@ public class PieChart extends View {
     public void onDraw(Canvas canvas){
         super.onDraw(canvas);
         float totalValue=0,startAngle=0,makeAngle;
-        int x = getWidth();
-        int y = getHeight();
-        int radiusReference = x;
-        if(x>y)radiusReference = y;
+        int x = getWidth(); // The Width of the canvas created
+        int y = getHeight();// The height of the canvas created
+
+        int radiusReference = x; //If if the device is in portrait mode
+        if(x>y)radiusReference = y;// If the device is in landscape mode
+
         int imageY = y/15;
         int imageX = x - x/9;
         float imageSize = y/28;
@@ -59,8 +62,8 @@ public class PieChart extends View {
         paint.setColor(Color.WHITE);
         canvas.drawPaint(paint);
 
-        String[] pieChartColors =
-                {"#4D4D4D", "#5DA5DA", "#FAA43A", "#60BD68", "#F17CB0","#B2912F","#B276B2","#DECF3F","#F15854"};//Default colors
+        int[] pieChartColors = getResources().getIntArray(R.array.chartsColors);
+
         float[] appValuesDuration = new float[numberOfPie];
         String[] valueNames = new String[numberOfPie];
         Bitmap[] bitmaps = new Bitmap[numberOfPie];
@@ -78,22 +81,32 @@ public class PieChart extends View {
 
         for(int i = 0; i<appValuesDuration.length;i++){
             makeAngle = appValuesDuration[i] * completeCircle / totalValue;
-            paint.setColor(Color.parseColor(pieChartColors[i%9]));
+            paint.setColor((pieChartColors[i%9]));
             canvas.drawArc(rectF,-startAngle,-makeAngle,true,paint);
             canvas.drawBitmap(resizeBitmap(bitmaps[i],imageSize),imageX,imageY,paint);
             canvas.drawCircle(imageX-imageSize/2,imageY+imageSize/2,10,paint);
             imageY = imageY +(int) imageSize;
             startAngle = startAngle + makeAngle;
         }
+
+        paint.setColor(Color.WHITE);
+        canvas.drawCircle(x/2-x/15,y/2,2*radius/3,paint);
         /**
          * animates the canvas
          */
         if(completeCircle<360){
             completeCircle+=5;
-            invalidate();                           //Redraw canvas
+            invalidate();   //Redraw canvas
         }
 
     }
+
+    /**
+     * Returns a square bitmap with the desired width
+     * @param bitmap The bitmap image to be resized
+     * @param width The desired width that you want to resize with
+     * @return
+     */
 
     private Bitmap resizeBitmap(Bitmap bitmap, float width) {
         int prevWidth = bitmap.getWidth();
@@ -101,9 +114,7 @@ public class PieChart extends View {
         float scale = width / (float) prevWidth;
         Matrix matrix = new Matrix();
         matrix.postScale(scale, scale);
-        Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0, prevWidth, prevHeight, matrix, false);
-
-        return resizedBitmap;
+        return Bitmap.createBitmap(bitmap, 0, 0, prevWidth, prevHeight, matrix, false);  //Returns the resized bitmap
     }
 
 }
