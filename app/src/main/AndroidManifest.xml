@@ -43,7 +43,7 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".Services.ConnectivityChangeMonitoringIntentService" />
+        <service android:name=".services.ConnectivityChangeMonitoringIntentService" />
 
         <activity
             android:name=".AllAppsActivity"
