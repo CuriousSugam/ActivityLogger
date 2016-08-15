@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/menu_settings"
         android:icon="@drawable/ic_settings_white_36dp"
-        android:title="Settings"
+        android:title="@string/settings"
         app:showAsAction="always"/>
     <item android:id="@+id/menu_info"
         android:icon="@drawable/ic_info_outline_white_36dp"
-        android:title="Info"
+        android:title="@string/app_info"
         app:showAsAction="ifRoom"/>
 </menu>

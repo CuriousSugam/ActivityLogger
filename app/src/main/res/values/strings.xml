@@ -5,4 +5,13 @@
     <string name="regular_notification_time">Always notify me at</string>
     <string name="app_usage_duration_alert">App Usage Duration Alert</string>
     <string name="app_usage_duration_alert_time">Alert Duration</string>
+    <string name="settings">Settings</string>
+    <string name="app_info">Information</string>
+    <string name="not_set">Not Set</string>
+
+    <!-- Menu labels in landing page -->
+    <string name="wifiMenu">WiFi Stats</string>
+    <string name="mobileDataMenu">Mobile Data Stats</string>
+    <string name="timeMenu">Usage Time</string>
+    <string name="allAppsMenu">All Apps</string>
 </resources>

@@ -53,15 +53,15 @@ public class AllAppsRecyclerViewAdapter extends RecyclerView.Adapter<AllAppsView
      * loads the application icon of the package to the image view.
      *
      * @param packageName name of the package whose icon is to be loaded
-     * @param imageView  reference to the ImageView where the application icon is to be loaded
+     * @param imageView   reference to the ImageView where the application icon is to be loaded
      */
-    public void loadBitmap(String packageName, ImageView imageView) {
+    private void loadBitmap(String packageName, ImageView imageView) {
         BitmapWorkerTask bitmapWorkerTask = new BitmapWorkerTask();
         final Bitmap bitmap = bitmapWorkerTask.getBitmapFromMemCache(packageName);
         if (bitmap != null) {
             imageView.setImageBitmap(bitmap);
         } else {
-            imageView.setImageResource(R.mipmap.ic_launcher);
+            imageView.setImageResource(R.drawable.ic_android_light_green_24dp);
             BitmapWorkerTask task = new BitmapWorkerTask();
             task.execute(packageName, imageView, context);
         }

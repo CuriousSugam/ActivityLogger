@@ -1,7 +1,7 @@
 package com.lftechnology.activitylogger;
 
-import android.app.Fragment;
 import android.os.Parcelable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.lftechnology.activitylogger.fragments.FirstMainFragment;
 import com.lftechnology.activitylogger.fragments.SecondMainFragment;
 import com.lftechnology.activitylogger.model.AppDetails;
 
@@ -23,20 +24,29 @@ import java.util.List;
  */
 public class MainActivity extends AppCompatActivity {
 
+    private final static String LOWER_FRAGMENT = "lowerFragment";
+    private final static String UPPER_FRAGMENT = "upperFragment";
+
     public static String APP_DETAILS = "appDetails";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Fragment upperMainFragment = new FirstMainFragment();
         Fragment lowerMainFragment = new SecondMainFragment();
         Intent intent = getIntent();
+
+
 
         List<AppDetails> appDetailsFromDatabase = intent.getParcelableArrayListExtra(APP_DETAILS);
         Bundle fragmentArguments = new Bundle();
         fragmentArguments.putParcelableArrayList(APP_DETAILS, (ArrayList<? extends Parcelable>) appDetailsFromDatabase);
         lowerMainFragment.setArguments(fragmentArguments);
-        getFragmentManager().beginTransaction().add(R.id.lower_fragment_container, lowerMainFragment, "lowerFragment").commit();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.lower_fragment_container, lowerMainFragment, LOWER_FRAGMENT)
+                .add(R.id.upper_fragment_container, upperMainFragment, UPPER_FRAGMENT)
+                .commit();
     }
 
     @Override
