@@ -7,4 +7,17 @@
     <color name="navigationBarColor">#000000</color>
     <color name="colorAccent">#307FFF</color>
     <color name="darkGrey">#3d3d3d</color>
+
+    <array name="chartsColors">
+        <item>#4D4D4D</item>
+        <item>#5DA5DA</item>
+        <item>#FAA43A</item>
+        <item>#60BD68</item>
+        <item>#F17CB0</item>
+        <item>#B2912F</item>
+        <item>#B276B2</item>
+        <item>#DECF3F</item>
+        <item>#F15854</item>
+    </array>
+
 </resources>
