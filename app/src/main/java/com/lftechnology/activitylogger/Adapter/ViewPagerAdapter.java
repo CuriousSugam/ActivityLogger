@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * Created by sparsha on 7/20/2016.
+ * A custom Adapter that attaches a fragment with titles in their respective tags
  */
 public class ViewPagerAdapter extends FragmentPagerAdapter{
     private final List<Fragment> fragmentList = new ArrayList<>();

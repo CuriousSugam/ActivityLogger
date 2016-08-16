@@ -15,6 +15,7 @@ import java.util.List;
 
 /**
  * Created by sparsha on 7/8/2016.
+ * A custom Adapter that shows App image app name and appusage duration in recycler view
  */
 public class CustomAdapterAppDetails extends RecyclerView.Adapter<CustomAdapterAppDetails.DetailsViewHolder> {
 
@@ -37,6 +38,7 @@ public class CustomAdapterAppDetails extends RecyclerView.Adapter<CustomAdapterA
     @Override
     public void onBindViewHolder(DetailsViewHolder holder, int position) {
         final EachAppDetails current = eachAppDetailsList.get(position);
+        //Convert time with Long format into hh:mm:ss format
         String durationInTime = String.format("%02d", (current.eachAppUsageDuration / 1000 / 3600))
                 + " : " + String.format("%02d", (((current.eachAppUsageDuration / 1000) % 3600) / 60))
                 + " : " + String.format("%02d", ((current.eachAppUsageDuration / 1000) % 60));
