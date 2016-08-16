@@ -60,6 +60,10 @@ public class FragmentUsageYearly extends Fragment implements View.OnClickListene
         showInSortedList();
 
     }
+
+    /**
+     * Get the list of usageStats object and separate the package name and runtime of app
+     */
     public void initialize()
     {
         int i =0;
@@ -74,6 +78,10 @@ public class FragmentUsageYearly extends Fragment implements View.OnClickListene
             i++;
         }
     }
+
+    /**
+     * Sort the list of usage of apps with time
+     */
     public void sort(){
         for(int i=0;i<namesOfApp.length && i< runTimeOfApp.length;i++){
             for(int j=0; j<i;j++){
@@ -88,6 +96,10 @@ public class FragmentUsageYearly extends Fragment implements View.OnClickListene
             }
         }
     }
+
+    /**
+     * Show sorted apps in recycler view
+     */
     public void showInSortedList(){
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(new CustomAdapterAppDetails(getContext(),getData()));
@@ -110,10 +122,12 @@ public class FragmentUsageYearly extends Fragment implements View.OnClickListene
 
     }
 
+    /**
+     * Show sorted apps in recycler view
+     */
     public  List<EachAppDetails> getData(){
         if(!eachAppDetailsList.isEmpty())
             return eachAppDetailsList;
-//        eachAppDetailsList.clear();
 
         try{
 
@@ -148,8 +162,11 @@ public class FragmentUsageYearly extends Fragment implements View.OnClickListene
         passListToCommunicator();
         Intent intent = new Intent(getActivity(),ChartsActivity.class);
         startActivity(intent);
-
     }
+
+    /**
+     * Pass list of EachAppDetails object to a communicator class
+     */
     private void passListToCommunicator() {
         CommunicatorEachAppDetailsValues values = new CommunicatorEachAppDetailsValues();
         values.setDetailsList(eachAppDetailsList);

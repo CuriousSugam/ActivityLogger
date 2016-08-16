@@ -16,6 +16,7 @@ import com.lftechnology.activitylogger.communicators.CommunicatorEachAppDetailsV
 
 /**
  * Created by sparsha on 8/11/2016.
+ * Show the details of apps in reyclerview
  */
 public class FragmentChartDetails extends Fragment {
 

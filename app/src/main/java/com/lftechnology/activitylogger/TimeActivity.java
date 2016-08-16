@@ -15,6 +15,10 @@ import com.lftechnology.activitylogger.fragments.FragmentUsageMonthly;
 import com.lftechnology.activitylogger.fragments.FragmentUsageWeekly;
 import com.lftechnology.activitylogger.fragments.FragmentUsageYearly;
 
+/**
+ * Displays the list of time of apps used the last usage duration namely Daily,Monthly,Weekly and Yearly in
+ * different viewPagers
+ */
 public class TimeActivity extends AppCompatActivity {
     ViewPager viewPager;
     TabLayout tabLayout;

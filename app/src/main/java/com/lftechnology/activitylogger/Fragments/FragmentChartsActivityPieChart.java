@@ -13,6 +13,7 @@ import com.lftechnology.activitylogger.charts.PieChart;
 
 /**
  * Created by sparsha on 7/18/2016.
+ * Shows the PieChart created in Canvas in Fragment
  */
 public class FragmentChartsActivityPieChart extends Fragment {
 

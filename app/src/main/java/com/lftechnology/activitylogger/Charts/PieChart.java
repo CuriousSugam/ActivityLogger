@@ -21,10 +21,10 @@ import java.util.List;
  * Creates a graphical representation of data in Pie Charts
  */
 public class PieChart extends View {
-    int completeCircle;
-    List<EachAppDetails> eachAppDetailsList;
-    int numberOfPie;
-    Paint paint;
+    private int completeCircle;
+    private List<EachAppDetails> eachAppDetailsList;
+    private int numberOfPie;
+    private Paint paint;
 
     /**
      * @param context Calling Activity
@@ -108,7 +108,6 @@ public class PieChart extends View {
      * @param width  The desired width that you want to resize with
      * @return
      */
-
     private Bitmap resizeBitmap(Bitmap bitmap, float width) {
         int prevWidth = bitmap.getWidth();
         int prevHeight = bitmap.getHeight();

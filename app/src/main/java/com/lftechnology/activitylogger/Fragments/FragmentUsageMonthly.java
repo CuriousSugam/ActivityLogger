@@ -63,6 +63,9 @@ public class FragmentUsageMonthly extends Fragment implements View.OnClickListen
         showInSortedList();
     }
 
+    /**
+     * Get the list of usageStats object and separate the package name and runtime of app
+     */
     public void initialize() {
         int i = 0;
         RawAppInfo rawAppInfo = new RawAppInfo();
@@ -77,6 +80,9 @@ public class FragmentUsageMonthly extends Fragment implements View.OnClickListen
         }
     }
 
+    /**
+     * Sort the list of usage of apps with time
+     */
     public void sort() {
         for (int i = 0; i < namesOfApp.length && i < runTimeOfApp.length; i++) {
             for (int j = 0; j < i; j++) {
@@ -92,6 +98,9 @@ public class FragmentUsageMonthly extends Fragment implements View.OnClickListen
         }
     }
 
+    /**
+     * Show sorted apps in recycler view
+     */
     public void showInSortedList() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(new CustomAdapterAppDetails(getContext(), getData()));
@@ -115,6 +124,9 @@ public class FragmentUsageMonthly extends Fragment implements View.OnClickListen
 
     }
 
+    /**
+     * Show sorted apps in recycler view
+     */
     public List<EachAppDetails> getData() {
         if (!eachAppDetailsList.isEmpty())
             return eachAppDetailsList;
@@ -156,7 +168,7 @@ public class FragmentUsageMonthly extends Fragment implements View.OnClickListen
     }
 
     /**
-     * pass the list of app details to a list that can be
+     * Pass list of EachAppDetails object to a communicator class
      */
 
     private void passListToCommunicator() {

@@ -62,6 +62,9 @@ public class FragmentUsageWeekly extends Fragment implements View.OnClickListene
 
     }
 
+    /**
+     * Get the list of usageStats object and separate the package name and runtime of app
+     */
     public void initialize() {
         int i = 0;
         RawAppInfo rawAppInfo = new RawAppInfo();
@@ -76,6 +79,9 @@ public class FragmentUsageWeekly extends Fragment implements View.OnClickListene
         }
     }
 
+    /**
+     * Sort the list of usage of apps with time
+     */
     public void sort() {
         for (int i = 0; i < namesOfApp.length && i < runTimeOfApp.length; i++) {
             for (int j = 0; j < i; j++) {
@@ -91,6 +97,9 @@ public class FragmentUsageWeekly extends Fragment implements View.OnClickListene
         }
     }
 
+    /**
+     * Show sorted apps in recycler view
+     */
     public void showInSortedList() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(new CustomAdapterAppDetails(getContext(), getData()));
@@ -114,6 +123,9 @@ public class FragmentUsageWeekly extends Fragment implements View.OnClickListene
 
     }
 
+    /**
+     * Show sorted apps in recycler view
+     */
     public List<EachAppDetails> getData() {
         if(!eachAppDetailsList.isEmpty())
             return eachAppDetailsList;
@@ -153,6 +165,9 @@ public class FragmentUsageWeekly extends Fragment implements View.OnClickListene
 
     }
 
+    /**
+     * Pass list of EachAppDetails object to a communicator class
+     */
     private void passListToCommunicator() {
         CommunicatorEachAppDetailsValues values = new CommunicatorEachAppDetailsValues();
         values.setDetailsList(eachAppDetailsList);

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.lftechnology.activitylogger.charts.BarChart;
 
 /**
- * Created by sparsha on 7/21/2016.
+ * Shows the BarChart created in Canvas in Fragment
  */
 public class FragmentChartsActivityBarChart extends Fragment {
 

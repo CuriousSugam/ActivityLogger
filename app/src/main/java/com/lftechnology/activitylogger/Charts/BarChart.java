@@ -25,20 +25,20 @@ import java.util.List;
 
 
 public class BarChart extends View {
-    int x, y;
-    int canvasHeight, canvasWidth;
-    int screenHeight, screenWidth;
-    Paint paint;
-    RectF bar;
-    float marginX, marginY, spacing;
-    float barWidth, maxBarHeight, barLeft, barTop, barRight, barBottom;
-    float textSize;
-    int[] chartColors = getResources().getIntArray(R.array.chartsColors);
-    String text = "N/A";
-    Bitmap bitmapIconsOfApps;
-    List<EachAppDetails> eachAppDetailsList;
-    int numberOfBars;
-    int maxBars;
+    private int x, y;
+    private int canvasHeight, canvasWidth;
+    private int screenHeight, screenWidth;
+    private Paint paint;
+    private RectF bar;
+    private float marginX, marginY, spacing;
+    private float barWidth, maxBarHeight, barLeft, barTop, barRight, barBottom;
+    private float textSize;
+    private int[] chartColors = getResources().getIntArray(R.array.chartsColors);
+    private String text = "N/A";
+    private Bitmap bitmapIconsOfApps;
+    private List<EachAppDetails> eachAppDetailsList;
+    private int numberOfBars;
+    private int maxBars;
 
     /**
      * @param context The current UI/Activity
@@ -148,7 +148,6 @@ public class BarChart extends View {
      * @param width:  The desired width of the Bitmap
      * @return Resized square bitmap of desired width
      */
-
     private Bitmap resizeBitmap(Bitmap bitmap, float width) {
         int prevWidth = bitmap.getWidth();
         int prevHeight = bitmap.getHeight();
@@ -158,28 +157,4 @@ public class BarChart extends View {
 
         return Bitmap.createBitmap(bitmap, 0, 0, prevWidth, prevHeight, matrix, false);
     }
-
-/*
-    Used for checking bar width
-    //TODO Remove
-
-*/
-
-//    @Override
-//    public boolean onTouch(View view, MotionEvent motionEvent) {
-//
-//        float yAxis = motionEvent.getY();
-//        float xAxis = motionEvent.getX();
-//
-//        if ((yAxis >= 0 && yAxis < canvasHeight / 2) && (xAxis >= 0)) {
-//            Log.d("LOG", "BarWidth is :" + barWidth);
-//            barWidth++;
-//            invalidate();
-//        } else {
-//            barWidth--;
-//            invalidate();
-//        }
-//        Log.d("LOG", "BarWidth is" + barWidth);
-//        return true;
-//    }
 }
