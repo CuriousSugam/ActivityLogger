@@ -30,13 +30,13 @@ import java.util.List;
  * Displays the usage stats of Apps used yearly In recycler view
  */
 public class FragmentUsageYearly extends Fragment implements View.OnClickListener{
-    View view;
-    FloatingActionButton chartsButton;
-    RecyclerView recyclerView;
-    String[] namesOfApp;
-    Long[] runTimeOfApp;
-    List<EachAppDetails> eachAppDetailsList = new ArrayList<>();
-    List<UsageStats> usageStatses;
+    private View view;
+    private FloatingActionButton chartsButton;
+    private RecyclerView recyclerView;
+    private String[] namesOfApp;
+    private Long[] runTimeOfApp;
+    private List<EachAppDetails> eachAppDetailsList = new ArrayList<>();
+    private List<UsageStats> usageStatses;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
