@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.lftechnology.activitylogger">
-    <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="24" />
+    <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="24" />
 
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
@@ -87,7 +87,8 @@
             android:label="Information"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".ChartsActivity"
+            android:theme="@style/AppTheme" />
     </application>
-
 </manifest>
