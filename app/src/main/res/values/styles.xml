@@ -25,4 +25,8 @@
         <item name="android:textColor">@color/lightGrey</item>
     </style>
 
+    <style name="CardView.style" parent="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">
+
+    </style>
+
 </resources>

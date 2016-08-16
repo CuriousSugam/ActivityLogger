@@ -1,5 +1,6 @@
 package com.lftechnology.activitylogger;
 
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Parcelable;
 import android.support.design.widget.TabLayout;
@@ -7,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ListView;
 
 import com.lftechnology.activitylogger.adapter.AllAppsViewPagerAdapter;
 import com.lftechnology.activitylogger.fragments.InstalledAppsFragment;
@@ -75,4 +78,5 @@ public class AllAppsActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
     }
+
 }
