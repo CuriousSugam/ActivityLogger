@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.lftechnology.activitylogger.controller.SQLiteAccessLayer;
 import com.lftechnology.activitylogger.model.AppDetails;
+import com.lftechnology.activitylogger.model.NetworkUsageDetails;
+import com.lftechnology.activitylogger.model.NetworkUsageSummary;
 import com.lftechnology.activitylogger.utilities.CheckPermissions;
 
 import java.util.ArrayList;
@@ -34,8 +36,24 @@ public class SplashScreenActivity extends AppCompatActivity {
             startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
         } else {
             List<AppDetails> appDetailsFromDatabase = getAppDetailsFromDatabase();
+            NetworkUsageSummary wifiUsageSummary = new NetworkUsageSummary(this, Constants.WIFI_NETWORK);
+            NetworkUsageSummary mobileDataUsageSummary = new NetworkUsageSummary(this, Constants.MOBILE_NETWORK);
+
             Intent intent = new Intent(this, MainActivity.class);
-            intent.putParcelableArrayListExtra("appDetails", (ArrayList<? extends Parcelable>) appDetailsFromDatabase);
+            intent.putParcelableArrayListExtra(MainActivity.APP_DETAILS, (ArrayList<? extends Parcelable>) appDetailsFromDatabase);
+
+            if(!wifiUsageSummary.getNetworkUsageDetailsList().isEmpty()){
+                intent.putParcelableArrayListExtra(
+                        MainActivity.MOST_WIFI_USED_APP,
+                        (ArrayList<? extends Parcelable>) wifiUsageSummary.getNetworkUsageDetailsList());
+                intent.putExtra(MainActivity.TOTAL_WIFI_DATA, wifiUsageSummary.getTotal());
+            }
+            if(!mobileDataUsageSummary.getNetworkUsageDetailsList().isEmpty()){
+                intent.putParcelableArrayListExtra(MainActivity.MOST_DATA_USED_APP,
+                        (ArrayList<? extends Parcelable>) mobileDataUsageSummary.getNetworkUsageDetailsList());
+                intent.putExtra(MainActivity.TOTAL_MOBILE_DATA, mobileDataUsageSummary.getTotal());
+            }
+
             startActivity(intent);
             finish();
         }
@@ -88,5 +106,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         sqLiteAccessLayer.closeDatabaseConnection();
         return appDetailsList;
     }
+
+
 }
 

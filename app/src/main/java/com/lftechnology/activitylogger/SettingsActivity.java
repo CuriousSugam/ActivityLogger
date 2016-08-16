@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.lftechnology.activitylogger.broadcastReceiver.NotificationBroadcastReceiver;
+import com.lftechnology.activitylogger.services.AppUsageAlertService;
 import com.lftechnology.activitylogger.utilities.SettingsData;
 
 import java.util.Calendar;
@@ -165,6 +166,22 @@ public class SettingsActivity extends AppCompatActivity {
                 alertStatusChanged = true;
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        Intent intent = new Intent(SettingsActivity.this, AppUsageAlertService.class);
+        if(alertStatusChanged){
+            if(alertStatus) {
+                intent.putExtra(SettingsActivity.ALERT_STATUS, true);
+                intent.putExtra(ALERT_TIME_MILLIS, alertTimeInMillis);
+            }else{
+                intent.putExtra(SettingsActivity.ALERT_STATUS, false);
+            }
+            startService(intent);
+        }
+
+        super.onPause();
     }
 
     /**

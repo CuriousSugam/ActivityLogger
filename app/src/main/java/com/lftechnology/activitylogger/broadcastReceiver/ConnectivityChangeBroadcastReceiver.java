@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.lftechnology.activitylogger.Constants;
 import com.lftechnology.activitylogger.services.ConnectivityChangeMonitoringIntentService;
 
 /**
@@ -25,14 +26,14 @@ public class ConnectivityChangeBroadcastReceiver extends BroadcastReceiver {
             Intent serviceIntent = new Intent(context, ConnectivityChangeMonitoringIntentService.class);
             if (networkInfo != null) {
                 if (networkInfo.getType() == ConnectivityManager.TYPE_WIFI && networkInfo.isConnected()) {
-                    serviceIntent.putExtra("networkType", ConnectivityChangeMonitoringIntentService.WIFI_NETWORK);
+                    serviceIntent.putExtra("networkType", Constants.WIFI_NETWORK);
                     context.startService(serviceIntent);
                 } else if (networkInfo.getType() == ConnectivityManager.TYPE_MOBILE && networkInfo.isConnected()) {
-                    serviceIntent.putExtra("networkType", ConnectivityChangeMonitoringIntentService.MOBILE_NETWORK);
+                    serviceIntent.putExtra("networkType", Constants.MOBILE_NETWORK);
                     context.startService(serviceIntent);
                 }
             } else {
-                serviceIntent.putExtra("networkType", ConnectivityChangeMonitoringIntentService.OFFLINE);
+                serviceIntent.putExtra("networkType", Constants.OFFLINE);
                 context.startService(serviceIntent);
             }
         }

@@ -10,9 +10,10 @@ import android.widget.Toast;
 
 import com.lftechnology.activitylogger.adapter.NetworkDataAdapter;
 import com.lftechnology.activitylogger.controller.SQLiteAccessLayer;
-import com.lftechnology.activitylogger.services.ConnectivityChangeMonitoringIntentService;
 import com.lftechnology.activitylogger.model.NetworkUsageDetails;
+import com.lftechnology.activitylogger.model.NetworkUsageSummary;
 import com.lftechnology.activitylogger.utilities.NetworkStatus;
+import com.lftechnology.activitylogger.utilities.Utilities;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,12 +31,9 @@ import butterknife.ButterKnife;
  */
 public class WifiActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
-    private long total = 0;
-
     private NetworkDataAdapter adapter;
     private List<NetworkUsageDetails> networkDetailsListToAdapter;
-
-
+    private long total;
     private boolean activityBlank = false;
 
     @BindView(R.id.swipe_refresh_wifi_activity)
@@ -51,56 +49,19 @@ public class WifiActivity extends AppCompatActivity implements SwipeRefreshLayou
         setContentView(R.layout.activity_wifi);
         ButterKnife.bind(this);
 
-        LinearLayoutManager layoutManager;
         swipeRefreshLayout.setOnRefreshListener(this);
-        networkDetailsListToAdapter = getWifiUsageDetails();
+        NetworkUsageSummary networkUsageSummary = new NetworkUsageSummary(this, Constants.WIFI_NETWORK);
+        networkDetailsListToAdapter = networkUsageSummary.getNetworkUsageDetailsList();
         recyclerView.setHasFixedSize(true);
 
-        layoutManager = new LinearLayoutManager(WifiActivity.this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(WifiActivity.this);
+        total = networkUsageSummary.getTotal();
         adapter = new NetworkDataAdapter(WifiActivity.this, networkDetailsListToAdapter, total);
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
 
-    /**
-     *  get the List of NetworkUsageDetails objects that contain the wifi data usage statistics
-     *
-     * @return the List of NetworkUsageDetails objects
-     */
-    private List<NetworkUsageDetails> getWifiUsageDetails() {
-        List<String> keyPackageName = new ArrayList<>();
-        SQLiteAccessLayer sqLiteAccessLayer = new SQLiteAccessLayer(this);
-        List<NetworkUsageDetails> networkUsageDetailsList = sqLiteAccessLayer.queryNetworkUsageDetails(
-                ConnectivityChangeMonitoringIntentService.WIFI_NETWORK);
-        Map<String, NetworkUsageDetails> mapNetworkDetails = new HashMap<>();
-        total = 0;
-
-        for (NetworkUsageDetails networkUsageDetails : networkUsageDetailsList) {
-            if (!keyPackageName.contains(networkUsageDetails.getPackageName())) {
-                keyPackageName.add(networkUsageDetails.getPackageName());
-                mapNetworkDetails.put(networkUsageDetails.getPackageName(), networkUsageDetails);
-                total += networkUsageDetails.getTotalRxBytes() + networkUsageDetails.getTotalTxBytes();
-            } else {
-                NetworkUsageDetails tempDetails = mapNetworkDetails.get(networkUsageDetails.getPackageName());
-                tempDetails.setTotalRxBytes(tempDetails.getTotalRxBytes() + networkUsageDetails.getTotalRxBytes());
-                tempDetails.setTotalTxBytes(tempDetails.getTotalTxBytes() + networkUsageDetails.getTotalTxBytes());
-                mapNetworkDetails.put(networkUsageDetails.getPackageName(), tempDetails);
-                total += networkUsageDetails.getTotalRxBytes() + networkUsageDetails.getTotalTxBytes();
-            }
-        }
-
-        List<NetworkUsageDetails> networkDetailsListToAdapter = new ArrayList<>(mapNetworkDetails.values());
-        Collections.sort(networkDetailsListToAdapter, new Comparator<NetworkUsageDetails>() {
-            @Override
-            public int compare(NetworkUsageDetails networkUsageDetails, NetworkUsageDetails t1) {
-                long total1 = networkUsageDetails.getTotalRxBytes() + networkUsageDetails.getTotalTxBytes();
-                long total2 = t1.getTotalRxBytes() + t1.getTotalTxBytes();
-                return total1 > total2 ? -1 : total1 < total2 ? 1 : 0;
-            }
-        });
-        return networkDetailsListToAdapter;
-    }
 
     @Override
     public void onRefresh() {
@@ -124,17 +85,18 @@ public class WifiActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            ConnectivityChangeMonitoringIntentService.copyToNetworkTable(
-                    ConnectivityChangeMonitoringIntentService.WIFI_NETWORK, WifiActivity.this);
-
-            networkDetailsListToAdapter =  getWifiUsageDetails();
+            Utilities.copyToNetworkTable(
+                    Constants.WIFI_NETWORK, WifiActivity.this);
+            NetworkUsageSummary networkUsageSummary = new NetworkUsageSummary(WifiActivity.this, Constants.WIFI_NETWORK);
+            networkDetailsListToAdapter = networkUsageSummary.getNetworkUsageDetailsList();
+            total = networkUsageSummary.getTotal();
             adapter = new NetworkDataAdapter(WifiActivity.this, networkDetailsListToAdapter, total);
             Boolean viewSet = false;
             if(networkDetailsListToAdapter.isEmpty()){
                 viewSet = true;
             }
-            ConnectivityChangeMonitoringIntentService.flushNetworkTempTable(WifiActivity.this);
-            ConnectivityChangeMonitoringIntentService.fillIntoNetworkTempTable(WifiActivity.this);
+            Utilities.flushNetworkTempTable(WifiActivity.this);
+            Utilities.fillIntoNetworkTempTable(WifiActivity.this);
             return viewSet;
         }
 

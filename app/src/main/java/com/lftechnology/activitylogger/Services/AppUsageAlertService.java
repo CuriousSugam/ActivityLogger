@@ -18,6 +18,7 @@ import com.lftechnology.activitylogger.MainActivity;
 import com.lftechnology.activitylogger.R;
 import com.lftechnology.activitylogger.TimeActivity;
 import com.lftechnology.activitylogger.broadcastReceiver.NotificationBroadcastReceiver;
+import com.lftechnology.activitylogger.broadcastReceiver.RegularAppUsageCheckBroadcastReceiver;
 import com.lftechnology.activitylogger.controller.SQLiteAccessLayer;
 import com.lftechnology.activitylogger.RawAppInfo;
 import com.lftechnology.activitylogger.SettingsActivity;
@@ -32,6 +33,8 @@ public class AppUsageAlertService extends Service {
     private static int count = 1;
     private boolean alertStatus;
     private long alertTimeInMillis;
+    private final static int REQUEST_CODE = 2;
+    private final static int ALARM_INTERVAL = 2*60*1000;
 
     public AppUsageAlertService() {
     }
@@ -45,23 +48,34 @@ public class AppUsageAlertService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 //        count++;
+        Log.e("appUsageService", "app usage service started");
+
         alertStatus = intent.getBooleanExtra(SettingsActivity.ALERT_STATUS, false);
         SQLiteAccessLayer sqLiteAccessLayer = new SQLiteAccessLayer(this);
         if(!alertStatus){
             sqLiteAccessLayer.flushForegroundTable();
+            Log.e("appUsageService", "app usage service stopped");
             stopSelf();
         }else{
             alertTimeInMillis = intent.getLongExtra(SettingsActivity.ALERT_TIME_MILLIS, 0);
+
+            Calendar temp = Calendar.getInstance();
+            long t = temp.getTimeInMillis() + alertTimeInMillis;
+            temp.setTimeInMillis(t);
+            Log.e("appUsageService", "selected time in millis : "+ alertTimeInMillis);
+            Log.e("appUsageService", "alert time ; "+ temp.get(Calendar.HOUR_OF_DAY)+" "+temp.get(Calendar.MINUTE));
 
             List<UsageStats> usageStatsList = RawAppInfo.getUsageStatsAppList(this);
             Map<String, UsageStats> usageStatsMap = new HashMap<>();
 
             if(sqLiteAccessLayer.isForegroundTableEmpty()){ // the service has recently been started
                 for(UsageStats usageStats : usageStatsList){
+                    Log.e("appUsageService", "service recently started.. data loading to table...");
                     sqLiteAccessLayer.insertIntoForegroundTable(usageStats.getPackageName(), usageStats.getTotalTimeInForeground());
                     usageStatsMap.put(usageStats.getPackageName(), usageStats);
                 }
             }else{      // the service was started already and is running
+                Log.e("appUsageService", "service continued");
                 // get the current foreground time of every app
                 Map<String, Long> currentForegroundTimeMap = new HashMap<>();
                 for(UsageStats usageStats : usageStatsList){
@@ -70,6 +84,7 @@ public class AppUsageAlertService extends Service {
 
                 // foreground time from db
                 Map<String, Long> foregroundTimeFromDb = sqLiteAccessLayer.queryForegroundTable();
+
                 // compare the foreground time
                 for(Map.Entry<String, Long> dbEntry : foregroundTimeFromDb.entrySet()){
                     String packagename = dbEntry.getKey();
@@ -88,7 +103,6 @@ public class AppUsageAlertService extends Service {
                             } catch (PackageManager.NameNotFoundException e) {
                                 e.printStackTrace();
                             }
-                            assert applicationInfo != null;
                             String applicationName = String.valueOf(applicationInfo.loadLabel(getPackageManager()));
                             String message = "You have been using "+applicationName+" for "+netForegroundTime/(1000*60)+" mins";
                             // generate a notification
@@ -99,9 +113,19 @@ public class AppUsageAlertService extends Service {
                     }
                 }
 
+                Calendar currentTime = Calendar.getInstance();
+                // prepare intent
+                Intent intentForBroadcast = new Intent(this, RegularAppUsageCheckBroadcastReceiver.class);
+                intentForBroadcast.putExtra(SettingsActivity.ALERT_STATUS, true);
+                // Prepare a pending intent to be initiated when the alarm goes off
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, REQUEST_CODE,
+                        intentForBroadcast, PendingIntent.FLAG_UPDATE_CURRENT);
+
+//                // Set the alarm to go off when at the selected time
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, currentTime.getTimeInMillis() + ALARM_INTERVAL
+                        , ALARM_INTERVAL, pendingIntent);
             }
-
-
         }
         sqLiteAccessLayer.closeDatabaseConnection();
         return START_STICKY;
