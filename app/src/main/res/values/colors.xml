@@ -30,7 +30,7 @@
 
     <color name="colorPrimary">#353C58</color>
     <color name="colorPrimaryDark">#282E48</color>
-    <color name="textColorPrimary">#212121</color>
+    <color name="textColorPrimary">#FFFFFF</color>
     <color name="navigationBarColor">#353C58</color>
     <color name="colorAccent">#FF5722</color>
     <color name="darkGrey">#484848</color>
