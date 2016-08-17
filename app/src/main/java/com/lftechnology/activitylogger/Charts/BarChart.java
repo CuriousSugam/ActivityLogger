@@ -59,7 +59,7 @@ public class BarChart extends View {
         screenHeight = displayMetrics.heightPixels;
         barWidth = (float) screenWidth / ((float) 2 * (maxBars));
         maxBarHeight = 0;
-        setBackgroundColor(Color.WHITE);
+        setBackgroundColor(getResources().getColor(R.color.transparent));
         paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
         textSize = 25;

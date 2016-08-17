@@ -35,6 +35,7 @@ public class PieChart extends View {
         completeCircle = 0;
         eachAppDetailsList = new CommunicatorEachAppDetailsValues().getEachAppDetailsList();
         numberOfPie = size;
+        setBackgroundColor(getResources().getColor(R.color.transparent));
         paint = new Paint();
 
         if (numberOfPie > eachAppDetailsList.size())
@@ -59,8 +60,6 @@ public class PieChart extends View {
         RectF rectF = new RectF(x / 2 - x / 15 - radius, y / 2 - radius, x / 2 - x / 15 + radius, y / 2 + radius);// A rect created with the circle's dimension
 
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
-        paint.setColor(Color.WHITE);
-        canvas.drawPaint(paint);
 
         int[] pieChartColors = getResources().getIntArray(R.array.chartsColors);
 
@@ -77,7 +76,6 @@ public class PieChart extends View {
         for (float value : appValuesDuration) {
             totalValue = totalValue + value;
         }
-        Log.d("LOG", "Total value is" + totalValue);
 
         for (int i = 0; i < appValuesDuration.length; i++) {
             makeAngle = appValuesDuration[i] * completeCircle / totalValue;
@@ -89,7 +87,7 @@ public class PieChart extends View {
             startAngle = startAngle + makeAngle;
         }
 
-        paint.setColor(Color.WHITE);
+        paint.setColor(getResources().getColor(R.color.border));
         canvas.drawCircle(x / 2 - x / 15, y / 2, 2 * radius / 3, paint);
         /**
          * animates the canvas
