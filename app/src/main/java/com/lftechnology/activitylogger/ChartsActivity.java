@@ -11,7 +11,6 @@ import com.lftechnology.activitylogger.fragments.FragmentChartsActivityPieChart;
 
 public class ChartsActivity extends AppCompatActivity{
     ViewPager viewPager;
-    TabLayout tabLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,8 +19,6 @@ public class ChartsActivity extends AppCompatActivity{
         viewPager = (ViewPager)findViewById(R.id.upperChartsViewPagerFragment);
         setupViewPager(viewPager);
 
-        tabLayout = (TabLayout)findViewById(R.id.fragmentChartTabs);
-        tabLayout.setupWithViewPager(viewPager);
     }
 
     private void setupViewPager(ViewPager viewPager){
