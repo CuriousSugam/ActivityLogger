@@ -10,6 +10,8 @@
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/detailsFragmentLower"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:name="com.lftechnology.activitylogger.fragments.FragmentChartDetails"
