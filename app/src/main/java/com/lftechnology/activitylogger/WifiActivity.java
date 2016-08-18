@@ -9,18 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.lftechnology.activitylogger.adapter.NetworkDataAdapter;
-import com.lftechnology.activitylogger.controller.SQLiteAccessLayer;
 import com.lftechnology.activitylogger.model.NetworkUsageDetails;
 import com.lftechnology.activitylogger.model.NetworkUsageSummary;
 import com.lftechnology.activitylogger.utilities.NetworkStatus;
 import com.lftechnology.activitylogger.utilities.Utilities;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

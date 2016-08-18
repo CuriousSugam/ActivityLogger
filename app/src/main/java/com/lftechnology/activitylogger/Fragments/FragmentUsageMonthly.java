@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import com.lftechnology.activitylogger.adapter.CustomAdapterAppDetails;
 import com.lftechnology.activitylogger.ChartsActivity;
 import com.lftechnology.activitylogger.communicators.CommunicatorEachAppDetailsValues;
-import com.lftechnology.activitylogger.ConstantIntervals;
+import com.lftechnology.activitylogger.Constants;
 import com.lftechnology.activitylogger.model.EachAppDetails;
 import com.lftechnology.activitylogger.R;
 import com.lftechnology.activitylogger.RawAppInfo;
@@ -69,7 +69,7 @@ public class FragmentUsageMonthly extends Fragment implements View.OnClickListen
     public void initialize() {
         int i = 0;
         RawAppInfo rawAppInfo = new RawAppInfo();
-        usageStatses = rawAppInfo.printCurrentUsageStats(getActivity(), ConstantIntervals.MONTHLY.value);
+        usageStatses = rawAppInfo.printCurrentUsageStats(getActivity(), Constants.MONTHLY.value);
         namesOfApp = new String[usageStatses.size()];
         runTimeOfApp = new Long[usageStatses.size()];
 

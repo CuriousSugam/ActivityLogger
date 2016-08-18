@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.lftechnology.activitylogger.controller.SQLiteAccessLayer;
 import com.lftechnology.activitylogger.model.AppDetails;
-import com.lftechnology.activitylogger.model.NetworkUsageDetails;
 import com.lftechnology.activitylogger.model.NetworkUsageSummary;
 import com.lftechnology.activitylogger.utilities.CheckPermissions;
 

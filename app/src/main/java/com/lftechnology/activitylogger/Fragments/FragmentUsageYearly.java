@@ -4,7 +4,6 @@ import android.app.usage.UsageStats;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -18,7 +17,7 @@ import android.view.ViewGroup;
 import com.lftechnology.activitylogger.adapter.CustomAdapterAppDetails;
 import com.lftechnology.activitylogger.ChartsActivity;
 import com.lftechnology.activitylogger.communicators.CommunicatorEachAppDetailsValues;
-import com.lftechnology.activitylogger.ConstantIntervals;
+import com.lftechnology.activitylogger.Constants;
 import com.lftechnology.activitylogger.model.EachAppDetails;
 import com.lftechnology.activitylogger.R;
 import com.lftechnology.activitylogger.RawAppInfo;
@@ -68,7 +67,7 @@ public class FragmentUsageYearly extends Fragment implements View.OnClickListene
     {
         int i =0;
         RawAppInfo rawAppInfo = new RawAppInfo();
-        usageStatses = rawAppInfo.printCurrentUsageStats(getActivity(), ConstantIntervals.YEARLY.value);
+        usageStatses = rawAppInfo.printCurrentUsageStats(getActivity(), Constants.YEARLY.value);
         namesOfApp = new String[usageStatses.size()];
         runTimeOfApp = new Long[usageStatses.size()];
 
