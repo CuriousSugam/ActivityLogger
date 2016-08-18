@@ -87,7 +87,7 @@
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".git AppInfoActivity"
+            android:name=".AppInfoActivity"
             android:label="Information"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
