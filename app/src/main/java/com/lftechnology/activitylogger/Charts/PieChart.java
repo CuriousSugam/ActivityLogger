@@ -3,12 +3,10 @@ package com.lftechnology.activitylogger.charts;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
-import android.util.Log;
 import android.view.View;
 
 import com.lftechnology.activitylogger.R;
@@ -60,6 +58,7 @@ public class PieChart extends View {
         RectF rectF = new RectF(x / 2 - x / 15 - radius, y / 2 - radius, x / 2 - x / 15 + radius, y / 2 + radius);// A rect created with the circle's dimension
 
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        paint.setTextSize(x/40);
 
         int[] pieChartColors = getResources().getIntArray(R.array.chartsColors);
 
@@ -89,6 +88,13 @@ public class PieChart extends View {
 
         paint.setColor(getResources().getColor(R.color.border));
         canvas.drawCircle(x / 2 - x / 15, y / 2, 2 * radius / 3, paint);
+        paint.setColor(getResources().getColor(R.color.textColorPrimary));
+
+        String theTime = String.format("%02d", ((int)totalValue/ 1000 / 3600))
+                + " : " + String.format("%02d", ((((int)totalValue/ 1000) % 3600) / 60))
+                + " : " + String.format("%02d", (((int)totalValue / 1000) % 60));
+        canvas.drawText("Total Time",13*x/30-radius/5,y/2-radius/10,paint);
+        canvas.drawText(theTime,13*x/30-radius/4,y/2,paint);
         /**
          * animates the canvas
          */
