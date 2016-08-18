@@ -87,7 +87,7 @@
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AppInfoActivity"
+            android:name=".git AppInfoActivity"
             android:label="Information"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
@@ -98,5 +98,6 @@
             android:label="Charts"
             android:screenOrientation="portrait"
             android:parentActivityName=".TimeActivity"/>
+
     </application>
 </manifest>
