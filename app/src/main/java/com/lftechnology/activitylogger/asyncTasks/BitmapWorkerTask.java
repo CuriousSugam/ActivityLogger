@@ -1,5 +1,4 @@
 package com.lftechnology.activitylogger.asyncTasks;
-
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;

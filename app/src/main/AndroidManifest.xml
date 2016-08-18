@@ -77,7 +77,10 @@
             android:label="Mobile Data"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".TimeActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".TimeActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".SettingsActivity"
             android:label="Settings"
@@ -89,6 +92,11 @@
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".ChartsActivity"
+            android:theme="@style/MyMaterialTheme"
+            android:label="Charts"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".TimeActivity"/>
     </application>
-
 </manifest>

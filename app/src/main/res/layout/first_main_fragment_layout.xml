@@ -36,6 +36,4 @@
         android:overScrollMode="always"
         android:background="@color/transparent"/>
 
-
-    
 </RelativeLayout>
