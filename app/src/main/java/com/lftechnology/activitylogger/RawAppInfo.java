@@ -22,7 +22,7 @@ import java.util.Map;
  */
 public class RawAppInfo {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat();//Gets the Date Format
-    private static int interval=4;
+    private static int interval=2;
     public static final String INSTALLED_APP = "installed";
     public static final String SYSTEM_APP = "system";
 

@@ -65,6 +65,8 @@
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".broadcastReceiver.RegularAppUsageCheckBroadcastReceiver" />
+
         <service android:name=".services.UninstalledMonitoringService" />
 
         <activity
