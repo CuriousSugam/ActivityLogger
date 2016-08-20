@@ -19,10 +19,11 @@ import com.lftechnology.activitylogger.utilities.CheckPermissions;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * This activity shows the splash screen containing the logo of the applications to cover up the delay
  * while the necessary data are being fetched from the system.
- *
+ * <p/>
  * Created by Sugam on 7/5/2016.
  */
 public class SplashScreenActivity extends AppCompatActivity {
@@ -42,13 +43,13 @@ public class SplashScreenActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MainActivity.class);
             intent.putParcelableArrayListExtra(MainActivity.APP_DETAILS, (ArrayList<? extends Parcelable>) appDetailsFromDatabase);
 
-            if(!wifiUsageSummary.getNetworkUsageDetailsList().isEmpty()){
+            if (!wifiUsageSummary.getNetworkUsageDetailsList().isEmpty()) {
                 intent.putParcelableArrayListExtra(
                         MainActivity.MOST_WIFI_USED_APP,
                         (ArrayList<? extends Parcelable>) wifiUsageSummary.getNetworkUsageDetailsList());
                 intent.putExtra(MainActivity.TOTAL_WIFI_DATA, wifiUsageSummary.getTotal());
             }
-            if(!mobileDataUsageSummary.getNetworkUsageDetailsList().isEmpty()){
+            if (!mobileDataUsageSummary.getNetworkUsageDetailsList().isEmpty()) {
                 intent.putParcelableArrayListExtra(MainActivity.MOST_DATA_USED_APP,
                         (ArrayList<? extends Parcelable>) mobileDataUsageSummary.getNetworkUsageDetailsList());
                 intent.putExtra(MainActivity.TOTAL_MOBILE_DATA, mobileDataUsageSummary.getTotal());
@@ -107,6 +108,4 @@ public class SplashScreenActivity extends AppCompatActivity {
         return appDetailsList;
     }
 
-
 }
-

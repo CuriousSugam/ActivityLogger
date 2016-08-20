@@ -1,4 +1,5 @@
 package com.lftechnology.activitylogger;
+
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
@@ -6,8 +7,6 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.ResolveInfo;
-import android.util.Log;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -15,18 +14,23 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+
 /**
  * Created by sparsha on 6/29/2016.
  * Returns raw information of apps that are run within an Interval Provided.
  * Default is set to daily
  */
 public class RawAppInfo {
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat();//Gets the Date Format
     private static int interval=2;
     public static final String INSTALLED_APP = "installed";
     public static final String SYSTEM_APP = "system";
 
-
+    /**
+     * This methods provides us with all the installed apps
+     *
+     * @param context context of the calling
+     * @return list of objects with installed apps
+     */
     public static List<PackageInfo> getAllInstalledApps(Context context){
         List<PackageInfo> packageInfoList = context.getPackageManager().getInstalledPackages(0);
         Iterator iterator = packageInfoList.iterator();
@@ -39,6 +43,13 @@ public class RawAppInfo {
         return packageInfoList;
     }
 
+    /**
+     * This methods provides us with all the system apps
+     *
+     * @param context context of the calling
+     * @return List of ResolveInfo object containing the information about the systemapps
+     *
+     */
     public static List<ResolveInfo> getSystemApps(Context context){
         Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -53,6 +64,12 @@ public class RawAppInfo {
         return resolveInfos;
     }
 
+    /**
+     * This method provides us with all the apps that are currently in the system
+     *
+     * @param context context of the calling
+     * @return map with the information about all the apps
+     */
     public static Map<String, List<PackageInfo>> getAllApps(Context context){
         Map<String, List<PackageInfo>> appMap = new HashMap<>();
 
@@ -78,52 +95,39 @@ public class RawAppInfo {
     }
 
 
+
     /**
-    *Returns the list of apps in a List to read
-    */
-    public static List<UsageStats> getUsageStatsAppList(Context context){
+     * Returns the list of apps in a List to read
+     */
+    public static List<UsageStats> getUsageStatsAppList(Context context) {
         UsageStatsManager usageStatsManager = getUsageStatsManager(context);
         Calendar calendar = Calendar.getInstance();
         long endTime = calendar.getTimeInMillis();
         calendar.add(Calendar.YEAR, -1);
         long startTime = calendar.getTimeInMillis();
-        Log.d("LOG","Date Start:\t"+ DATE_FORMAT.format(startTime));//TODO remove
-        Log.d("LOG","Date End:\t"+ DATE_FORMAT.format(endTime));//TODO remove
-        List<UsageStats> usageStatsList =
-                usageStatsManager.queryUsageStats(interval,startTime,endTime);//UsageStats Queried here
-        return usageStatsList;
-    }
-    /**
-     * Sets desired interval that the developer requires
-     * Eg. RawAppInfo.printCurrentUsageStats(Context context, int mInterval) 
-     * @param context give context from the activity that you are calling (EG. "this")
-     * @param mInterval Note: Integer Value = 0 For Daily
-     *                                        1 For Weekly
-     *                                        2 For Monthly
-     *                                        3 For Yearly
-     *                                        4 For From the Beginning
-     */
-    protected static void printCurrentUsageStats(Context context, int mInterval){
-        interval = mInterval;
-        printUsageStats(getUsageStatsAppList(context),context);
+        return usageStatsManager.queryUsageStats(interval, startTime, endTime);
     }
 
     /**
-     * Package info of each app can be set here seperately
-     * @param usageStatsList gets list of apps used within the set interval
-     * @param context
-     * 
+     * Sets desired interval that the developer requires
+     * Eg. RawAppInfo.printCurrentUsageStats(Context context, int mInterval)
+     *
+     * @param context   give context from the activity that you are calling (EG. "this")
+     * @param mInterval Note: Integer Value = 0 For Daily
+     *                  1 For Weekly
+     *                  2 For Monthly
+     *                  3 For Yearly
+     *                  4 For From the Beginning
      */
-    private static void printUsageStats(List<UsageStats> usageStatsList,Context context){
-       
-        for(UsageStats u : usageStatsList){
-            String mNameOfPackage = u.getPackageName();
-            long totalTimeInForeground = u.getTotalTimeInForeground();
-            Log.d("LOG","Package Name = "+mNameOfPackage+"\tForeground Time: "+totalTimeInForeground);//TODO remove
-        }
+    public static List<UsageStats> printCurrentUsageStats(Context context, int mInterval) {
+        interval = mInterval;
+        return getUsageStatsAppList(context);
     }
+
+
     @SuppressWarnings("ResourceType")
     private static UsageStatsManager getUsageStatsManager(Context context) {
         return (UsageStatsManager) context.getSystemService("usagestats");
     }
+
 }

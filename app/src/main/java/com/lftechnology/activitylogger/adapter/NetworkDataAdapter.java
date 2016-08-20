@@ -146,3 +146,4 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
         }
     }
 }
+

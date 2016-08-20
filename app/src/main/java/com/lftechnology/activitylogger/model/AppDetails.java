@@ -5,11 +5,10 @@ import android.os.Parcelable;
 
 /**
  * @author Sugam Shakya
- * Created by Sugam on 7/5/2016.
- *
- * AppDetails class is a Parcelable class which contains the methods to set and get the application
- * details.
- *
+ *         Created by Sugam on 7/5/2016.
+ *         <p>
+ *         AppDetails class is a Parcelable class which contains the methods to set and get the application
+ *         details.
  */
 public class AppDetails implements Parcelable {
     private int uid;
@@ -18,25 +17,25 @@ public class AppDetails implements Parcelable {
     private String applicationType;
 
     /**
-     *
-     * @param uid uid of the application
-     * @param packageName package name of the application
+     * @param uid             uid of the application
+     * @param packageName     package name of the application
      * @param applicationName application label
      */
-    public AppDetails(int uid, String packageName, String applicationName){
+    public AppDetails(int uid, String packageName, String applicationName) {
         setUid(uid);
         setPackageName(packageName);
         setApplicationName(applicationName);
     }
 
-    public AppDetails(int uid, String packageName, String applicationName, String applicationType){
+    public AppDetails(int uid, String packageName, String applicationName, String applicationType) {
         setUid(uid);
         setPackageName(packageName);
         setApplicationName(applicationName);
         setApplicationType(applicationType);
     }
 
-    public AppDetails(){}
+    public AppDetails() {
+    }
 
     protected AppDetails(Parcel in) {
         setUid(in.readInt());
@@ -71,7 +70,6 @@ public class AppDetails implements Parcelable {
     };
 
     /**
-     *
      * @param uid uid of the application
      */
     public void setUid(int uid) {
@@ -79,7 +77,6 @@ public class AppDetails implements Parcelable {
     }
 
     /**
-     *
      * @param packageName package name of the application
      */
     public void setPackageName(String packageName) {
@@ -87,7 +84,6 @@ public class AppDetails implements Parcelable {
     }
 
     /**
-     *
      * @param applicationName application label
      */
     public void setApplicationName(String applicationName) {
@@ -95,7 +91,6 @@ public class AppDetails implements Parcelable {
     }
 
     /**
-     *
      * @return uid of the application
      */
     public int getUid() {
@@ -103,7 +98,6 @@ public class AppDetails implements Parcelable {
     }
 
     /**
-     *
      * @return package name of the application
      */
     public String getPackageName() {
@@ -111,7 +105,6 @@ public class AppDetails implements Parcelable {
     }
 
     /**
-     *
      * @return application label
      */
     public String getApplicationName() {

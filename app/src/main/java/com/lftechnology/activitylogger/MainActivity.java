@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,6 +16,7 @@ import com.lftechnology.activitylogger.model.NetworkUsageDetails;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * This activity shows the very first UI of the application containing the slider at the top and
