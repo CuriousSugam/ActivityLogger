@@ -51,12 +51,13 @@ public class FirstMainFragment extends Fragment {
 
         Fragment networkDataInfoFragment = new InformationSliderFragment();
         Bundle infoToNetworkInfoFragment = new Bundle();
-        infoToNetworkInfoFragment.putString("info", "You have used instagram for 4 hours today");
+        infoToNetworkInfoFragment.putString("info", "THIS IS NETWORK");
+
         networkDataInfoFragment.setArguments(infoToNetworkInfoFragment);
 
         Fragment timeInfoFragment = new InformationSliderFragment();
         Bundle infoToTimeInfoFragment = new Bundle();
-        infoToTimeInfoFragment.putString("info", "Facebook has consumed 500MB of your wifi data");
+        infoToTimeInfoFragment.putString("info", "THIS IS TIME");
         timeInfoFragment.setArguments(infoToTimeInfoFragment);
 
         final MainMenuViewPagerAdapter adapter = new MainMenuViewPagerAdapter(getFragmentManager());
