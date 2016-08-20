@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lftechnology.activitylogger.AllAppsDetailActivity;
 import com.lftechnology.activitylogger.MainActivity;
+import com.lftechnology.activitylogger.OnItemClickListener;
 import com.lftechnology.activitylogger.R;
 
 import butterknife.BindView;
@@ -22,6 +24,8 @@ import butterknife.ButterKnife;
 public class AllAppsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     Context context;
+    OnItemClickListener mItemClickListener;
+    Adapter adapter;
 
     @BindView(R.id.image_view_app_icon)
     ImageView applicationIconImageView;
@@ -34,6 +38,7 @@ public class AllAppsViewHolder extends RecyclerView.ViewHolder implements View.O
     public AllAppsViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
+        itemView.setOnClickListener(this);
     }
 
     public ImageView getApplicationIconImageView() {
@@ -46,9 +51,25 @@ public class AllAppsViewHolder extends RecyclerView.ViewHolder implements View.O
 
     @Override
     public void onClick(View view) {
-        Intent activity = new Intent(this,AllAppsDetailActivity.class);
-        startActivity(activity);
+//        if (mItemClickListener !=null){
+//            mItemClickListener.onItemClick(view, getAdapterPosition()Position());
+
+        context = itemView.getContext();
+        Intent i = new Intent(context, AllAppsDetailActivity.class);
+        context.startActivity(i);
+        //mItemClickListner.onItemClick(view, getPosition());
+//        Intent activity = new Intent(this,AllAppsDetailActivity.class);
+//        vistartActivity(activity);
 
 
     }
 }
+
+
+//public void setOnItemClickListener(final OnItemClickListener mItemClickListener){
+//    this.mItemClickListener = mItemClickListener;
+//}
+//}
+
+
+
