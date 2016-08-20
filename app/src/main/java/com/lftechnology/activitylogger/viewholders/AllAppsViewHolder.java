@@ -54,9 +54,11 @@ public class AllAppsViewHolder extends RecyclerView.ViewHolder implements View.O
 //        if (mItemClickListener !=null){
 //            mItemClickListener.onItemClick(view, getAdapterPosition()Position());
 
-        context = itemView.getContext();
-        Intent i = new Intent(context, AllAppsDetailActivity.class);
-        context.startActivity(i);
+        //context = itemView.getContext();
+//        Intent i = new Intent(context, AllAppsDetailActivity.class);
+//        context.startActivity(i);
+        context.startActivity(new Intent(context,AllAppsDetailActivity.class));
+
         //mItemClickListner.onItemClick(view, getPosition());
 //        Intent activity = new Intent(this,AllAppsDetailActivity.class);
 //        vistartActivity(activity);

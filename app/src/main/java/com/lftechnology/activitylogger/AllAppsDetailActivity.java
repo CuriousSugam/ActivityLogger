@@ -55,9 +55,9 @@ public class AllAppsDetailActivity extends Activity {
     TextView appName;
 
 
-    Intent packageNameIntent = new Intent();
-
-    String packageName = packageNameIntent.getData().getSchemeSpecificPart();
+//    Intent packageNameIntent = new Intent();
+//
+//    String packageName = packageNameIntent.getData().getSchemeSpecificPart();
 
     // Drawable icon =(Drawable) getContext().getPackageManager().getApplicationIcon(packageIcon);
 
@@ -66,85 +66,6 @@ public class AllAppsDetailActivity extends Activity {
         super.onCreate(savedInstanceState, persistentState);
         setContentView(R.layout.card_view_app_details_layout);
         ButterKnife.bind(this);
-        try {
-            Drawable icon = getPackageManager().getApplicationIcon(packageName);
-            //appIcon.setImageDrawable(icon);
-//            if(RawAppInfo.INSTALLED_APP.equals(appIcon)|| RawAppInfo.SYSTEM_APP.equals(appIcon)) {
-                appIcon.setImageDrawable(icon);
-            //}
-        } catch (PackageManager.NameNotFoundException e) {
-            return;
-        }
-
-        final PackageManager name = getApplicationContext().getPackageManager();
-        ApplicationInfo info;
-        try {
-            info = name.getApplicationInfo(this.getPackageName(), 0);
-
-        } catch (final PackageManager.NameNotFoundException e) {
-            info = null;
-        }
-        final String applicationName = (String) (info != null ? name.getApplicationLabel(info) : "Unknown");
-
-
-//        if (RawAppInfo.INSTALLED_APP.equals(appName) || RawAppInfo.SYSTEM_APP.equals(appName)){
-            appName.setText(applicationName);
-
-
-
-
-        //lastTimeUsed.setText();
-
-
-        //to get installed date
-
-        PackageManager date = getPackageManager();
-        ApplicationInfo dateInfo = null;
-        try {
-            dateInfo = date.getApplicationInfo(packageName, 0);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        String appFile = dateInfo.sourceDir;
-        int appDate = (int) new File(appFile).lastModified();
-        installedDate.setText(appDate);
-
 
     }
-
-    //to get installed time another method
-
-    public static long getAppFirstInstallTime(Context context) {
-        PackageInfo packageInfo;
-        try {
-            if (Build.VERSION.SDK_INT > 10) {
-                packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-                return packageInfo.firstInstallTime;
-            } else {
-                ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(context.getPackageName(), 0);
-                String appFile = appInfo.sourceDir;
-                return new File(appFile).lastModified();
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            return 0;
-        }
-    }
-
-
-
-//    UsageStatsManager usageStatsManager = getUsageStatsManager(context);
-//    Calendar calendar = Calendar.getInstance();
-//    long endTime = calendar.getTimeInMillis();
-//    calendar.add(Calendar.YEAR, -1);
-//    long startTime = calendar.getTimeInMillis();
-//    Log.d("LOG","Date Start:\t"+ DATE_FORMAT.format(startTime));//TODO remove
-//    Log.d("LOG","Date End:\t"+ DATE_FORMAT.format(endTime));//TODO remove
-//    List<UsageStats> usageStatsList =
-//            usageStatsManager.queryUsageStats(interval,startTime,endTime);//UsageStats Queried here
-//    return usageStatsList;
-
-
 }
-
-
-
