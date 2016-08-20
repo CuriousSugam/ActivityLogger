@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.lftechnology.activitylogger.CustomViewPager;
 import com.lftechnology.activitylogger.R;
 import com.lftechnology.activitylogger.adapter.MainMenuViewPagerAdapter;
 
@@ -29,9 +30,8 @@ import butterknife.ButterKnife;
  */
 public class FirstMainFragment extends Fragment {
 
-
     @BindView(R.id.viewpager_main_activity)
-    ViewPager informationViewPager;
+    CustomViewPager informationViewPager;
 
     @BindView(R.id.first_indicator)
     ImageView iv_first_indicator;
@@ -69,20 +69,7 @@ public class FirstMainFragment extends Fragment {
         final Runnable updateInfoThread = new Runnable() {
             @Override
             public void run() {
-                int currentItem = informationViewPager.getCurrentItem();
-                currentItem = currentItem + 1;
-                if (currentItem > SECOND_PAGE) {
-                    currentItem = FIRST_PAGE;
-                }
-                informationViewPager.setCurrentItem(currentItem, true);
-                switch (informationViewPager.getCurrentItem()){
-                    case FIRST_PAGE : iv_first_indicator.setImageResource(R.drawable.current_page_circular_indicator);
-                        iv_second_indicator.setImageResource(R.drawable.page_circular_indicator);
-                        break;
-                    case SECOND_PAGE : iv_first_indicator.setImageResource(R.drawable.page_circular_indicator);
-                        iv_second_indicator.setImageResource(R.drawable.current_page_circular_indicator);
-                        break;
-                }
+                changeViewpagerIndicator(informationViewPager.getCurrentItem());
             }
         };
         new Timer().schedule(new TimerTask() {
@@ -93,5 +80,21 @@ public class FirstMainFragment extends Fragment {
         }, 2000, 4000);
 
         return view;
+    }
+
+    private void changeViewpagerIndicator(int currentItem){
+        currentItem = currentItem + 1;
+        if (currentItem > SECOND_PAGE) {
+            currentItem = FIRST_PAGE;
+        }
+        informationViewPager.setCurrentItem(currentItem, true);
+        switch (informationViewPager.getCurrentItem()){
+            case FIRST_PAGE : iv_first_indicator.setImageResource(R.drawable.current_page_circular_indicator);
+                iv_second_indicator.setImageResource(R.drawable.page_circular_indicator);
+                break;
+            case SECOND_PAGE : iv_first_indicator.setImageResource(R.drawable.page_circular_indicator);
+                iv_second_indicator.setImageResource(R.drawable.current_page_circular_indicator);
+                break;
+        }
     }
 }

@@ -59,4 +59,25 @@ public class Utilities {
     }
 
 
+    /**
+     * takes the number of bytes as input and convert it to the readable memory format
+     * for eg: if the input to the method is 1024 then it returns 1KB
+     *
+     * @param membytes number of bytes
+     * @return memory size in the readable format
+     */
+    public static String memorySizeFormat(long membytes) {
+        float bytes = (float) membytes;
+        String returnValue;
+        if (bytes > Math.pow(1024, 3)) {
+            returnValue = String.format("%.2f %s",bytes / Math.pow(1024, 3),"GB");
+        } else if (bytes > Math.pow(1024, 2)) {
+            returnValue = String.format("%.2f %s", bytes / Math.pow(1024, 2), " MB");
+        } else if (bytes > 1024) {
+            returnValue = String.format("%.2f %s", bytes / (1024), " KB");
+        } else {
+            returnValue = String.format("%.2f %s", bytes, " bytes");
+        }
+        return returnValue;
+    }
 }

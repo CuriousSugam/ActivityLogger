@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.lftechnology.activitylogger.asyncTasks.BitmapWorkerTask;
 import com.lftechnology.activitylogger.R;
 import com.lftechnology.activitylogger.model.NetworkUsageDetails;
+import com.lftechnology.activitylogger.utilities.Utilities;
 
 import java.util.List;
 
@@ -65,32 +66,10 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
         long txBytes = networkUsageDetailsList.get(position).getTotalTxBytes();
         long total = rxBytes + txBytes;
 
-        holder.receivedBytes.setText("Down: " + memorySizeFormat(rxBytes));
-        holder.transmittedBytes.setText("Up: " + memorySizeFormat(txBytes));
-        holder.totalBytes.setText("Total:  " + memorySizeFormat(total));
+        holder.receivedBytes.setText("Down: " + Utilities.memorySizeFormat(rxBytes));
+        holder.transmittedBytes.setText("Up: " + Utilities.memorySizeFormat(txBytes));
+        holder.totalBytes.setText("Total:  " + Utilities.memorySizeFormat(total));
         holder.progressBar.setProgress((int) (total / totalBytes * 100));
-    }
-
-    /**
-     * takes the number of bytes as input and convert it to the readable memory format
-     * for eg: if the input to the method is 1024 then it returns 1KB
-     *
-     * @param membytes number of bytes
-     * @return memory size in the readable format
-     */
-    private String memorySizeFormat(long membytes) {
-        float bytes = (float) membytes;
-        String returnValue;
-        if (bytes > Math.pow(1024, 3)) {
-            returnValue = String.format("%.2f %s",bytes / Math.pow(1024, 3),"GB");
-        } else if (bytes > Math.pow(1024, 2)) {
-            returnValue = String.format("%.2f %s", bytes / Math.pow(1024, 2), " MB");
-        } else if (bytes > 1024) {
-            returnValue = String.format("%.2f %s", bytes / (1024), " KB");
-        } else {
-            returnValue = String.format("%.2f %s", bytes, " bytes");
-        }
-        return returnValue;
     }
 
     /**
