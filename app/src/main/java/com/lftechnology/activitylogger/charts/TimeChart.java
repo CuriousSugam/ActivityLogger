@@ -34,7 +34,9 @@ public class TimeChart extends View {
     public TimeChart(Context context) {
         super(context);
         List<EachAppDetails> eachAppDetailsListDaily = new CommunicatorEachAppDetailsValues().getEachAppDetailsListDaily();
-        mostUsedApp = eachAppDetailsListDaily.get(0);
+        if(eachAppDetailsListDaily!=null){
+            mostUsedApp = eachAppDetailsListDaily.get(0);
+        }
         if(mostUsedApp!=null) {
             iconOfMostUsedApp = ((BitmapDrawable) mostUsedApp.eachAppIcon).getBitmap();
             for(EachAppDetails appDetails : eachAppDetailsListDaily){
