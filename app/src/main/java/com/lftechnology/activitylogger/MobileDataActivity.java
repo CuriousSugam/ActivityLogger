@@ -107,7 +107,9 @@ public class MobileDataActivity extends AppCompatActivity implements SwipeRefres
         protected void onPostExecute(Boolean viewSet) {
             if(!networkDetailsListToAdapter.isEmpty()){
                 Fragment fragment = getSupportFragmentManager().findFragmentByTag("noDataImage");
-                getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+                if(fragment != null){
+                    getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+                }
             }
             if(viewSet){
                 recyclerView.setAdapter(adapter);
