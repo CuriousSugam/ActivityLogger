@@ -24,6 +24,10 @@ public class PieChart extends View {
     private int numberOfPie;
     private Paint paint;
 
+    public PieChart(Context context) {
+        super(context);
+    }
+
     /**
      * @param context Calling Activity
      * @param size    Number of desired PIEs
@@ -53,12 +57,15 @@ public class PieChart extends View {
         int imageY = y / 15;
         int imageX = x - x / 9;
         float imageSize = y / 28;
+        float textSize = x / 20;
 
         int radius = radiusReference / 3;
         RectF rectF = new RectF(x / 2 - x / 15 - radius, y / 2 - radius, x / 2 - x / 15 + radius, y / 2 + radius);// A rect created with the circle's dimension
 
-        paint.setStyle(Paint.Style.FILL_AND_STROKE);
-        paint.setTextSize(x/40);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(2 * radius / 5);
+        paint.setTextSize(textSize);
+        paint.setTextAlign(Paint.Align.CENTER);
 
         int[] pieChartColors = getResources().getIntArray(R.array.chartsColors);
 
@@ -79,22 +86,26 @@ public class PieChart extends View {
         for (int i = 0; i < appValuesDuration.length; i++) {
             makeAngle = appValuesDuration[i] * completeCircle / totalValue;
             paint.setColor((pieChartColors[i % pieChartColors.length]));
-            canvas.drawArc(rectF, -startAngle, -makeAngle, true, paint);
+            paint.setStyle(Paint.Style.STROKE);
+            canvas.drawArc(rectF, -startAngle, -makeAngle, false, paint);
             canvas.drawBitmap(resizeBitmap(bitmaps[i], imageSize), imageX, imageY, paint);
+            paint.setStyle(Paint.Style.FILL);
             canvas.drawCircle(imageX - imageSize / 2, imageY + imageSize / 2, 10, paint);
             imageY = imageY + (int) imageSize;
             startAngle = startAngle + makeAngle;
         }
 
-        paint.setColor(getResources().getColor(R.color.border));
-        canvas.drawCircle(x / 2 - x / 15, y / 2, 2 * radius / 3, paint);
-        paint.setColor(getResources().getColor(R.color.textColorPrimary));
+//        paint.setColor(getResources().getColor(R.color.border));
+//        canvas.drawCircle(x / 2 - x / 15, y / 2, 2 * radius / 3, paint);
 
-        String theTime = String.format("%02d", ((int)totalValue/ 1000 / 3600))
-                + " : " + String.format("%02d", ((((int)totalValue/ 1000) % 3600) / 60))
-                + " : " + String.format("%02d", (((int)totalValue / 1000) % 60));
-        canvas.drawText("Total Time",13*x/30-radius/5,y/2-radius/10,paint);
-        canvas.drawText(theTime,13*x/30-radius/4,y/2,paint);
+
+        String theTime = String.format("%02dh %02dm %02ds", ((int) totalValue / 1000 / 3600)
+                , ((((int) totalValue / 1000) % 3600) / 60),(((int) totalValue / 1000) % 60));
+
+        paint.setColor(getResources().getColor(R.color.textColorPrimary));
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawText("Total Time", x / 2 - x / 15, y / 2 - textSize, paint);
+        canvas.drawText(theTime, x / 2 - x / 15, y / 2 + textSize, paint);
         /**
          * animates the canvas
          */

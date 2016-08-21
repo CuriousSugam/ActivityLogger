@@ -39,9 +39,9 @@ public class CustomAdapterAppDetails extends RecyclerView.Adapter<CustomAdapterA
     public void onBindViewHolder(DetailsViewHolder holder, int position) {
         final EachAppDetails current = eachAppDetailsList.get(position);
         //Convert time with Long format into hh:mm:ss format
-        String durationInTime = String.format("%02d", (current.eachAppUsageDuration / 1000 / 3600))
-                + " : " + String.format("%02d", (((current.eachAppUsageDuration / 1000) % 3600) / 60))
-                + " : " + String.format("%02d", ((current.eachAppUsageDuration / 1000) % 60));
+        String durationInTime = String.format("%02d%s  ", (current.eachAppUsageDuration / 1000 / 3600),"h")
+                + String.format("%02d%s  ", (((current.eachAppUsageDuration / 1000) % 3600) / 60), "m")
+                + String.format("%02d%s  ", ((current.eachAppUsageDuration / 1000) % 60),"s");
         holder.appIconImage.setImageDrawable(current.eachAppIcon);
         holder.appNameText.setText(current.eachAppName);
         holder.appUsageDurationText.setText(durationInTime);

@@ -1,4 +1,5 @@
 package com.lftechnology.activitylogger;
+
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
@@ -6,8 +7,6 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.ResolveInfo;
-import android.util.Log;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -15,46 +14,63 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+
 /**
  * Created by sparsha on 6/29/2016.
  * Returns raw information of apps that are run within an Interval Provided.
  * Default is set to daily
  */
 public class RawAppInfo {
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat();//Gets the Date Format
-    private static int interval = 4;
+    private static int interval=2;
     public static final String INSTALLED_APP = "installed";
     public static final String SYSTEM_APP = "system";
 
-
-    public static List<PackageInfo> getAllInstalledApps(Context context) {
+    /**
+     * This methods provides us with all the installed apps
+     *
+     * @param context context of the calling
+     * @return list of objects with installed apps
+     */
+    public static List<PackageInfo> getAllInstalledApps(Context context){
         List<PackageInfo> packageInfoList = context.getPackageManager().getInstalledPackages(0);
         Iterator iterator = packageInfoList.iterator();
-        while (iterator.hasNext()) {
-            PackageInfo packageInfo = (PackageInfo) iterator.next();
-            if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
+        while(iterator.hasNext()){
+            PackageInfo packageInfo = (PackageInfo)iterator.next();
+            if((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0){
                 iterator.remove();
             }
         }
         return packageInfoList;
     }
 
-    public static List<ResolveInfo> getSystemApps(Context context) {
+    /**
+     * This methods provides us with all the system apps
+     *
+     * @param context context of the calling
+     * @return List of ResolveInfo object containing the information about the systemapps
+     *
+     */
+    public static List<ResolveInfo> getSystemApps(Context context){
         Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         List<ResolveInfo> resolveInfos = context.getPackageManager().queryIntentActivities(mainIntent, 0);
         Iterator iterator = resolveInfos.iterator();
-        while (iterator.hasNext()) {
+        while(iterator.hasNext()){
             ResolveInfo resolveInfo = (ResolveInfo) iterator.next();
-            if ((resolveInfo.activityInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
+            if((resolveInfo.activityInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
                 iterator.remove();
             }
         }
         return resolveInfos;
     }
 
-
-    public static Map<String, List<PackageInfo>> getAllApps(Context context) {
+    /**
+     * This method provides us with all the apps that are currently in the system
+     *
+     * @param context context of the calling
+     * @return map with the information about all the apps
+     */
+    public static Map<String, List<PackageInfo>> getAllApps(Context context){
         Map<String, List<PackageInfo>> appMap = new HashMap<>();
 
         Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
@@ -65,11 +81,11 @@ public class RawAppInfo {
         List<PackageInfo> systemPackageInfoList = new ArrayList<>();
 
         Iterator iterator = packageInfoList.iterator();
-        while (iterator.hasNext()) {
-            PackageInfo packageInfo = (PackageInfo) iterator.next();
-            if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
+        while(iterator.hasNext()){
+            PackageInfo packageInfo = (PackageInfo)iterator.next();
+            if((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0){
                 installedPackageInfoList.add(packageInfo);
-            } else {
+            }else{
                 systemPackageInfoList.add(packageInfo);
             }
         }
@@ -77,6 +93,7 @@ public class RawAppInfo {
         appMap.put(SYSTEM_APP, systemPackageInfoList);
         return appMap;
     }
+
 
 
     /**
@@ -88,11 +105,7 @@ public class RawAppInfo {
         long endTime = calendar.getTimeInMillis();
         calendar.add(Calendar.YEAR, -1);
         long startTime = calendar.getTimeInMillis();
-        Log.d("LOG", "Date Start:\t" + DATE_FORMAT.format(startTime));//TODO remove
-        Log.d("LOG", "Date End:\t" + DATE_FORMAT.format(endTime));//TODO remove
-        List<UsageStats> usageStatsList =
-                usageStatsManager.queryUsageStats(interval, startTime, endTime);//UsageStats Queried here
-        return usageStatsList;
+        return usageStatsManager.queryUsageStats(interval, startTime, endTime);
     }
 
     /**
@@ -108,8 +121,7 @@ public class RawAppInfo {
      */
     public static List<UsageStats> printCurrentUsageStats(Context context, int mInterval) {
         interval = mInterval;
-        List<UsageStats> usageStats = getUsageStatsAppList(context);
-        return usageStats;
+        return getUsageStatsAppList(context);
     }
 
 
@@ -117,5 +129,4 @@ public class RawAppInfo {
     private static UsageStatsManager getUsageStatsManager(Context context) {
         return (UsageStatsManager) context.getSystemService("usagestats");
     }
-
 }

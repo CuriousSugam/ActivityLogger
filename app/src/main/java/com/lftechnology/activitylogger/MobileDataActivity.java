@@ -9,17 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.lftechnology.activitylogger.adapter.NetworkDataAdapter;
-import com.lftechnology.activitylogger.controller.SQLiteAccessLayer;
-import com.lftechnology.activitylogger.services.ConnectivityChangeMonitoringIntentService;
 import com.lftechnology.activitylogger.model.NetworkUsageDetails;
+import com.lftechnology.activitylogger.model.NetworkUsageSummary;
 import com.lftechnology.activitylogger.utilities.NetworkStatus;
+import com.lftechnology.activitylogger.utilities.Utilities;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,10 +26,9 @@ import butterknife.ButterKnife;
  */
 public class MobileDataActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
-    private LinearLayoutManager layoutManager;
     private NetworkDataAdapter adapter;
-    private long totalBytes = 0;
     private List<NetworkUsageDetails> networkDetailsListToAdapter;
+    private long totalBytes = 0;
 
     @BindView(R.id.swipe_refresh_mobile_activity)
     SwipeRefreshLayout swipeRefreshLayout;
@@ -49,12 +43,11 @@ public class MobileDataActivity extends AppCompatActivity implements SwipeRefres
         ButterKnife.bind(this);
 
         swipeRefreshLayout.setOnRefreshListener(this);
-        networkDetailsListToAdapter = getMobileUsageDetails();
-
+        NetworkUsageSummary networkUsageSummary = new NetworkUsageSummary(this, Constants.MOBILE_NETWORK);
+        networkDetailsListToAdapter = networkUsageSummary.getNetworkUsageDetailsList();
         recyclerView.setHasFixedSize(true);
-
-        layoutManager = new LinearLayoutManager(MobileDataActivity.this);
-
+        LinearLayoutManager layoutManager = new LinearLayoutManager(MobileDataActivity.this);
+        totalBytes = networkUsageSummary.getTotal();
         adapter = new NetworkDataAdapter(MobileDataActivity.this, networkDetailsListToAdapter, totalBytes);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -73,45 +66,6 @@ public class MobileDataActivity extends AppCompatActivity implements SwipeRefres
     }
 
     /**
-     *  get the List of NetworkUsageDetails objects that contain the mobile usage data statistics
-     *
-     * @return the List of NetworkUsageDetails objects
-     */
-    private List<NetworkUsageDetails> getMobileUsageDetails() {
-        List<String> keyPackageName = new ArrayList<>();
-        SQLiteAccessLayer sqLiteAccessLayer = new SQLiteAccessLayer(this);
-        List<NetworkUsageDetails> networkUsageDetailsList = sqLiteAccessLayer.queryNetworkUsageDetails(
-                ConnectivityChangeMonitoringIntentService.MOBILE_NETWORK);
-        Map<String, NetworkUsageDetails> mapNetworkDetails = new HashMap<>();
-        totalBytes = 0;
-
-        for (NetworkUsageDetails networkUsageDetails : networkUsageDetailsList) {
-            if (!keyPackageName.contains(networkUsageDetails.getPackageName())) {
-                keyPackageName.add(networkUsageDetails.getPackageName());
-                mapNetworkDetails.put(networkUsageDetails.getPackageName(), networkUsageDetails);
-                totalBytes = totalBytes + networkUsageDetails.getTotalRxBytes() + networkUsageDetails.getTotalTxBytes();
-            } else {
-                NetworkUsageDetails tempDetails = mapNetworkDetails.get(networkUsageDetails.getPackageName());
-                tempDetails.setTotalRxBytes(tempDetails.getTotalRxBytes() + networkUsageDetails.getTotalRxBytes());
-                tempDetails.setTotalTxBytes(tempDetails.getTotalTxBytes() + networkUsageDetails.getTotalTxBytes());
-                totalBytes = totalBytes + networkUsageDetails.getTotalRxBytes() + networkUsageDetails.getTotalTxBytes();
-                mapNetworkDetails.put(networkUsageDetails.getPackageName(), tempDetails);
-            }
-        }
-
-        List<NetworkUsageDetails> networkDetailsListToAdapter = new ArrayList<>(mapNetworkDetails.values());
-        Collections.sort(networkDetailsListToAdapter, new Comparator<NetworkUsageDetails>() {
-            @Override
-            public int compare(NetworkUsageDetails networkUsageDetails, NetworkUsageDetails t1) {
-                long total1 = networkUsageDetails.getTotalRxBytes() + networkUsageDetails.getTotalTxBytes();
-                long total2 = t1.getTotalRxBytes() + t1.getTotalTxBytes();
-                return total1 > total2 ? -1 : total1 < total2 ? 1 : 0;
-            }
-        });
-        return networkDetailsListToAdapter;
-    }
-
-    /**
      * This asynctask has 3 main objective:
      * 1. copy all the data from the temporary table to network table
      * 2. get all the mobile data usage statistics from the network table
@@ -121,17 +75,19 @@ public class MobileDataActivity extends AppCompatActivity implements SwipeRefres
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            ConnectivityChangeMonitoringIntentService.copyToNetworkTable(
-                    ConnectivityChangeMonitoringIntentService.MOBILE_NETWORK, MobileDataActivity.this);
+            Utilities.copyToNetworkTable(
+                    Constants.MOBILE_NETWORK, MobileDataActivity.this);
 
-            networkDetailsListToAdapter =  getMobileUsageDetails();
+            NetworkUsageSummary networkUsageSummary = new NetworkUsageSummary(MobileDataActivity.this, Constants.MOBILE_NETWORK);
+            networkDetailsListToAdapter = networkUsageSummary.getNetworkUsageDetailsList();
+            totalBytes = networkUsageSummary.getTotal();
             adapter = new NetworkDataAdapter(MobileDataActivity.this, networkDetailsListToAdapter, totalBytes);
             Boolean viewSet = false;
             if(networkDetailsListToAdapter.isEmpty()){
                 viewSet = true;
             }
-            ConnectivityChangeMonitoringIntentService.flushNetworkTempTable(MobileDataActivity.this);
-            ConnectivityChangeMonitoringIntentService.fillIntoNetworkTempTable(MobileDataActivity.this);
+            Utilities.flushNetworkTempTable(MobileDataActivity.this);
+            Utilities.fillIntoNetworkTempTable(MobileDataActivity.this);
             return viewSet;
         }
 
