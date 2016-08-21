@@ -8,6 +8,12 @@
     tools:context="com.lftechnology.activitylogger.WifiActivity"
     android:theme="@drawable/primary_dark_gradient"
     >
+    <RelativeLayout
+        android:id="@+id/rl_wifi_no_data_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
