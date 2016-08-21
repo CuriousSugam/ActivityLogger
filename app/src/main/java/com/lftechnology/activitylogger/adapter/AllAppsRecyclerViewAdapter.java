@@ -37,7 +37,7 @@ public class AllAppsRecyclerViewAdapter extends RecyclerView.Adapter<AllAppsView
     @Override
     public AllAppsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.layout_all_applications_grid, parent, false);
-        return new AllAppsViewHolder(view);
+        return new AllAppsViewHolder(view,context);
     }
 
 

@@ -3,18 +3,23 @@ package com.lftechnology.activitylogger.viewholders;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lftechnology.activitylogger.AllAppsDetailActivity;
 import com.lftechnology.activitylogger.MainActivity;
 import com.lftechnology.activitylogger.OnItemClickListener;
 import com.lftechnology.activitylogger.R;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * It is a Viewholder for the RecyclerView of the AllAppsActivity
@@ -23,9 +28,7 @@ import butterknife.ButterKnife;
  */
 public class AllAppsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    Context context;
-    OnItemClickListener mItemClickListener;
-    Adapter adapter;
+    private Context context;
 
     @BindView(R.id.image_view_app_icon)
     ImageView applicationIconImageView;
@@ -34,12 +37,13 @@ public class AllAppsViewHolder extends RecyclerView.ViewHolder implements View.O
     TextView applicationNameTextView;
 
 
-
-    public AllAppsViewHolder(View itemView) {
+    public AllAppsViewHolder(View itemView, Context context) {
         super(itemView);
+        this.context = context;
         ButterKnife.bind(this, itemView);
         itemView.setOnClickListener(this);
     }
+
 
     public ImageView getApplicationIconImageView() {
         return applicationIconImageView;
@@ -49,29 +53,15 @@ public class AllAppsViewHolder extends RecyclerView.ViewHolder implements View.O
         return applicationNameTextView;
     }
 
+
     @Override
     public void onClick(View view) {
-//        if (mItemClickListener !=null){
-//            mItemClickListener.onItemClick(view, getAdapterPosition()Position());
-
-        //context = itemView.getContext();
-//        Intent i = new Intent(context, AllAppsDetailActivity.class);
-//        context.startActivity(i);
-        context.startActivity(new Intent(context,AllAppsDetailActivity.class));
-
-        //mItemClickListner.onItemClick(view, getPosition());
-//        Intent activity = new Intent(this,AllAppsDetailActivity.class);
-//        vistartActivity(activity);
-
-
+        Intent intent = new Intent(context, AllAppsDetailActivity.class);
+        context.startActivity(intent);
     }
+
+
 }
-
-
-//public void setOnItemClickListener(final OnItemClickListener mItemClickListener){
-//    this.mItemClickListener = mItemClickListener;
-//}
-//}
 
 
 
