@@ -113,7 +113,9 @@ public class WifiActivity extends AppCompatActivity implements SwipeRefreshLayou
         protected void onPostExecute(Boolean viewSet) {
             if(!networkDetailsListToAdapter.isEmpty()){
                 Fragment fragment = getSupportFragmentManager().findFragmentByTag("noWifiData");
-                getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+                if(fragment != null){
+                    getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+                }
             }
             if(viewSet){
                 recyclerView.setAdapter(adapter);
