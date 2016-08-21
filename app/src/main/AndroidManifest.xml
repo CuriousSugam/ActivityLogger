@@ -22,7 +22,6 @@
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -43,9 +42,10 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".broadcastReceiver.NotificationBroadcastReceiver"></receiver>
+        <receiver android:name=".broadcastReceiver.NotificationBroadcastReceiver" />
 
         <service android:name=".services.ConnectivityChangeMonitoringIntentService" />
+        <service android:name=".services.AppUsageAlertService" />
 
         <receiver android:name=".InstalledBroadcastReceiver">
             <intent-filter android:priority="999">
@@ -64,6 +64,8 @@
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".broadcastReceiver.RegularAppUsageCheckBroadcastReceiver" />
+
         <service android:name=".services.UninstalledMonitoringService" />
 
         <activity
@@ -76,7 +78,12 @@
             android:label="Mobile Data"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".TimeActivity" />
+
+
+        <activity android:name=".TimeActivity"
+            android:label="Time"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".SettingsActivity"
             android:label="Settings"
@@ -87,9 +94,14 @@
             android:label="Information"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".ChartsActivity"
+            android:theme="@style/MyMaterialTheme"
+            android:label="Charts"
             android:screenOrientation="portrait"
-            />
+            android:parentActivityName=".TimeActivity"/>
+        />
+
     </application>
 </manifest>

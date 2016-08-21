@@ -40,6 +40,10 @@ public class BarChart extends View {
     private int numberOfBars;
     private int maxBars;
 
+    public BarChart(Context context){
+        super(context);
+    }
+
     /**
      * @param context The current UI/Activity
      * @param size    Numbers of bars needed

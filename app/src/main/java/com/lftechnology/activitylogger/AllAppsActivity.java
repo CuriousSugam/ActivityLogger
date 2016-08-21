@@ -2,6 +2,7 @@ package com.lftechnology.activitylogger;
 
 import android.content.Intent;
 import android.os.Parcelable;
+import android.provider.Settings;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -13,6 +14,7 @@ import com.lftechnology.activitylogger.adapter.AllAppsViewPagerAdapter;
 import com.lftechnology.activitylogger.fragments.InstalledAppsFragment;
 import com.lftechnology.activitylogger.fragments.SystemAppsFragment;
 import com.lftechnology.activitylogger.model.AppDetails;
+import com.lftechnology.activitylogger.utilities.CheckPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,12 @@ public class AllAppsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_apps);
         ButterKnife.bind(this);
+
+        if (!CheckPermissions.isPermissionForAccessSet(this)) {
+            // TODO Add the code that informs the user that the permission needed for this app is to be set using a popup window
+            finish();
+            startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
+        }
 
         ActionBar actionbar = getSupportActionBar();
         if(actionbar != null){

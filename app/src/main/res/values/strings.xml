@@ -15,7 +15,20 @@
     <string name="timeMenu">Usage Time</string>
     <string name="allAppsMenu">All Apps</string>
 
+
     <!-- Data Not Found Activity -->
     <string name="swipeToRefresh">Swipe To Refresh</string>
+
+    <!-- Information activity -->
+    <string name="version">Version: 1.0</string>
+    <string name="app_description">Activity Logger is an application that keeps track of the usage of
+        wifi, mobile data and the time of usage of an application. Some of the features of Activity Logger
+        are as follows: \n \n
+        - Monitor the usage of WiFi by every application \n\n
+        - Monitor the usage of Mobile Data by every application \n\n
+        - Monitor how long an app has been used by the user \n\n
+        - Represent the data in simple user friendly graphical format</string>
+    <string name="developers_name">- Sugam Shakya\n- Sparsha Dotel \n- Dewesh Rauniyar</string>
+
 </resources>
 
