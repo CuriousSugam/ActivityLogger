@@ -242,7 +242,7 @@ public class SettingsActivity extends AppCompatActivity {
         notificationBuilder.setPriority(Notification.PRIORITY_HIGH);
 
         // Prepare a pending intent to be initiated when the notification is clicked
-        Intent intentForNotification = new Intent(SettingsActivity.this, MainActivity.class);
+        Intent intentForNotification = new Intent(SettingsActivity.this, SplashScreenActivity.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(SettingsActivity.this);
         stackBuilder.addParentStack(MainActivity.class);
         stackBuilder.addNextIntent(intentForNotification);
