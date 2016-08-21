@@ -21,10 +21,13 @@ import java.util.Map;
  * Default is set to daily
  */
 public class RawAppInfo {
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat();//Gets the Date Format
-    private static int interval = 4;
+    private static int interval = 2;
     public static final String INSTALLED_APP = "installed";
     public static final String SYSTEM_APP = "system";
+    public static final String APP_USAGE_DAILY = "app_usage_daily";
+    public static final String APP_USAGE_WEEKLY = "app_usage_weekly";
+    public static final String APP_USAGE_MONTHLY = "app_usage_monthly";
+    public static final String APP_USAGE_YEARLY = "app_usage_yearly";
 
 
     public static List<PackageInfo> getAllInstalledApps(Context context) {
@@ -88,8 +91,6 @@ public class RawAppInfo {
         long endTime = calendar.getTimeInMillis();
         calendar.add(Calendar.YEAR, -1);
         long startTime = calendar.getTimeInMillis();
-        Log.d("LOG", "Date Start:\t" + DATE_FORMAT.format(startTime));//TODO remove
-        Log.d("LOG", "Date End:\t" + DATE_FORMAT.format(endTime));//TODO remove
         List<UsageStats> usageStatsList =
                 usageStatsManager.queryUsageStats(interval, startTime, endTime);//UsageStats Queried here
         return usageStatsList;

@@ -14,9 +14,11 @@ import com.lftechnology.activitylogger.AllAppsActivity;
 import com.lftechnology.activitylogger.MainActivity;
 import com.lftechnology.activitylogger.MobileDataActivity;
 import com.lftechnology.activitylogger.R;
+import com.lftechnology.activitylogger.RawAppInfo;
 import com.lftechnology.activitylogger.TimeActivity;
 import com.lftechnology.activitylogger.WifiActivity;
 import com.lftechnology.activitylogger.model.AppDetails;
+import com.lftechnology.activitylogger.model.EachAppDetails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +63,8 @@ public class SecondMainFragment extends Fragment {
 
     @OnClick(R.id.ll_menu_time)
     public void OnClickTimeMenu(){
-        startActivity(new Intent(getActivity(), TimeActivity.class));
+        Intent intent = new Intent(getActivity(),TimeActivity.class);
+        startActivity(intent);
     }
 
 }

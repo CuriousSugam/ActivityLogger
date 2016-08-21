@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.lftechnology.activitylogger.MainActivity;
 import com.lftechnology.activitylogger.R;
+import com.lftechnology.activitylogger.charts.TimeChart;
 import com.lftechnology.activitylogger.charts.WifiAndDataCharts;
 import com.lftechnology.activitylogger.model.NetworkUsageDetails;
 
@@ -37,25 +38,31 @@ public class InformationSliderFragment extends Fragment {
         Intent intent = getActivity().getIntent();
         List<NetworkUsageDetails> wifiUsageList = intent.getParcelableArrayListExtra(MainActivity.MOST_WIFI_USED_APP);
         List<NetworkUsageDetails> dataUsageList = intent.getParcelableArrayListExtra(MainActivity.MOST_DATA_USED_APP);
-        if(wifiUsageList==null){
+        if (wifiUsageList == null) {
             wifiUsageList = new ArrayList<>();
         }
-        if(dataUsageList==null){
+        if (dataUsageList == null) {
             dataUsageList = new ArrayList<>();
         }
-        if (wifiUsageList.isEmpty() && dataUsageList.isEmpty()) {
-            View view = inflater.inflate(R.layout.fragment_information_slider, container, false);
-            ButterKnife.bind(this, view);
 
-//         get the arguments from bundle and assign it to textview of the fragment
-            Bundle b = getArguments();
-            String info = getArguments().getString("info", "no values");
-            textViewInfo.setText(info);
-            return view;
+        if (getArguments().getString("info").equals("THIS IS NETWORK")) {
+            return new WifiAndDataCharts(getActivity(), wifiUsageList, dataUsageList);
         }
+        else if (getArguments().getString("info").equals("THIS IS TIME")) {
+//            if (wifiUsageList.isEmpty() || dataUsageList.isEmpty()) {
+//                View view = inflater.inflate(R.layout.fragment_information_slider, container, false);
+//                ButterKnife.bind(this, view);
+//
+////         get the arguments from bundle and assign it to textview of the fragment
+//                Bundle b = getArguments();
+//                String info = getArguments().getString("info", "no values");
+//                textViewInfo.setText(info);
+//                return view;
+//            }
+            return  new TimeChart(getActivity());
 
+
+        }
         return new WifiAndDataCharts(getActivity(),wifiUsageList,dataUsageList);
-
-
     }
 }

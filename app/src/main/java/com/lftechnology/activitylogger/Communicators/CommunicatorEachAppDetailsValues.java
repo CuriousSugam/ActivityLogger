@@ -11,13 +11,19 @@ import java.util.List;
  */
 public class CommunicatorEachAppDetailsValues {
     private static List<EachAppDetails> eachAppDetailsList;
+    private static List<EachAppDetails> eachAppDetailsListDaily;
+    private static List<EachAppDetails> eachAppDetailsListWeekly;
+    private static List<EachAppDetails> eachAppDetailsListMonthly;
+    private static List<EachAppDetails> eachAppDetailsListYearly;
+
+
 
     /**
      * Sets the list
-     * @param eachAppDetailsList
+     * @param mEachAppDetailsList
      */
-    public void setDetailsList(List<EachAppDetails> eachAppDetailsList) {
-        this.eachAppDetailsList = eachAppDetailsList;
+    public void setDetailsList(List<EachAppDetails> mEachAppDetailsList) {
+        eachAppDetailsList = mEachAppDetailsList;
     }
 
     /**
@@ -25,6 +31,27 @@ public class CommunicatorEachAppDetailsValues {
      * @return
      */
     public List<EachAppDetails> getEachAppDetailsList() {
-        return this.eachAppDetailsList;
+        return eachAppDetailsList;
     }
+
+    public void setEachAppDetailsListEveryInterval(List<EachAppDetails> listDaily,List<EachAppDetails> listWeekly
+            , List<EachAppDetails> listMonthly, List<EachAppDetails>listYearly){
+        eachAppDetailsListDaily = listDaily;
+        eachAppDetailsListWeekly = listWeekly;
+        eachAppDetailsListMonthly = listMonthly;
+        eachAppDetailsListYearly = listYearly;
+    }
+    public List<EachAppDetails> getEachAppDetailsListDaily() {
+        return eachAppDetailsListDaily;
+    }
+    public List<EachAppDetails> getEachAppDetailsListWeekly() {
+        return eachAppDetailsListWeekly;
+    }
+    public List<EachAppDetails> getEachAppDetailsListMonthly() {
+        return eachAppDetailsListMonthly;
+    }
+    public List<EachAppDetails> getEachAppDetailsListYearly() {
+        return eachAppDetailsListYearly;
+    }
+
 }

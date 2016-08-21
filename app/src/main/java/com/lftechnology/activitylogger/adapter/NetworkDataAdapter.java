@@ -33,6 +33,10 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
     private List<NetworkUsageDetails> networkUsageDetailsList;
     private float totalBytes;
 
+    public NetworkDataAdapter(){
+
+    }
+
     /**
      * @param context                 context of the calling
      * @param networkUsageDetailsList List that contains the object of NetworkUsageDetails to bind
@@ -78,7 +82,7 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
      * @param membytes number of bytes
      * @return memory size in the readable format
      */
-    private String memorySizeFormat(long membytes) {
+    public String memorySizeFormat(long membytes) {
         float bytes = (float) membytes;
         String returnValue;
         if (bytes > Math.pow(1024, 3)) {
