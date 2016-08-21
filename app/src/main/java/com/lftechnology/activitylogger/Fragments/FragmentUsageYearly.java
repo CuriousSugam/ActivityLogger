@@ -40,9 +40,6 @@ public class FragmentUsageYearly extends Fragment implements View.OnClickListene
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setFragment = new SetFragment(getActivity(),Constants.DAILY.value);
-//        setFragment.initialize();
-//        setFragment.sort();
         setFragment = new SetFragment(getActivity());
         eachAppDetailsList = new CommunicatorEachAppDetailsValues().getEachAppDetailsListYearly();
     }

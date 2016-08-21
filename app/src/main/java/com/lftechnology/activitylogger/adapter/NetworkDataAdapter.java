@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.lftechnology.activitylogger.asyncTasks.BitmapWorkerTask;
 import com.lftechnology.activitylogger.R;
 import com.lftechnology.activitylogger.model.NetworkUsageDetails;
+import com.lftechnology.activitylogger.utilities.Utilities;
 
 import java.util.List;
 
@@ -69,9 +70,9 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
         long txBytes = networkUsageDetailsList.get(position).getTotalTxBytes();
         long total = rxBytes + txBytes;
 
-        holder.receivedBytes.setText("Down: " + memorySizeFormat(rxBytes));
-        holder.transmittedBytes.setText("Up: " + memorySizeFormat(txBytes));
-        holder.totalBytes.setText("Total:  " + memorySizeFormat(total));
+        holder.receivedBytes.setText("Down: " + Utilities.memorySizeFormat(rxBytes));
+        holder.transmittedBytes.setText("Up: " + Utilities.memorySizeFormat(txBytes));
+        holder.totalBytes.setText("Total:  " + Utilities.memorySizeFormat(total));
         holder.progressBar.setProgress((int) (total / totalBytes * 100));
     }
 
@@ -98,6 +99,7 @@ public class NetworkDataAdapter extends RecyclerView.Adapter<NetworkDataAdapter.
     }
 
     /**
+
      * loads the application icon of the package to the image view.
      *
      * @param packageName name of the package whose icon is to be loaded

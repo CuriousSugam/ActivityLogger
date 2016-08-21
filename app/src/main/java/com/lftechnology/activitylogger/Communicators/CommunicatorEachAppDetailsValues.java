@@ -43,6 +43,7 @@ public class CommunicatorEachAppDetailsValues {
     }
     public List<EachAppDetails> getEachAppDetailsListDaily() {
         return eachAppDetailsListDaily;
+
     }
     public List<EachAppDetails> getEachAppDetailsListWeekly() {
         return eachAppDetailsListWeekly;

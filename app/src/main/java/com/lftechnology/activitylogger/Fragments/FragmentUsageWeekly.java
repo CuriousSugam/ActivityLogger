@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.lftechnology.activitylogger.ChartsActivity;
 import com.lftechnology.activitylogger.communicators.CommunicatorEachAppDetailsValues;
-import com.lftechnology.activitylogger.Constants;
 import com.lftechnology.activitylogger.model.EachAppDetails;
 import com.lftechnology.activitylogger.R;
 import com.lftechnology.activitylogger.utilities.SetFragment;

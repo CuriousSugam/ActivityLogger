@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -318,8 +319,11 @@ public class SQLiteAccessLayer {
         while(cursor.moveToNext()){
             foregroundTimeMap.put(cursor.getString(cursor.getColumnIndex(TABLE_COLUMN_PACKAGE_NAME)),
                     cursor.getLong(cursor.getColumnIndex(TABLE_COLUMN_FOREGROUND_TIME)));
+//            Log.e("queryForeground", cursor.getString(cursor.getColumnIndex(TABLE_COLUMN_PACKAGE_NAME))
+//                    + cursor.getLong(cursor.getColumnIndex(TABLE_COLUMN_FOREGROUND_TIME)));
         }
         cursor.close();
+//        Log.e("sqliteaccesslayer", "foreground table check sqliteacess layer "+(foregroundTimeMap.isEmpty()?"empty":"not empty"));
         return foregroundTimeMap;
     }
 
@@ -348,12 +352,8 @@ public class SQLiteAccessLayer {
         ContentValues contentValues = new ContentValues();
         contentValues.put(TABLE_COLUMN_PACKAGE_NAME, packageName);
         contentValues.put(TABLE_COLUMN_FOREGROUND_TIME, foregroundTime);
-
-        // insert the new row, returning the primary key of the row inserted
         long newInsertedRowId;
         newInsertedRowId = db.insert(TABLE_FOREGROUND_DETAILS, null, contentValues);
-        // TODO remove this code
-        Log.e("foregroundDetails", "Inserted:=> " + this.appDetails.getApplicationName());
         return newInsertedRowId;
     }
 
@@ -362,15 +362,10 @@ public class SQLiteAccessLayer {
      * @return true if the foreground table is empty otherwise false
      */
     public boolean isForegroundTableEmpty(){
-        String query = "SELECT Count(*) FROM "+TABLE_FOREGROUND_DETAILS;
-        Cursor cursor = db.rawQuery(query, null);
-        int count = 0;
-        while(cursor.moveToNext()){
-            count = cursor.getCount();
-        }
-        cursor.close();
-        return count == 0;
+        Log.e("foregroundTable","Number of records: "+DatabaseUtils.queryNumEntries(db, TABLE_FOREGROUND_DETAILS));
+        return (DatabaseUtils.queryNumEntries(db, TABLE_FOREGROUND_DETAILS) <= 1);
     }
+
 
     /**
      * deletes all the record from the foreground table
