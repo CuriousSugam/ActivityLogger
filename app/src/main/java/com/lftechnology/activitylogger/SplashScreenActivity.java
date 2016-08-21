@@ -85,6 +85,8 @@ public class SplashScreenActivity extends AppCompatActivity {
                         (ArrayList<? extends Parcelable>) mobileDataUsageSummary.getNetworkUsageDetailsList());
                 intent.putExtra(MainActivity.TOTAL_MOBILE_DATA, mobileDataUsageSummary.getTotal());
             }
+            intent.putParcelableArrayListExtra(MainActivity.APP_DETAILS,(ArrayList<? extends Parcelable>)appDetailsFromDatabase);
+
 
             startActivity(intent);
             finish();
