@@ -1,5 +1,6 @@
 package com.lftechnology.activitylogger;
 
+import android.os.Handler;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.lftechnology.activitylogger.fragments.FirstMainFragment;
 import com.lftechnology.activitylogger.fragments.SecondMainFragment;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     public final static String TOTAL_WIFI_DATA = "total_wifi_bytes";
     public final static String MOST_DATA_USED_APP = "most_data_used_app";
     public final static String TOTAL_MOBILE_DATA = "total_mobile_data_bytes";
+    private boolean doubleBackButtonPressed = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +82,23 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             default: return super.onOptionsItemSelected(item);
         }
+    }
+    @Override
+    public void onBackPressed() {
+        if(doubleBackButtonPressed){
+            super.onBackPressed();
+            return;
+        }
+        this.doubleBackButtonPressed = true;
+        Toast.makeText(this,"Press Again To Exit",Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleBackButtonPressed = false;
+            }
+        },2400);
+
     }
 
 }
