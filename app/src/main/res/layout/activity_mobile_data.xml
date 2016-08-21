@@ -9,6 +9,12 @@
     android:theme="@drawable/primary_dark_gradient"
     tools:context="com.lftechnology.activitylogger.MobileDataActivity">
 
+    <RelativeLayout
+        android:id="@+id/rl_mobile_no_data_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </RelativeLayout>
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_mobile_activity"
         android:layout_width="match_parent"

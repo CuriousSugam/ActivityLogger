@@ -14,5 +14,8 @@
     <string name="mobileDataMenu">Mobile Data Stats</string>
     <string name="timeMenu">Usage Time</string>
     <string name="allAppsMenu">All Apps</string>
+
+    <!-- Data Not Found Activity -->
+    <string name="swipeToRefresh">Swipe To Refresh</string>
 </resources>
 

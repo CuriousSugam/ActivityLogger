@@ -1,6 +1,7 @@
 package com.lftechnology.activitylogger;
 
 import android.os.AsyncTask;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import com.lftechnology.activitylogger.adapter.NetworkDataAdapter;
 import com.lftechnology.activitylogger.controller.SQLiteAccessLayer;
+import com.lftechnology.activitylogger.fragments.NoDataFragment;
 import com.lftechnology.activitylogger.services.ConnectivityChangeMonitoringIntentService;
 import com.lftechnology.activitylogger.model.NetworkUsageDetails;
 import com.lftechnology.activitylogger.utilities.NetworkStatus;
@@ -42,14 +44,23 @@ public class MobileDataActivity extends AppCompatActivity implements SwipeRefres
     @BindView(R.id.application_list_mobile_usage)
     RecyclerView recyclerView;
 
+    private NoDataFragment noDataFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mobile_data);
         ButterKnife.bind(this);
 
-        swipeRefreshLayout.setOnRefreshListener(this);
         networkDetailsListToAdapter = getMobileUsageDetails();
+        if(networkDetailsListToAdapter.isEmpty()){
+            noDataFragment = new NoDataFragment();
+            getSupportFragmentManager().beginTransaction().add(R.id.rl_mobile_no_data_container, noDataFragment, "noDataImage")
+                    .commit();
+        }
+
+        swipeRefreshLayout.setOnRefreshListener(this);
+
 
         recyclerView.setHasFixedSize(true);
 
@@ -137,6 +148,10 @@ public class MobileDataActivity extends AppCompatActivity implements SwipeRefres
 
         @Override
         protected void onPostExecute(Boolean viewSet) {
+            if(!networkDetailsListToAdapter.isEmpty()){
+                Fragment fragment = getSupportFragmentManager().findFragmentByTag("noDataImage");
+                getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+            }
             if(viewSet){
                 recyclerView.setAdapter(adapter);
             }else{

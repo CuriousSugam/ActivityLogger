@@ -1,6 +1,7 @@
 package com.lftechnology.activitylogger;
 
 import android.os.AsyncTask;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import com.lftechnology.activitylogger.adapter.NetworkDataAdapter;
 import com.lftechnology.activitylogger.controller.SQLiteAccessLayer;
+import com.lftechnology.activitylogger.fragments.NoDataFragment;
 import com.lftechnology.activitylogger.services.ConnectivityChangeMonitoringIntentService;
 import com.lftechnology.activitylogger.model.NetworkUsageDetails;
 import com.lftechnology.activitylogger.utilities.NetworkStatus;
@@ -35,15 +37,13 @@ public class WifiActivity extends AppCompatActivity implements SwipeRefreshLayou
     private NetworkDataAdapter adapter;
     private List<NetworkUsageDetails> networkDetailsListToAdapter;
 
-
-    private boolean activityBlank = false;
-
     @BindView(R.id.swipe_refresh_wifi_activity)
     SwipeRefreshLayout swipeRefreshLayout;
 
     @BindView(R.id.application_list_wifi_usage)
     RecyclerView recyclerView;
 
+    private NoDataFragment noDataFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,16 +51,25 @@ public class WifiActivity extends AppCompatActivity implements SwipeRefreshLayou
         setContentView(R.layout.activity_wifi);
         ButterKnife.bind(this);
 
-        LinearLayoutManager layoutManager;
-        swipeRefreshLayout.setOnRefreshListener(this);
         networkDetailsListToAdapter = getWifiUsageDetails();
-        recyclerView.setHasFixedSize(true);
+        if(networkDetailsListToAdapter.isEmpty()){
+            noDataFragment = new NoDataFragment();
+            getSupportFragmentManager().beginTransaction().add(R.id.rl_wifi_no_data_container, noDataFragment, "noWifiData")
+                    .commit();
+        }
 
-        layoutManager = new LinearLayoutManager(WifiActivity.this);
-        adapter = new NetworkDataAdapter(WifiActivity.this, networkDetailsListToAdapter, total);
+            LinearLayoutManager layoutManager;
+            swipeRefreshLayout.setOnRefreshListener(this);
 
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+            recyclerView.setHasFixedSize(true);
+
+            layoutManager = new LinearLayoutManager(WifiActivity.this);
+            adapter = new NetworkDataAdapter(WifiActivity.this, networkDetailsListToAdapter, total);
+
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setAdapter(adapter);
+
+
     }
 
     /**
@@ -140,6 +149,10 @@ public class WifiActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         @Override
         protected void onPostExecute(Boolean viewSet) {
+            if(!networkDetailsListToAdapter.isEmpty()){
+                Fragment fragment = getSupportFragmentManager().findFragmentByTag("noWifiData");
+                getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+            }
             if(viewSet){
                 recyclerView.setAdapter(adapter);
             }else{
