@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+
+    <array name="chartsColors">
+        <item>#AD5DAD</item>
+        <item>#5DA5DA</item>
+        <item>#FAA43A</item>
+        <item>#60BD68</item>
+        <item>#F17CB0</item>
+        <item>#B2912F</item>
+        <item>#FF00FF</item>
+        <item>#B276B2</item>
+        <item>#DECF3F</item>
+        <item>#F15854</item>
+    </array>
+
+    <color name="colorPrimary">#353C58</color>
+    <color name="colorPrimaryDark">#282E48</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="navigationBarColor">#353C58</color>
+    <color name="colorAccent">#398E84</color>
+    <color name="darkGrey">#484848</color>
+    <color name="lightBlue">#1a74f2</color>
+    <color name="lightGrey">#8f8f8f</color>
+    <color name="white">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
+    <color name="border">#406e8e</color>
+    <color name="lightGreen">#398E84</color>
+    <color name="green">#00FF00</color>
+    <color name="skyBlue">#00AAFF</color>
+    <color name="transparent">#00ffffff</color>
+    <color name="dividerFaint">#22BDBDBD</color>
+
 </resources>
